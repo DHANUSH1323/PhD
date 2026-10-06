@@ -1,0 +1,8 @@
+# Benchmark repos
+tau2-bench/
+gorilla/
+agentic-lab/
+
+.DS_Store
+.vscode/
+.env
