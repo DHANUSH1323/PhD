@@ -2,3 +2,7 @@
 	path = benchmarks/tau2-bench
 	url = git@github.com:DHANUSH1323/tau2-bench.git
 	branch = research
+[submodule "benchmarks/gorilla"]
+	path = benchmarks/gorilla
+	url = git@github.com:DHANUSH1323/gorilla.git
+	branch = research
