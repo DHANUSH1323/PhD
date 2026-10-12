@@ -1,0 +1,4 @@
+[submodule "benchmarks/tau2-bench"]
+	path = benchmarks/tau2-bench
+	url = git@github.com:DHANUSH1323/tau2-bench.git
+	branch = research
