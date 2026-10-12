@@ -1,0 +1,2 @@
+# BFCL: gorilla fork, research branch, pinned to the commit used for all runs
+-e git+https://github.com/DHANUSH1323/gorilla.git@0fd3d3a4da9e8eb0c9df592a9b2c85a40264ebe8#egg=bfcl-eval&subdirectory=berkeley-function-call-leaderboard
