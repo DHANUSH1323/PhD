@@ -47,6 +47,10 @@ Airline only if budget remains. Telecom excluded (5,160-token policy dominates
 context; user-side tools add a confound).
 Descriptions come from tool docstrings via docstring_parser in
 src/tau2/environment/tool.py.
+Parameter descriptions come from the docstring Args: section (verified
+2026-10-13). Tool schemas are sent via LiteLLM in the standard
+function-calling format. Pydantic adds a "title" field per parameter;
+schema token counts include it.
 
 ## 5. Conditions
 Description (tool names and parameter schemas never change):
@@ -104,4 +108,15 @@ Equal-token pairs chosen on Oct 17 from measured D-min and D-rich tokens.
 Failure review: 30 failed runs classified by hand.
 
 ## Change log
-(none yet)
+- 2026-10-13. Check A (long descriptions). Prediction from reading
+  src/tau2/environment/tool.py (_get_description joins short and long
+  description with a blank line unless use_short_desc is set; same
+  convention as the OpenAI Agents SDK and FastMCP converters): text after
+  the first paragraph reaches the model. Test: added a second docstring
+  paragraph containing MARKER to get_order_details, generated
+  openai_schema. Result: MARKER present in "description". D-rich
+  descriptions may be multi-paragraph. Probe reverted; no code change kept.
+- 2026-10-13. Check B (parameter descriptions). In the same schema, the
+  order_id description equals the docstring Args: text. Parameter
+  descriptions come from Args: and appear under
+  parameters.properties.<name>.description.
