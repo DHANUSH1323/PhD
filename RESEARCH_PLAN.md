@@ -31,9 +31,34 @@ Confusing tools, tested as robustness:
   toolkit expanded with semantically related tools.
 - When Simulation Lies / RobustBench-TC 2026 (arXiv 2605.11928): single-turn,
   same-name and functionally similar distractors.
-This study: compares the two fixes head to head, at equal prompt size, against
-look-alike and unrelated fake tools, in a multi-turn benchmark with a
-simulated user.
+Both levers touched, but never compared:
+- SkillsInjector 2026 (arXiv 2605.29794) varies the number of injected
+  skills and rewrites their descriptions on tau2-bench, but the objects are
+  procedural skills rather than tool schemas, and the two levers are
+  ablated inside one system rather than tested against each other.
+- WorkSurface-Bench 2026 (arXiv 2607.25765) compares removing irrelevant
+  tools against a prompt hint; the second arm is not a description change,
+  and the setting is single-turn.
+- Action-Space Shaping 2026 (arXiv 2609.34971) merges, splits and strips
+  tool schemas with tasks fixed and finds success ranging from 0 to 97
+  percent from the interface alone. It degrades descriptions but never
+  improves them.
+- ToolScope 2025 (arXiv 2510.20036) places a description merger beside a
+  retriever in one ablation, measured on selection accuracy in single-turn
+  settings.
+
+This study is the first to test tool-set reduction and description
+improvement as competing remedies for the same failure, in one factorial
+design on end-to-end task success, with prompt tokens held equal across
+arms, against both look-alike and unrelated distractor tools, on
+executable tool definitions in a multi-turn benchmark with a simulated
+user. The nearest prior work degrades rather than improves descriptions
+with a simulated user (ToolSandbox), rewrites injected skills rather than
+tool schemas without a fewer-versus-better comparison (SkillsInjector),
+rewrites descriptions under distractors without a reduction arm
+(Trace-Free+), or compares tool removal against a prompt hint rather than
+a description change (WorkSurface-Bench). None of them controls prompt
+size.
 
 ## 4. Benchmark
 Primary: tau2-bench retail. 16 native tools, 3,188 schema tokens, 1,402 policy
@@ -131,3 +156,9 @@ Failure review: 30 failed runs classified by hand.
   order_id description equals the docstring Args: text. Parameter
   descriptions come from Args: and appear under
   parameters.properties.<name>.description.
+- 2026-10-13. Ran the scoop check planned for Part C. Across roughly
+  150 papers, no prior work compares the two fixes in one setup. Added four
+  near-misses to Section 3 and reworded the gap statement so it names what
+  is actually new: the two remedies compared head to head, in one factorial
+  design, at equal prompt size, on executable tool definitions, with a
+  simulated user. Details in notes/papers.md.
