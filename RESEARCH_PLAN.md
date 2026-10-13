@@ -38,11 +38,22 @@ simulated user.
 ## 4. Benchmark
 Primary: tau2-bench retail. 16 native tools, 3,188 schema tokens, 1,402 policy
 tokens (o200k_base), 114 tasks, graded on final database state.
-Version: tau2-bench 1.0.1, commit 5bfa7e37b36656b37dc6d022156be6563c1007f3.
-Pinned for the whole study. The tau3
-release fixed 26 retail tasks, so scores are only comparable within one version.
+Version: tau2-bench 1.0.1. The upstream base is Sierra's commit
+5bfa7e37b36656b37dc6d022156be6563c1007f3. All runs use my fork at
+https://github.com/DHANUSH1323/tau2-bench on the research branch, pinned
+at commit 5e311652bbce2a1fc6ada8fe7a8e7f08a1cf43a4 and included in this
+repo as the submodule benchmarks/tau2-bench. The fork differs from
+upstream only by adding the websockets dependency; no tool or task code
+is changed, so results remain comparable with other work on v1.0.1. The
+tau3 release fixed 26 retail tasks, so scores are only comparable within
+one version.
 Secondary: BFCL multiple (selection-only sanity check, single call per query).
 BFCL look-alikes may reuse ibm-research/BFCL-FC-robustness where it fits.
+BFCL runs use my fork at https://github.com/DHANUSH1323/gorilla on the
+research branch, pinned at commit 0fd3d3a4da9e8eb0c9df592a9b2c85a40264ebe8
+and included as the submodule benchmarks/gorilla. The fork carries the
+claude.py handler patch from Step 1 and nothing else. Exact package
+versions are in bfcl-lock.txt.
 Airline only if budget remains. Telecom excluded (5,160-token policy dominates
 context; user-side tools add a confound).
 Descriptions come from tool docstrings via docstring_parser in
