@@ -1,0 +1,120 @@
+{
+  "calculate": {
+    "desc": "Calculate the result of a mathematical expression.",
+    "params": {
+      "expression": "The mathematical expression to calculate, such as '2 + 2'. The expression can contain numbers, operators (+, -, *, /), parentheses, and spaces."
+    }
+  },
+  "cancel_pending_order": {
+    "desc": "Cancel a pending order. If the order is already processed or delivered,\n\nit cannot be cancelled. The agent needs to explain the cancellation detail\nand ask for explicit user confirmation (yes/no) to proceed. If the user confirms,\nthe order status will be changed to 'cancelled' and the payment will be refunded.\nThe refund will be added to the user's gift card balance immediately if the payment\nwas made using a gift card, otherwise the refund would take 5-7 business days to process.\nThe function returns the order details after the cancellation.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "reason": "The reason for cancellation, which should be either 'no longer needed' or 'ordered by mistake'."
+    }
+  },
+  "exchange_delivered_order_items": {
+    "desc": "Exchange items in a delivered order to new items of the same product type.\n\nFor a delivered order, return or exchange can be only done once by the agent.\nThe agent needs to explain the exchange detail and ask for explicit user confirmation (yes/no) to proceed.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "item_ids": "The item ids to be exchanged, each such as '1008292230'. There could be duplicate items in the list.",
+      "new_item_ids": "The item ids to be exchanged for, each such as '1008292230'.\nThere could be duplicate items in the list. Each new item id should match the item id\nin the same position and be of the same product.",
+      "payment_method_id": "The payment method id to pay or receive refund for the item price difference,\nsuch as 'gift_card_0000000' or 'credit_card_0000000'. These can be looked up\nfrom the user or order details."
+    }
+  },
+  "find_user_id_by_email": {
+    "desc": "Find user id by email. If the user is not found, the function will return an error message.",
+    "params": {
+      "email": "The email of the user, such as 'something@example.com'."
+    }
+  },
+  "find_user_id_by_name_zip": {
+    "desc": "Find user id by first name, last name, and zip code. If the user is not found, the function\n\nwill return an error message. By default, find user id by email, and only call this function\nif the user is not found by email or cannot remember email.",
+    "params": {
+      "first_name": "The first name of the customer, such as 'John'.",
+      "last_name": "The last name of the customer, such as 'Doe'.",
+      "zip": "The zip code of the customer, such as '12345'."
+    }
+  },
+  "get_item_details": {
+    "desc": "Get the inventory details of an item.",
+    "params": {
+      "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+    }
+  },
+  "get_order_details": {
+    "desc": "Get the status and details of an order.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."
+    }
+  },
+  "get_product_details": {
+    "desc": "Get the inventory details of a product.",
+    "params": {
+      "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id."
+    }
+  },
+  "get_user_details": {
+    "desc": "Get the details of a user, including their orders.",
+    "params": {
+      "user_id": "The user id, such as 'sara_doe_496'."
+    }
+  },
+  "list_all_product_types": {
+    "desc": "List the name and product id of all product types.\n\nEach product type has a variety of different items with unique item ids and options.\nThere are only 50 product types in the store.",
+    "params": {}
+  },
+  "modify_pending_order_address": {
+    "desc": "Modify the shipping address of a pending order. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "address1": "The first line of the address, such as '123 Main St'.",
+      "address2": "The second line of the address, such as 'Apt 1' or ''.",
+      "city": "The city, such as 'San Francisco'.",
+      "state": "The state, such as 'CA'.",
+      "country": "The country, such as 'USA'.",
+      "zip": "The zip code, such as '12345'."
+    }
+  },
+  "modify_pending_order_items": {
+    "desc": "Modify items in a pending order to new items of the same product type. For a pending order, this function can only be called once. The agent needs to explain the exchange detail and ask for explicit user confirmation (yes/no) to proceed.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "item_ids": "The item ids to be modified, each such as '1008292230'. There could be duplicate items in the list.",
+      "new_item_ids": "The item ids to be modified for, each such as '1008292230'. There could be duplicate items in the list. Each new item id should match the item id in the same position and be of the same product.",
+      "payment_method_id": "The payment method id to pay or receive refund for the item price difference, such as 'gift_card_0000000' or 'credit_card_0000000'. These can be looked up from the user or order details."
+    }
+  },
+  "modify_pending_order_payment": {
+    "desc": "Modify the payment method of a pending order. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "payment_method_id": "The payment method id to pay or receive refund for the item price difference, such as 'gift_card_0000000' or 'credit_card_0000000'. These can be looked up from the user or order details."
+    }
+  },
+  "modify_user_address": {
+    "desc": "Modify the default address of a user. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed.",
+    "params": {
+      "user_id": "The user id, such as 'sara_doe_496'.",
+      "address1": "The first line of the address, such as '123 Main St'.",
+      "address2": "The second line of the address, such as 'Apt 1' or ''.",
+      "city": "The city, such as 'San Francisco'.",
+      "state": "The state, such as 'CA'.",
+      "country": "The country, such as 'USA'.",
+      "zip": "The zip code, such as '12345'."
+    }
+  },
+  "return_delivered_order_items": {
+    "desc": "Return some items of a delivered order.\n\nThe order status will be changed to 'return requested'.\nThe agent needs to explain the return detail and ask for explicit user confirmation (yes/no) to proceed.\nThe user will receive follow-up email for how and where to return the item.",
+    "params": {
+      "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+      "item_ids": "The item ids to be returned, each such as '1008292230'. There could be duplicate items in the list.",
+      "payment_method_id": "The payment method id to pay or receive refund for the item price difference, such as 'gift_card_0000000' or 'credit_card_0000000'.\nThese can be looked up from the user or order details."
+    }
+  },
+  "transfer_to_human_agents": {
+    "desc": "Transfer the user to a human agent, with a summary of the user's issue.\n\nOnly transfer if\n -  the user explicitly asks for a human agent\n -  given the policy and the available tools, you cannot solve the user's issue.",
+    "params": {
+      "summary": "A summary of the user's issue."
+    }
+  }
+}

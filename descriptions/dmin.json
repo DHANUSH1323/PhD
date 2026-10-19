@@ -1,0 +1,66 @@
+{
+  "calculate": {
+    "desc": "Calculate the result of a mathematical expression.",
+    "params": {}
+  },
+  "cancel_pending_order": {
+    "desc": "Cancel a pending order.",
+    "params": {}
+  },
+  "exchange_delivered_order_items": {
+    "desc": "Exchange items in a delivered order to new items of the same product type.",
+    "params": {}
+  },
+  "find_user_id_by_email": {
+    "desc": "Find user id by email.",
+    "params": {}
+  },
+  "find_user_id_by_name_zip": {
+    "desc": "Find user id by first name, last name, and zip code.",
+    "params": {}
+  },
+  "get_item_details": {
+    "desc": "Get the inventory details of an item.",
+    "params": {}
+  },
+  "get_order_details": {
+    "desc": "Get the status and details of an order.",
+    "params": {}
+  },
+  "get_product_details": {
+    "desc": "Get the inventory details of a product.",
+    "params": {}
+  },
+  "get_user_details": {
+    "desc": "Get the details of a user, including their orders.",
+    "params": {}
+  },
+  "list_all_product_types": {
+    "desc": "List the name and product id of all product types.",
+    "params": {}
+  },
+  "modify_pending_order_address": {
+    "desc": "Modify the shipping address of a pending order.",
+    "params": {}
+  },
+  "modify_pending_order_items": {
+    "desc": "Modify items in a pending order to new items of the same product type.",
+    "params": {}
+  },
+  "modify_pending_order_payment": {
+    "desc": "Modify the payment method of a pending order.",
+    "params": {}
+  },
+  "modify_user_address": {
+    "desc": "Modify the default address of a user.",
+    "params": {}
+  },
+  "return_delivered_order_items": {
+    "desc": "Return some items of a delivered order.",
+    "params": {}
+  },
+  "transfer_to_human_agents": {
+    "desc": "Transfer the user to a human agent, with a summary of the user's issue.",
+    "params": {}
+  }
+}

@@ -1,0 +1,17 @@
+[
+ {"id": "S1", "category": "scope", "q": "Does the description state the situations in which this tool should be used?"},
+ {"id": "S2", "category": "scope", "q": "Does it state at least one situation in which this tool should NOT be used?"},
+ {"id": "S3", "category": "scope", "q": "Does it state how this tool differs from another tool with a similar purpose?"},
+ {"id": "P1", "category": "parameter_constraints", "q": "For every identifier parameter, does it give the expected format or an example value?"},
+ {"id": "P2", "category": "parameter_constraints", "q": "For every parameter with a limited set of allowed values, does it list those values?"},
+ {"id": "P3", "category": "parameter_constraints", "q": "Does it say which parameters are required and which are optional?"},
+ {"id": "X1", "category": "cross_parameter", "q": "Does it state a rule that links two or more parameters (for example lists that must have equal length, or one parameter that only applies with another)?"},
+ {"id": "X2", "category": "cross_parameter", "q": "Does it state a precondition on the object the parameters refer to (for example that an order must be pending)?"},
+ {"id": "X3", "category": "cross_parameter", "q": "Does it say what happens when parameter values are inconsistent with each other or with the object's state?"},
+ {"id": "T1", "category": "cross_tool", "q": "Does it say where the value of at least one parameter comes from (another tool or source)?"},
+ {"id": "T2", "category": "cross_tool", "q": "Does it name a tool that is typically used before or after this one?"},
+ {"id": "T3", "category": "cross_tool", "q": "Does it name an alternative tool to use when this tool does not apply?"},
+ {"id": "O1", "category": "output", "q": "Does it say what the tool returns?"},
+ {"id": "O2", "category": "output", "q": "Does it say what the tool does not return, or what side effects it has?"},
+ {"id": "O3", "category": "output", "q": "Does it say what error or result occurs when the input is invalid or the object is not found?"}
+]
