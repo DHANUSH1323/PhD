@@ -37,7 +37,7 @@ def items():
         d = json.loads((ROOT / "descriptions" / f"{v}.json").read_text())
         out += [{"item": f"real:{n}:{v}", "tool": n, "variant": v, "name": n, "entry": e} for n, e in d.items()]
     fakes = []
-    for kind in ("lookalike", "unrelated"):
+    for kind in ("lookalike", "indomain", "unrelated"):
         fakes += json.loads((ROOT / "fake_tools" / f"{kind}.json").read_text())
     fakes.sort(key=lambda s: s["name"])
     for s in random.Random(2026).sample(fakes, 10):
@@ -56,8 +56,11 @@ def ask(model, it):
     p = JUDGE_PROMPT.format(tool=render(it), n=len(QS),
                             questions="\n".join(f"{i+1}. {q['q']}" for i, q in enumerate(QS)))
     r = litellm.completion(model=model, temperature=0, messages=[{"role": "user", "content": p}])
-    ans = json.loads(r.choices[0].message.content)
-    assert len(ans) == len(QS) and all(isinstance(x, bool) for x in ans)
+    text = r.choices[0].message.content.strip()
+    if text.startswith("```"):  # tolerate a code fence around the JSON list
+        text = text.split("\n", 1)[1].rsplit("```", 1)[0]
+    ans = json.loads(text)
+    assert len(ans) == len(QS) and all(isinstance(x, bool) for x in ans), f"{model} on {it['item']}: {text[:200]}"
     return ans
 
 

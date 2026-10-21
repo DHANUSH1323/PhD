@@ -1,0 +1,2146 @@
+[
+  {
+    "name": "circle_properties_get",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "radius",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "get_area",
+        "type": "bool",
+        "required": false
+      },
+      {
+        "name": "get_circumference",
+        "type": "bool",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve the dimensions, such as area and circumference, of a circle if radius is given.",
+        "params": {
+          "radius": "The length of radius of the circle.",
+          "get_area": "A flag to determine whether to calculate the area of circle. Default is true.",
+          "get_circumference": "A flag to determine whether to calculate the circumference of circle. Default is true."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve the dimensions, such as area and circumference, of a circle if radius is given.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Computes geometric properties of a circle given its radius. Use this API when you need to calculate the area and/or circumference of a circle from a known radius value. Do not use this API for non-circular shapes, for deriving a radius from other properties, or when the radius is unknown.\n\nParameters:\n\n- radius (number, required): The radius of the circle. Must be a numeric value. Should be a positive number, as a zero or negative radius does not represent a valid geometric circle. This is the sole input from which all circle properties are derived.\n\n- get_area (boolean, optional): When set to true, the response will include the area of the circle. If omitted, the API may default to not returning the area or may return it by default depending on implementation. Set this explicitly to true if you need the area, or false if you do not.\n\n- get_circumference (boolean, optional): When set to true, the response will include the circumference of the circle. If omitted, the API may default to not returning the circumference or may return it by default depending on implementation. Set this explicitly to true if you need the circumference, or false if you do not.\n\nCross-parameter notes: get_area and get_circumference are independent toggles and can be used in any combination. If neither is set to true, the response may contain no computed properties, so at least one should typically be set to true to obtain useful output.\n\nCommon validation failures and how to avoid them:\n- Omitting the radius parameter will cause a validation error, as it is required.\n- Passing a non-numeric value (e.g., a string) for radius will fail type validation; always provide a number.\n- Passing non-boolean values for get_area or get_circumference may cause validation errors; use true or false only.\n- Providing a negative radius is geometrically invalid and may result in an error or meaningless results; ensure the radius is positive.",
+        "params": {
+          "radius": "The length of radius of the circle.",
+          "get_area": "A flag to determine whether to calculate the area of circle. Default is true.",
+          "get_circumference": "A flag to determine whether to calculate the circumference of circle. Default is true."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_case_info",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "docket",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "court",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "info_type",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve case details using a specific case docket number and court location.",
+        "params": {
+          "docket": "Docket number for the specific court case.",
+          "court": "Court in which the case was heard.",
+          "info_type": "Specify the information type needed for the case. i.e., victim, accused, verdict etc."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve case details using a specific case docket number and court location.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves detailed information about a legal case using its docket number and the court where it was filed. Use this API when you need to look up specific case details (such as status, parties, filings, rulings, or other case-related information) for a known case identified by its docket number and court. Do not use this API for searching or discovering cases when the docket number is unknown; it requires a specific docket number and court to retrieve case information. Do not use this API for non-legal or non-court-related queries.\n\nParameters:\n\n- docket (string, required): The case docket number, which is a unique identifier assigned to a case by the court. Must be a non-empty string. Ensure the docket number format matches the conventions used by the specified court (e.g., including any prefixes, year designations, or separators as appropriate). An incorrectly formatted or nonexistent docket number will likely result in a validation or lookup failure.\n\n- court (string, required): The court where the case is filed or was adjudicated. Must be a non-empty string identifying the specific court location or jurisdiction. Use the official or commonly recognized name or code for the court. Providing a court that does not match the actual court associated with the docket number will likely result in no results or an error, as docket numbers are court-specific.\n\n- info_type (string, required): Specifies the type of case information to retrieve. Must be a non-empty string indicating the category of details desired (e.g., case status, party information, filing history, rulings, or similar case attributes). An unrecognized or unsupported info_type value will likely cause a validation error.\n\nAll three parameters are required; omitting any of them will result in a failed request. The docket and court parameters are interdependent: the docket number must correspond to a case filed in the specified court. Ensure consistency between these two values. Common mistakes include providing a docket number without matching it to the correct court, using informal or abbreviated court names that the API does not recognize, or supplying an info_type value that is not supported by the system.",
+        "params": {
+          "docket": "Docket number for the specific court case.",
+          "court": "Court in which the case was heard.",
+          "info_type": "Specify the information type needed for the case. i.e., victim, accused, verdict etc."
+        }
+      }
+    }
+  },
+  {
+    "name": "monopoly_odds_calculator",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "number",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "dice_number",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "dice_faces",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculates the probability of rolling a certain sum with two dice, commonly used in board game like Monopoly.",
+        "params": {
+          "number": "The number for which the odds are calculated.",
+          "dice_number": "The number of dice involved in the roll.",
+          "dice_faces": "The number of faces on a single die. Default is 6 for standard six-faced die."
+        }
+      },
+      "dmin": {
+        "desc": "Calculates the probability of rolling a certain sum with two dice, commonly used in board game like Monopoly.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the probability of rolling a specific sum with a configurable number of dice, commonly used in board games like Monopoly. Use this API when you need to determine the odds or probability of achieving a particular dice roll total, such as figuring out how likely it is to land on a specific board space. Do not use this API for non-dice probability calculations, card draws, spinner outcomes, or other random mechanisms unrelated to dice rolling.\n\nParameters:\n\n- **number** (integer, required): The target sum you want to calculate the probability of rolling. Must be a positive integer. The value must be achievable given the number of dice and faces configured \u2014 it must be at least equal to the number of dice (since each die rolls a minimum of 1) and at most equal to dice_number multiplied by dice_faces. Providing a sum outside this achievable range will likely result in a probability of zero or a validation error.\n\n- **dice_number** (integer, required): The number of dice to roll. Must be a positive integer (typically 2 for standard Monopoly). Setting this to zero or a negative number will likely cause a validation failure.\n\n- **dice_faces** (integer, optional): The number of faces on each die. When not provided, this likely defaults to 6, representing standard six-sided dice as used in Monopoly. Must be a positive integer if specified. All dice in the roll are assumed to have the same number of faces.\n\nCross-parameter considerations: The valid range of the target sum (number) depends on both dice_number and dice_faces. Specifically, the minimum possible sum is dice_number \u00d7 1 and the maximum possible sum is dice_number \u00d7 dice_faces. Ensure the target sum falls within this range to receive a meaningful probability result. For example, requesting a sum of 1 with 2 dice is impossible since the minimum roll with two dice is 2.\n\nCommon mistakes to avoid: Passing the target sum as a non-integer or negative value; confusing the target sum parameter with a die face count; setting dice_number to 1 when intending to simulate a standard two-dice Monopoly roll; omitting dice_number which is required; providing a target sum that exceeds the maximum achievable roll.",
+        "params": {
+          "number": "The number for which the odds are calculated.",
+          "dice_number": "The number of dice involved in the roll.",
+          "dice_faces": "The number of faces on a single die. Default is 6 for standard six-faced die."
+        }
+      }
+    }
+  },
+  {
+    "name": "museum_working_hours_get",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "museum",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "day",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the working hours of a museum in a specific location.",
+        "params": {
+          "museum": "The name of the museum.",
+          "location": "The location of the museum.",
+          "day": "Specific day of the week. Optional parameter. Default is 'today'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the working hours of a museum in a specific location.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the working hours (opening and closing times) of a specified museum at a given location. Use this API when a user needs to know when a museum is open, including queries about operating hours, opening times, closing times, or availability on a particular day. Do not use this API for non-museum venues (e.g., restaurants, parks, theaters), for booking or purchasing tickets, or for retrieving information unrelated to working hours such as admission prices, exhibits, or directions.\n\nParameters:\n\n- **museum** (string, required): The name of the museum whose working hours are being queried. Should be a recognizable museum name. Providing vague or overly abbreviated names may result in lookup failures; use the full or commonly known name of the museum.\n\n- **location** (string, required): The geographic location of the museum, such as a city name, city and country, or other location identifier. This is necessary to disambiguate museums that may share similar names in different locations. Omitting this parameter will result in a validation error.\n\n- **day** (string, optional): A specific day for which working hours are requested, such as a day of the week (e.g., \"Monday\") or a date. If omitted, the API will likely return general or default working hours (e.g., typical daily schedule or today's hours). When provided, the value should represent a valid and recognizable day or date string; invalid or unrecognizable values may cause errors or unexpected results.\n\nCross-parameter considerations: The museum and location parameters work together to uniquely identify a museum. If the museum name does not correspond to a known museum at the specified location, the API may return an error or no results. Ensure consistency between the museum name and the location provided.\n\nCommon validation failures to avoid: Omitting the required museum or location parameters; providing an empty string for required fields; misspelling the museum name or location such that the museum cannot be identified; using non-standard or ambiguous formats for the day parameter.",
+        "params": {
+          "museum": "The name of the museum.",
+          "location": "The location of the museum.",
+          "day": "Specific day of the week. Optional parameter. Default is 'today'."
+        }
+      }
+    }
+  },
+  {
+    "name": "shuffle_card_probability",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "desired_card",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "n_decks",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the probability of a specific card appearing from a shuffled deck.",
+        "params": {
+          "desired_card": "The card for which to calculate the probability.",
+          "n_decks": "Number of decks to shuffle. Default 1"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the probability of a specific card appearing from a shuffled deck.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the probability of a specific card appearing from a shuffled deck of standard playing cards. Use this API when you need to determine the likelihood of drawing a particular card from one or more shuffled decks, such as for card game strategy analysis or probability computations involving standard card decks. Do not use this API for non-standard decks, dice rolls, general probability calculations unrelated to card drawing, or scenarios involving cards already removed from the deck (i.e., conditional probability after draws).\n\nParameters:\n\n- desired_card (string, required): The specific card whose probability of appearing you want to calculate. This should identify a card by its rank and suit using standard playing card nomenclature (e.g., rank such as Ace, King, Queen, Jack, or a number, combined with a suit such as Hearts, Spades, Diamonds, or Clubs). Providing an invalid or unrecognizable card name will likely result in a validation error. Ensure the string clearly and unambiguously identifies a single card or a card rank/suit combination recognized by standard deck conventions.\n\n- n_decks (integer, optional): The number of standard 52-card decks shuffled together from which the card may appear. When omitted, the API most likely defaults to 1 deck. Must be a positive integer (1 or greater). Using zero or negative values will likely cause a validation failure. Increasing the number of decks does not change the base probability of a unique card relative to deck size but does affect the total card pool, which matters when calculating exact probabilities in multi-deck scenarios (e.g., blackjack shoe).\n\nCommon mistakes to avoid: Do not pass empty strings for desired_card. Do not use non-integer or non-positive values for n_decks. Ensure desired_card refers to a valid card in a standard 52-card deck \u2014 jokers or custom cards are unlikely to be supported unless explicitly part of the standard deck definition used by this API.",
+        "params": {
+          "desired_card": "The card for which to calculate the probability.",
+          "n_decks": "Number of decks to shuffle. Default 1"
+        }
+      }
+    }
+  },
+  {
+    "name": "car_rental_pricing_get",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "rentalCompany",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "carType",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "days",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get pricing for a specific type of rental car for a specified number of days.",
+        "params": {
+          "rentalCompany": "The name of the rental company.",
+          "carType": "Type of the car to be rented.",
+          "days": "Number of days to rent the car."
+        }
+      },
+      "dmin": {
+        "desc": "Get pricing for a specific type of rental car for a specified number of days.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use this API to retrieve pricing information for renting a specific type of car from a specific rental company for a given number of days. This is a read-only pricing lookup; use it when a user wants to know how much a car rental will cost given a company, car type, and rental duration. Do not use this API to make a reservation, modify a booking, compare prices across multiple companies or car types in a single call, or retrieve general company information unrelated to pricing. Each query targets exactly one rental company, one car type, and one rental duration.\n\nParameters:\n\n- rentalCompany (string, required): The name of the car rental company to query pricing from. Must be a non-empty string. Providing an unrecognized or misspelled company name will likely result in a validation or not-found error. Ensure the company name matches a known rental provider.\n\n- carType (string, required): The type or class of car to get pricing for (e.g., economy, compact, SUV, luxury). Must be a non-empty string. The value should correspond to a car category recognized by the specified rental company. An invalid or unsupported car type for the given company will likely cause an error.\n\n- days (integer, required): The number of days for the rental period. Must be an integer. Should be a positive whole number (1 or greater); zero or negative values are logically invalid and will likely be rejected. Do not pass fractional or non-numeric values.\n\nAll three parameters are required; omitting any one of them will result in a validation failure. There are no optional parameters or default values. The parameters are interdependent in the sense that the returned price depends on the combination of all three: a given car type's pricing may vary by company, and the total cost scales with the number of days. Common mistakes include misspelling the rental company name, using a car type string not recognized by the target company, or passing a non-positive integer for days.",
+        "params": {
+          "rentalCompany": "The name of the rental company.",
+          "carType": "Type of the car to be rented.",
+          "days": "Number of days to rent the car."
+        }
+      }
+    }
+  },
+  {
+    "name": "event_search",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "days",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Search for events happening in a specific location for a future date.",
+        "params": {
+          "location": "The city that you want to get the event information for.",
+          "days": "Number of future days for which to retrieve the event information."
+        }
+      },
+      "dmin": {
+        "desc": "Search for events happening in a specific location for a future date.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "event_search: Use this API to find events occurring in a specified location within a future time window. This is appropriate when a user wants to discover upcoming events, activities, or happenings in a particular area over a defined number of days ahead. Do NOT use this API for searching past events, retrieving details about a single known event, or for queries unrelated to event discovery (e.g., venue information, ticket purchasing, or general location lookups).\n\nParameters:\n\n- location (string, required): The geographic location in which to search for events. This should be a meaningful place identifier such as a city name, region, or other recognizable locality. Must be a non-empty string. Providing overly vague, empty, or nonsensical location values will likely result in validation failure or no meaningful results.\n\n- days (integer, required): The number of days into the future from the current date over which to search for events. Must be an integer. Since the baseline specifies searching for a future date, this value should be a positive integer (greater than zero); supplying zero or negative values would contradict the intended future-looking behavior and may cause validation failure or empty results. Non-integer numeric types (e.g., floats) will fail schema validation.\n\nBoth parameters are required and must be provided together for every request. There are no optional parameters and no default values; omitting either parameter will result in a validation error.\n\nCommon mistakes to avoid: passing a numeric type for location instead of a string; passing a floating-point number or string for days instead of an integer; omitting either required parameter; using a negative or zero value for days when the intent is to search future events.",
+        "params": {
+          "location": "The city that you want to get the event information for.",
+          "days": "Number of future days for which to retrieve the event information."
+        }
+      }
+    }
+  },
+  {
+    "name": "religion_history_get_schisms",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "religion",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "count",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieves a list of major schisms in a specified religion.",
+        "params": {
+          "religion": "Name of the religion for which to retrieve the schisms.",
+          "count": "Number of top schisms to retrieve."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieves a list of major schisms in a specified religion.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves a list of major schisms in a specified religion. Use this API when you need historical information about significant splits, divisions, or breakaway movements within a particular religious tradition. Do not use this API for general religious history, doctrinal comparisons, or events that are not schisms (e.g., reforms, councils, or mergers). This API is not suitable for retrieving information about secular or political schisms unrelated to religion.\n\nParameters:\n\n- religion (string, required): The name of the religion for which to retrieve schisms. This should be a recognizable religion name (e.g., a major world religion or a well-known religious tradition). Providing an empty string, a misspelled name, or a non-religion value will likely result in a validation failure or empty results. The value should be a meaningful, correctly spelled religion name.\n\n- count (integer, required): The number of major schisms to retrieve. Must be a positive integer. A value of zero or a negative number is likely to result in a validation error or an empty response. This parameter controls the maximum size of the returned list; if the religion has fewer recorded schisms than the requested count, the response may return fewer results than specified. Do not pass floating-point numbers or non-numeric values, as the parameter strictly requires an integer type.\n\nBoth parameters are required; omitting either will cause the request to fail. There are no optional parameters or default values. The two parameters are independent: religion specifies which tradition to query, and count limits how many results are returned. Ensure that the religion value is contextually valid and that count is a reasonable positive integer to avoid unnecessary errors.",
+        "params": {
+          "religion": "Name of the religion for which to retrieve the schisms.",
+          "count": "Number of top schisms to retrieve."
+        }
+      }
+    }
+  },
+  {
+    "name": "route_planner_calculate_route",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "start",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "destination",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "method",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Determines the best route between two points.",
+        "params": {
+          "start": "The starting point of the journey.",
+          "destination": "The destination of the journey.",
+          "method": "The method to use when calculating the route (default is 'fastest')."
+        }
+      },
+      "dmin": {
+        "desc": "Determines the best route between two points.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the best route between two geographic points. Use this API when a user needs directions, route planning, navigation guidance, or distance/travel information between a starting location and a destination. Do not use this API for tasks unrelated to routing, such as searching for places, geocoding addresses without routing intent, or retrieving traffic conditions without a specific origin-destination pair.\n\nParameters:\n\n- start (string, required): The starting point of the route. This should be a recognizable location identifier such as an address, city name, landmark, or coordinate pair. Must be a non-empty string. Providing an ambiguous or unresolvable location will likely cause a validation or lookup failure.\n\n- destination (string, required): The endpoint of the route. Follows the same format expectations as 'start'\u2014an address, city name, landmark, or coordinate pair. Must be a non-empty string. The destination must differ meaningfully from the start; providing identical or effectively identical values for both may result in a degenerate or failed route.\n\n- method (string, optional): Specifies the mode of travel or routing strategy to use when calculating the route. Likely valid values include common transportation modes such as driving, walking, cycling, or transit. If omitted, the API will presumably default to a standard travel mode (most likely driving). Providing an unrecognized or unsupported method value may result in a validation error.\n\nGeneral guidance:\n- Both 'start' and 'destination' are required; omitting either will cause the request to fail.\n- Ensure location strings are specific enough to be unambiguously resolved. Overly vague inputs (e.g., single common words) may lead to incorrect or failed route calculations.\n- The 'method' parameter, when provided, should be a well-known travel mode string. If unsure of supported values, omitting it to use the default behavior is the safest approach.\n- There are no known cross-parameter exclusions, but the chosen method should be logically compatible with the start and destination (e.g., a walking route across an ocean would be invalid).",
+        "params": {
+          "start": "The starting point of the journey.",
+          "destination": "The destination of the journey.",
+          "method": "The method to use when calculating the route (default is 'fastest')."
+        }
+      }
+    }
+  },
+  {
+    "name": "poker_probability_full_house",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "deck_size",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "hand_size",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the probability of getting a full house in a poker game.",
+        "params": {
+          "deck_size": "The size of the deck. Default is 52.",
+          "hand_size": "The size of the hand. Default is 5."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the probability of getting a full house in a poker game.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the probability of being dealt a full house (a hand containing three of a kind plus a pair) in a poker game. Use this API when you need to determine the mathematical likelihood of obtaining a full house given a specific deck size and hand size. This is suitable for standard or non-standard poker variants where the deck size or hand size may differ from the traditional 52-card deck and 5-card hand. Do NOT use this API for calculating probabilities of other poker hands (e.g., flush, straight, four of a kind) or for simulating poker gameplay, strategy analysis, or any non-probability-related poker computations.\n\nParameters:\n\n- deck_size (integer, required): The total number of cards in the deck from which the hand is dealt. Must be a positive integer. For standard poker, this is typically 52, but other values may be used for variant games. The deck size must be large enough to logically support the concept of a full house (i.e., it must contain enough cards of sufficient ranks and suits to make a full house possible) and must be greater than or equal to the hand_size.\n\n- hand_size (integer, required): The number of cards dealt to form the hand. Must be a positive integer and at minimum 5, since a full house requires exactly 5 cards (three of one rank and two of another). The hand_size must not exceed the deck_size.\n\nCross-parameter constraints: hand_size must be less than or equal to deck_size. If hand_size is less than 5, a full house is impossible by definition, and the API may return a probability of zero or a validation error. Ensure both values are consistent with a valid poker scenario.\n\nCommon validation failures to avoid: Providing non-integer values, zero, or negative numbers for either parameter. Setting hand_size greater than deck_size. Using a deck_size that is too small to contain the rank and suit diversity necessary for a full house to exist. Omitting either required parameter.",
+        "params": {
+          "deck_size": "The size of the deck. Default is 52.",
+          "hand_size": "The size of the hand. Default is 5."
+        }
+      }
+    }
+  },
+  {
+    "name": "kinematics_distance",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "initial_velocity",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "time",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "acceleration",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the distance traveled by an object moving under constant acceleration.",
+        "params": {
+          "initial_velocity": "The initial velocity of the object in m/s.",
+          "time": "The time in seconds the object has been moving.",
+          "acceleration": "The acceleration of the object in m/s^2. Default value is -9.81 (Earth's gravity)"
+        }
+      },
+      "dmin": {
+        "desc": "Find the distance traveled by an object moving under constant acceleration.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the distance traveled by an object moving under constant acceleration using kinematic equations (d = v\u2080t + \u00bdat\u00b2). Use this API when you need to determine displacement or distance given an object's initial velocity, elapsed time, and optionally its constant acceleration. Do not use this API for non-constant (variable) acceleration scenarios, projectile motion in multiple dimensions, or situations where you need to solve for velocity, time, or acceleration rather than distance.\n\nParameters:\n\n- initial_velocity (number, required): The object's velocity at the start of the time interval, in consistent units (e.g., m/s). Can be zero, positive, or negative (indicating direction). Must be a numeric value (integers and decimals are both accepted).\n\n- time (integer, required): The duration of travel over which to calculate distance. Must be an integer value. Negative time values are physically unusual and may produce unexpected results; typically this should be zero or a positive integer. Passing a decimal or non-integer value will likely cause a validation failure.\n\n- acceleration (number, optional): The constant rate of change of velocity, in consistent units (e.g., m/s\u00b2). Can be positive (speeding up in the positive direction), negative (decelerating or accelerating in the negative direction), or zero. If omitted, the API likely defaults to zero acceleration, reducing the calculation to uniform motion (d = v\u2080t). Must be a numeric value when provided.\n\nCommon validation pitfalls:\n- Providing time as a floating-point number rather than an integer will fail validation since the schema strictly requires an integer type.\n- Omitting initial_velocity will cause a validation error as it is required.\n- Ensure all units are consistent across parameters (e.g., if initial_velocity is in m/s and acceleration is in m/s\u00b2, time should represent seconds) \u2014 the API performs a pure mathematical calculation and does not handle unit conversion.\n- Passing non-numeric values (strings, nulls, booleans) for any parameter will fail validation.\n\nCross-parameter considerations:\n- When acceleration is omitted or zero, the result depends solely on initial_velocity and time.\n- When initial_velocity is zero and acceleration is provided, the result represents distance covered from rest under constant acceleration.\n- The sign conventions of initial_velocity and acceleration should be consistent; mixed signs will produce results reflecting deceleration or direction reversal, which may yield smaller or negative distance values depending on the equation used internally.",
+        "params": {
+          "initial_velocity": "The initial velocity of the object in m/s.",
+          "time": "The time in seconds the object has been moving.",
+          "acceleration": "The acceleration of the object in m/s^2. Default value is -9.81 (Earth's gravity)"
+        }
+      }
+    }
+  },
+  {
+    "name": "publication_year_find",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "author",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "work_title",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "location",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Fetches the year a particular scientific work was published.",
+        "params": {
+          "author": "Name of the author of the work.",
+          "work_title": "Title of the scientific work.",
+          "location": "Place of the publication, if known. Default is 'global'."
+        }
+      },
+      "dmin": {
+        "desc": "Fetches the year a particular scientific work was published.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the publication year of a specific scientific work. Use this API when you need to determine the year a scientific publication (e.g., journal article, paper, monograph, thesis, or other scholarly work) was first published, given its author and title. Do NOT use this API for non-scientific works such as novels, poetry, music, films, or other creative or non-scholarly content. Do NOT use this API to retrieve information other than the publication year (e.g., abstracts, citation counts, or full text).\n\nParameters:\n\n- **author** (string, required): The name of the author of the scientific work. Must be a non-empty string. Provide the author's name in a recognizable form (e.g., full name or commonly cited name). Misspellings or ambiguous names may cause lookup failures or incorrect results.\n\n- **work_title** (string, required): The title of the scientific work whose publication year is being queried. Must be a non-empty string. Use the exact or closely matching title of the work. Partial titles, heavily abbreviated titles, or incorrect titles are likely to result in validation failures or no results.\n\n- **location** (string, optional): An additional qualifier indicating the location associated with the publication, such as the city or country of the publishing institution or journal. This parameter can help disambiguate results when multiple works share similar titles and authors. If omitted, the API will attempt to resolve the work without location context, which is sufficient in most cases. Use this parameter only when disambiguation is needed.\n\nValidation and common pitfalls:\n- Both **author** and **work_title** must be provided; omitting either will result in a validation error.\n- Empty strings for required parameters will likely cause failures.\n- The **author** and **work_title** should correspond to the same scientific work; mismatched pairs will yield no results or incorrect results.\n- The **location** parameter should only be used to narrow results and should not contradict the actual publication origin, as this may prevent a valid match.\n- This API is designed for scientific works only; queries about non-scientific publications may return no results or unreliable data.",
+        "params": {
+          "author": "Name of the author of the work.",
+          "work_title": "Title of the scientific work.",
+          "location": "Place of the publication, if known. Default is 'global'."
+        }
+      }
+    }
+  },
+  {
+    "name": "player_statistic",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "player_name",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "year",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "team_name",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieves detailed player's statistics for a specific year.",
+        "params": {
+          "player_name": "The player's name.",
+          "year": "Year for which the statistics will be displayed.",
+          "team_name": "The name of the team(optional). Default is 'all'"
+        }
+      },
+      "dmin": {
+        "desc": "Retrieves detailed player's statistics for a specific year.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves detailed player statistics for a specific year. Use this API when you need to look up performance statistics, metrics, or records associated with a named player during a particular year. This API is appropriate for queries about individual player performance data tied to a specific time period. Do not use this API for team-level aggregate statistics without a specific player, for retrieving general league standings, or for queries that do not involve a specific named player and year.\n\nParameters:\n\n- player_name (string, required): The name of the player whose statistics are being requested. Must be a non-empty string. Ensure correct spelling of the player's name, as misspellings or ambiguous names may result in validation failures or no results. Use the player's commonly recognized full name.\n\n- year (integer, required): The year for which to retrieve the player's statistics. Must be an integer representing a valid calendar year (e.g., four-digit year). Do not pass this as a string; it must be a numeric integer type. The year should correspond to a season or period in which the player was active; requesting a year outside the player's active career may return empty or no results.\n\n- team_name (string, optional): The name of the team to filter the player's statistics by. When provided, the results will be scoped to the player's statistics while on that specific team. This is useful when a player played for multiple teams in the same year and you want statistics for only one of those teams. If omitted, statistics are returned without team-based filtering, likely covering all teams the player was associated with during the specified year. Ensure the team name is spelled correctly and matches the expected naming convention.\n\nCommon validation issues to avoid: Omitting either player_name or year will cause a validation error, as both are required. Passing year as a string instead of an integer will fail type validation. Providing an empty string for player_name will likely result in an error or no meaningful results. When team_name is provided alongside player_name and year, ensure the player was actually associated with that team during the specified year to receive meaningful results.",
+        "params": {
+          "player_name": "The player's name.",
+          "year": "Year for which the statistics will be displayed.",
+          "team_name": "The name of the team(optional). Default is 'all'"
+        }
+      }
+    }
+  },
+  {
+    "name": "us_history_population_by_state_year",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "state",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "year",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve historical population data for a specific U.S. state and year.",
+        "params": {
+          "state": "The U.S. state for which to retrieve the population.",
+          "year": "The year for which to retrieve the population."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve historical population data for a specific U.S.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves historical population data for a specific U.S. state and year. Use this API when you need to look up the population count of a particular U.S. state for a given historical year, such as answering questions about demographic trends, state-level population comparisons, or historical census data. Do NOT use this API for non-U.S. territories or countries, for current real-time population estimates, for county- or city-level population data, or for aggregate national population figures.\n\nParameters:\n\n- **state** (string, required): The name of the U.S. state for which population data is requested. Must be a valid U.S. state name. Common mistakes include passing state abbreviations (e.g., \"CA\") instead of full state names (e.g., \"California\"), misspelling state names, or providing non-U.S. regions. Ensure the value is a properly spelled full U.S. state name.\n\n- **year** (integer, required): The historical year for which population data is requested. Must be an integer representing a valid year for which U.S. population records exist. Historical U.S. population data typically begins around 1790 (the first U.S. census) and extends through recent census or estimate years. Passing a year outside the range of available data, a future year, a negative number, or a non-integer value will likely result in a validation failure or empty response.\n\nBoth parameters are required; omitting either will result in a validation error. There are no optional parameters or defaults. The two parameters are independent\u2014any valid state can be combined with any valid year. Ensure that the state string is not empty and the year is a reasonable historical value to avoid failed lookups.",
+        "params": {
+          "state": "The U.S. state for which to retrieve the population.",
+          "year": "The year for which to retrieve the population."
+        }
+      }
+    }
+  },
+  {
+    "name": "math_triangle_area_base_height",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "base",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "height",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculates the area of a triangle using the formula (1/2)base*height.",
+        "params": {
+          "base": "The base length of the triangle.",
+          "height": "The height of the triangle."
+        }
+      },
+      "dmin": {
+        "desc": "Calculates the area of a triangle using the formula (1/2)base*height.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the area of a triangle using the formula (1/2) \u00d7 base \u00d7 height. Use this API when you need to compute the area of a triangle and you have both the base length and the perpendicular height available. Do not use this API if you need to calculate triangle area using other methods (e.g., three side lengths via Heron's formula, two sides and an included angle, or coordinate-based approaches), as this API exclusively supports the base-height method.\n\nParameters:\n- **base** (number, required): The length of the base of the triangle. Must be a numeric value. Should be a positive number, as a zero or negative base would not represent a valid geometric triangle.\n- **height** (number, required): The perpendicular height of the triangle measured from the base to the opposite vertex. Must be a numeric value. Should be a positive number, as a zero or negative height would not represent a valid geometric triangle.\n\nBoth parameters are required; omitting either will result in a validation failure. There are no optional parameters or default values. The two parameters are independent of each other\u2014any valid base can be paired with any valid height.\n\nCommon mistakes to avoid:\n- Passing non-numeric values (e.g., strings) for base or height will fail type validation.\n- Omitting either parameter will cause a missing-required-field error.\n- Providing null or undefined instead of a numeric value will not satisfy the number type requirement.\n- Ensure that the height value represents the perpendicular distance from the base to the opposite vertex, not a slant height or side length, to obtain a correct area result.",
+        "params": {
+          "base": "The base length of the triangle.",
+          "height": "The height of the triangle."
+        }
+      }
+    }
+  },
+  {
+    "name": "wildlife_population_assess_growth",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "species",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Assesses the population growth of a specific species in a specified location over a period.",
+        "params": {
+          "species": "The species for which the growth is to be calculated.",
+          "location": "The area where the species is present.",
+          "duration": "The time period for which the population growth should be calculated in years."
+        }
+      },
+      "dmin": {
+        "desc": "Assesses the population growth of a specific species in a specified location over a period.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Assesses the population growth of a specific wildlife species in a specified geographic location over a defined time period. Use this API when you need to evaluate, analyze, or report on how a particular species' population has changed over time within a given area. This is appropriate for ecological assessments, conservation planning, trend analysis, and wildlife management decisions that require population growth data. Do not use this API for real-time population counts, cross-species comparisons in a single call, habitat assessment unrelated to population growth, or for non-wildlife species (e.g., plants, domesticated animals). Parameters: 'species' (string, required) \u2014 The name of the wildlife species whose population growth is being assessed. This should be a recognizable species name (common or scientific). Providing an ambiguous, misspelled, or nonexistent species name will likely result in a validation failure. 'location' (string, required) \u2014 The geographic area in which to assess the species' population growth. This could be a region, country, park, ecosystem, or other identifiable geographic designation. Vague or unrecognizable location strings are likely to cause errors. 'duration' (integer, required) \u2014 The time period over which to assess population growth, expressed as a whole number. This value likely represents a number of years (or another standard time unit consistent with ecological assessment). It must be a positive integer; zero, negative values, or non-integer numbers will fail validation. All three parameters are required \u2014 omitting any one of them will result in a validation error. Ensure that the species and location are compatible (i.e., the species plausibly exists or has been tracked in the specified location), as mismatched combinations may yield empty or erroneous results. The duration should be reasonable for ecological data availability; extremely large values may exceed available historical data.",
+        "params": {
+          "species": "The species for which the growth is to be calculated.",
+          "location": "The area where the species is present.",
+          "duration": "The time period for which the population growth should be calculated in years."
+        }
+      }
+    }
+  },
+  {
+    "name": "recipe_search",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "ingredients",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "calories",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "meal",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Searches for recipes based on a list of ingredients and a maximum caloric value.",
+        "params": {
+          "ingredients": "A list of ingredients you want to use in the recipe.",
+          "calories": "The maximum number of calories for the recipe.",
+          "meal": "Type of the meal for the recipe, it's optional and could be breakfast, lunch or dinner. Default 'lunch'"
+        }
+      },
+      "dmin": {
+        "desc": "Searches for recipes based on a list of ingredients and a maximum caloric value.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "recipe_search: Use this API when a user wants to find recipes based on specific ingredients they have available and a caloric constraint. It is appropriate for meal planning, dietary management, or discovering what can be cooked from a given set of ingredients within a calorie budget. Do NOT use this API for non-recipe queries, nutritional lookups without recipe context, restaurant recommendations, or general food information unrelated to recipe discovery.\n\nParameters:\n\n- ingredients (required, array of strings): A list of one or more ingredient names to search recipes for. Each element must be a non-empty string representing a food ingredient. The array itself must contain at least one item; passing an empty array will likely result in a validation failure. Avoid passing non-ingredient values such as brand names, utensil names, or numeric values as strings.\n\n- calories (required, integer): The maximum caloric value for the returned recipes. Must be a positive integer representing a calorie threshold. Recipes returned will not exceed this value. Do not pass zero, negative numbers, floating-point numbers, or string representations of numbers, as these will fail validation. This value represents total calories per recipe (not per serving or per ingredient).\n\n- meal (optional, string): A meal type to filter results by, such as a category indicating when the dish would typically be eaten (e.g., breakfast, lunch, dinner, snack). If omitted, the search is not filtered by meal type and recipes for any meal context may be returned. The value should be a meaningful meal descriptor; arbitrary or empty strings may yield no results.\n\nCross-parameter considerations: The ingredients and calories parameters work together to narrow results \u2014 recipes must match the provided ingredients AND fall within the calorie limit. Adding the meal parameter further narrows results. Be aware that overly restrictive combinations (many specific ingredients, very low calorie cap, and a specific meal type) may yield few or no results.\n\nCommon mistakes to avoid: Omitting the required ingredients or calories parameters will cause a validation error. Passing calories as a string or decimal number instead of an integer will fail. Supplying an empty ingredients array may result in an error or meaningless results. Ensure ingredient strings are properly spelled food items to maximize relevant matches.",
+        "params": {
+          "ingredients": "A list of ingredients you want to use in the recipe.",
+          "calories": "The maximum number of calories for the recipe.",
+          "meal": "Type of the meal for the recipe, it's optional and could be breakfast, lunch or dinner. Default 'lunch'"
+        }
+      }
+    }
+  },
+  {
+    "name": "lawyer_finder",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "specialization",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "experience",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Locate lawyers near you based on their specialization.",
+        "params": {
+          "location": "Your location",
+          "specialization": "Specializations of lawyer that you are looking for.",
+          "experience": "Experience in years that lawyer has. Default 1"
+        }
+      },
+      "dmin": {
+        "desc": "Locate lawyers near you based on their specialization.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use the lawyer_finder API to search for lawyers in a specified geographic area filtered by one or more legal specializations. This API is appropriate when a user needs to find legal professionals based on where they are located and what type of legal expertise they require. Do not use this API for non-lawyer professional searches, for looking up information about a specific known lawyer by name, or for tasks unrelated to locating legal practitioners.\n\nParameters:\n\n- location (string, required): The geographic area in which to search for lawyers. This should be a meaningful location identifier such as a city name, region, or postal code. Must be a non-empty string. Providing a vague, empty, or nonsensical location value will likely result in no results or a validation error.\n\n- specialization (array of strings, required): One or more legal specialization areas to filter lawyers by, such as \"criminal law\", \"family law\", \"corporate law\", \"immigration law\", etc. The array must contain at least one string entry. Each entry should represent a recognized area of legal practice. Passing an empty array or including empty strings within the array is likely to cause validation failure.\n\n- experience (integer, optional): The minimum number of years of professional experience a lawyer should have. When omitted, no experience filter is applied and lawyers of all experience levels may be returned. If provided, the value should be a non-negative integer. Supplying a negative number, a decimal, or a non-numeric value will likely cause a validation error.\n\nCommon mistakes to avoid: Omitting either of the two required parameters (location or specialization) will result in a validation error. Passing specialization as a single string rather than an array of strings will fail type validation. Ensure experience, if provided, is an integer and not a string representation of a number. The location and specialization parameters work together to narrow results \u2014 location defines the geographic scope while specialization defines the legal domain filter. There are no known exclusions or conflicts between parameters; all provided parameters are applied conjunctively to refine the search.",
+        "params": {
+          "location": "Your location",
+          "specialization": "Specializations of lawyer that you are looking for.",
+          "experience": "Experience in years that lawyer has. Default 1"
+        }
+      }
+    }
+  },
+  {
+    "name": "finance_loan_repayment",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "loan_amount",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "interest_rate",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "loan_term",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculates the monthly repayment for a loan.",
+        "params": {
+          "loan_amount": "The amount borrowed or loaned.",
+          "interest_rate": "The annual interest rate.",
+          "loan_term": "The term of the loan in years."
+        }
+      },
+      "dmin": {
+        "desc": "Calculates the monthly repayment for a loan.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the monthly repayment for a loan given the principal amount, annual interest rate, and loan term. Use this API when a user needs to determine how much they will pay per month on a loan or mortgage, or when comparing repayment amounts across different loan scenarios. Do not use this API for calculating total interest paid over the life of a loan, amortization schedules, or non-loan financial computations such as investment returns or savings projections.\n\nAll three parameters are required:\n\n- loan_amount (number, required): The total principal amount of the loan. Must be a numeric value. Should be a positive number representing the borrowed sum in the relevant currency. Providing zero, negative values, or non-numeric input will likely cause a validation failure.\n\n- interest_rate (number, required): The annual interest rate for the loan, expressed as a numeric value (e.g., 5.5 for 5.5% or 0.055 for 5.5% depending on the API's expected convention). Must be a numeric value. Negative interest rates are unlikely to be valid. Be careful to use the correct scale\u2014confirm whether the API expects a percentage value (e.g., 5.5) or a decimal fraction (e.g., 0.055), as using the wrong convention will produce drastically incorrect results.\n\n- loan_term (integer, required): The duration of the loan. Must be an integer value, likely representing the number of months or years over which the loan is repaid. Must not be zero or negative, as a loan term of zero or less is meaningless. Since this parameter is typed as an integer, providing a decimal or fractional value will cause a validation error.\n\nCommon validation failures include: omitting any of the three required parameters; providing non-numeric types for loan_amount or interest_rate; providing a non-integer type for loan_term; and supplying zero or negative values for any parameter. Ensure all parameters are present and of the correct type before calling the API. There are no optional parameters and no default values; all three must be explicitly provided in every request.",
+        "params": {
+          "loan_amount": "The amount borrowed or loaned.",
+          "interest_rate": "The annual interest rate.",
+          "loan_term": "The term of the loan in years."
+        }
+      }
+    }
+  },
+  {
+    "name": "MBTI_analyse",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "thinking_vs_feeling",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "introverted_vs_extroverted",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "judging_vs_perceiving",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "sensing_vs_intuition",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Analyse personality based on the Myers-Briggs Type Indicator (MBTI) which sorts for preferences and generates a 4-letter personality type.",
+        "params": {
+          "thinking_vs_feeling": "Preference of user between thinking and feeling.",
+          "introverted_vs_extroverted": "Preference of user between introverted and extroverted.",
+          "judging_vs_perceiving": "Preference of user between judging and perceiving.",
+          "sensing_vs_intuition": "Preference of user between sensing and intuition."
+        }
+      },
+      "dmin": {
+        "desc": "Analyse personality based on the Myers-Briggs Type Indicator (MBTI) which sorts for preferences and generates a 4-letter personality type.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "MBTI_analyse: Analyses a person's personality based on the Myers-Briggs Type Indicator (MBTI) framework, which sorts for preferences across four dichotomies and generates a 4-letter personality type (e.g., INTJ, ESFP, etc.). Use this API when you need to determine or classify someone's MBTI personality type based on their preferences across the four MBTI dimensions. Do NOT use this API for other personality frameworks (e.g., Big Five, Enneagram), general psychological assessments unrelated to MBTI, or when you lack information about the user's preferences on all four MBTI dichotomies.\n\nAll four parameters are required:\n\n1. **thinking_vs_feeling** (string, required): Indicates the individual's preference on the Thinking\u2013Feeling dichotomy, which describes how a person makes decisions (logic-based vs. values-based). The value should clearly indicate one side of this dichotomy, such as \"thinking\" or \"feeling\". Do not provide ambiguous or unrelated values.\n\n2. **introverted_vs_extroverted** (string, required): Indicates the individual's preference on the Introversion\u2013Extraversion dichotomy, which describes where a person draws their energy (from inner reflection vs. external interaction). The value should clearly indicate one side, such as \"introverted\" or \"extroverted\". Do not provide ambiguous or unrelated values.\n\n3. **judging_vs_perceiving** (string, required): Indicates the individual's preference on the Judging\u2013Perceiving dichotomy, which describes how a person orients to the outer world (structured/planned vs. flexible/spontaneous). The value should clearly indicate one side, such as \"judging\" or \"perceiving\". Do not provide ambiguous or unrelated values.\n\n4. **sensing_vs_intuition** (string, required): Indicates the individual's preference on the Sensing\u2013Intuition dichotomy, which describes how a person takes in information (concrete/practical vs. abstract/conceptual). The value should clearly indicate one side, such as \"sensing\" or \"intuition\". Do not provide ambiguous or unrelated values.\n\nValidation guidance: All four parameters must be provided; omitting any will result in a validation failure. Each parameter is a string and should represent a clear selection of one pole of its respective MBTI dichotomy. Providing values that do not correspond to either side of the relevant dichotomy (e.g., passing a numeric value, an empty string, or an unrelated term) is likely to cause errors or invalid results. Ensure consistency across parameters \u2014 each parameter addresses a distinct, independent MBTI dimension, so there are no cross-parameter dependencies or exclusions, but all four must be supplied together to produce a valid 4-letter MBTI type. As a general rule, each value should name or clearly reference exactly one side of the dichotomy indicated by the parameter name.",
+        "params": {
+          "thinking_vs_feeling": "Preference of user between thinking and feeling.",
+          "introverted_vs_extroverted": "Preference of user between introverted and extroverted.",
+          "judging_vs_perceiving": "Preference of user between judging and perceiving.",
+          "sensing_vs_intuition": "Preference of user between sensing and intuition."
+        }
+      }
+    }
+  },
+  {
+    "name": "restaurant_search",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "ingredients",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "calories",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "meal",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Searches for restaurants based on a list of preferred ingredients and maximum calorie count.",
+        "params": {
+          "ingredients": "A list of ingredients you prefer in the restaurant's dishes.",
+          "calories": "The maximum calorie count you prefer for the restaurant's dishes.",
+          "meal": "Type of the meal for the restaurant's dishes, it's optional and could be breakfast, lunch or dinner. Default 'lunch'"
+        }
+      },
+      "dmin": {
+        "desc": "Searches for restaurants based on a list of preferred ingredients and maximum calorie count.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use restaurant_search to find restaurants that serve dishes matching a set of preferred ingredients while staying within a specified maximum calorie limit. This API is appropriate when a user wants restaurant recommendations driven by ingredient preferences and calorie constraints. Do not use this API for general restaurant discovery unrelated to ingredients or calories (e.g., searching by location, cuisine type alone, price range, or ratings), nor for recipe lookup, grocery searches, or non-restaurant food services.\n\nParameters:\n\n- ingredients (required, array of strings): A list of one or more preferred ingredients the user wants featured in restaurant dishes. Each element must be a non-empty string. The array itself must contain at least one item; supplying an empty array will likely result in a validation error. Avoid passing non-string values (e.g., numbers or nulls) within the array.\n\n- calories (required, integer): The maximum calorie count for dishes at the returned restaurants. Must be a whole number (not a float or string). Should be a positive value, as zero or negative values would be logically meaningless and may cause unexpected results or validation failure.\n\n- meal (optional, string): Specifies the meal context for the search, such as breakfast, lunch, or dinner. When omitted, the API likely returns results across all meal types without filtering by meal occasion. Provide a single meaningful meal descriptor as a string; passing an empty string or unrelated text may yield no results or be ignored.\n\nCross-parameter considerations: The ingredients and calories parameters work together to narrow results\u2014restaurants must match on ingredient preferences AND fall within the calorie ceiling. Adding the meal parameter further refines results by meal occasion. There are no known mutual exclusions among parameters.\n\nCommon mistakes to avoid: Omitting the required ingredients or calories parameters will cause a validation error. Passing calories as a string (e.g., \"500\") instead of an integer will fail schema validation. Supplying ingredients as a single string rather than an array of strings is invalid. Ensure the ingredients array is properly formatted with string elements only.",
+        "params": {
+          "ingredients": "A list of ingredients you prefer in the restaurant's dishes.",
+          "calories": "The maximum calorie count you prefer for the restaurant's dishes.",
+          "meal": "Type of the meal for the restaurant's dishes, it's optional and could be breakfast, lunch or dinner. Default 'lunch'"
+        }
+      }
+    }
+  },
+  {
+    "name": "calculate_genotype_frequency",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "allele_frequency",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "genotype",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the frequency of homozygous dominant genotype based on the allele frequency using Hardy Weinberg Principle.",
+        "params": {
+          "allele_frequency": "The frequency of the dominant allele in the population.",
+          "genotype": "The genotype which frequency is needed, default is homozygous dominant. "
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the frequency of homozygous dominant genotype based on the allele frequency using Hardy Weinberg Principle.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the frequency of a homozygous dominant genotype based on allele frequency using the Hardy-Weinberg Principle. Use this API when you need to determine how frequently a specific genotype (homozygous dominant) appears in a population that is in Hardy-Weinberg equilibrium, given a known allele frequency. Do NOT use this API for calculating heterozygous or homozygous recessive genotype frequencies, for populations not in Hardy-Weinberg equilibrium, or for tasks unrelated to population genetics genotype frequency estimation.\n\nParameters:\n\n- allele_frequency (number, required): The frequency of the dominant allele in the population. This value must represent a valid probability, meaning it should be between 0 and 1 inclusive. Under the Hardy-Weinberg Principle, the homozygous dominant genotype frequency is derived by squaring this value (p\u00b2). Providing a value outside the 0\u20131 range will likely result in a validation failure or biologically meaningless output.\n\n- genotype (string, required): Specifies the genotype for which the frequency is to be calculated. Since this API calculates the frequency of the homozygous dominant genotype, this parameter should represent a homozygous dominant genotype designation (e.g., 'AA'). Providing a genotype string that does not correspond to a homozygous dominant configuration may lead to incorrect results or validation errors. The value should be a properly formatted genotype string using standard genetic notation.\n\nCommon mistakes to avoid: Ensure allele_frequency is provided as a decimal proportion (not a percentage). Ensure genotype is passed as a string, not a numeric or other type. Both parameters are required; omitting either will cause a validation failure.",
+        "params": {
+          "allele_frequency": "The frequency of the dominant allele in the population.",
+          "genotype": "The genotype which frequency is needed, default is homozygous dominant. "
+        }
+      }
+    }
+  },
+  {
+    "name": "cellbio_get_proteins",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "cell_compartment",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "include_description",
+        "type": "bool",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the list of proteins in a specific cell compartment.",
+        "params": {
+          "cell_compartment": "The specific cell compartment.",
+          "include_description": "Set true if you want a brief description of each protein."
+        }
+      },
+      "dmin": {
+        "desc": "Get the list of proteins in a specific cell compartment.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves a list of proteins localized to a specified cellular compartment. Use this API when you need to identify or enumerate proteins associated with a particular subcellular location (e.g., nucleus, mitochondria, cytoplasm, endoplasmic reticulum, Golgi apparatus, plasma membrane, lysosome, etc.). Do NOT use this API to search for a specific protein by name, to retrieve general cell biology information unrelated to protein localization, or to query proteins by function, pathway, or other non-compartment criteria.\n\nParameters:\n\n- cell_compartment (string, required): The name of the cellular compartment for which to retrieve associated proteins. This should be a recognized biological term for a subcellular structure or region. Providing an empty string, a misspelled compartment name, or a term that does not correspond to a valid cell compartment will likely result in a validation or lookup failure. Ensure the value is a standard cell biology term referring to a discrete subcellular location.\n\n- include_description (boolean, optional): Controls whether a textual description is included for each protein in the response. When set to true, each protein entry will include descriptive information; when false or omitted, descriptions may be excluded. If not provided, the API will use its default behavior (likely omitting descriptions). Only pass a boolean value; non-boolean types will cause validation errors.\n\nCommon mistakes to avoid: Passing null or an empty string for cell_compartment; using informal or ambiguous terms instead of standard compartment names; providing a non-boolean value for include_description. There are no cross-parameter dependencies\u2014both parameters operate independently.",
+        "params": {
+          "cell_compartment": "The specific cell compartment.",
+          "include_description": "Set true if you want a brief description of each protein."
+        }
+      }
+    }
+  },
+  {
+    "name": "games_reviews_find",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "game",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "region",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find reviews for a specific game.",
+        "params": {
+          "game": "The name of the game.",
+          "region": "The region where the reviews are coming from (optional, default is 'global')"
+        }
+      },
+      "dmin": {
+        "desc": "Find reviews for a specific game.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use this API to retrieve reviews for a specific video game. It is appropriate when a user wants to find, read, or analyze reviews associated with a particular game title. Do not use this API for searching games themselves, retrieving game metadata unrelated to reviews, posting or submitting reviews, or looking up reviews not tied to a specific game.\n\nParameters:\n\n- **game** (string, required): The name or identifier of the game for which reviews are being requested. This must be a non-empty string. Providing a misspelled, incomplete, or unrecognized game name may result in no results or a validation failure. Use the full, commonly recognized title of the game for best results.\n\n- **region** (string, optional): A region filter to scope the reviews to a specific geographic or market region. When omitted, the API will likely return reviews without regional filtering (i.e., all available regions or a default region). The expected format is not explicitly constrained, but typical values would be region codes or region names (e.g., a country code or market identifier). Providing an unrecognized or invalid region string may result in empty results or an error.\n\nValidation considerations:\n- The \"game\" parameter is the only required field. Omitting it or passing an empty string will cause the request to fail.\n- The \"region\" parameter has no dependency on the \"game\" parameter beyond both being part of the same request; however, \"region\" is only meaningful in conjunction with a valid game value.\n- There are no mutually exclusive parameters in this API.\n- Ensure string values are properly formatted and free of extraneous whitespace or special characters that could interfere with matching.",
+        "params": {
+          "game": "The name of the game.",
+          "region": "The region where the reviews are coming from (optional, default is 'global')"
+        }
+      }
+    }
+  },
+  {
+    "name": "capacitance_calculator_calculate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "A",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "d",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "K",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the capacitance of a parallel plate capacitor based on the area, distance and dielectric constant using the equation C = \u03b5\u2080KA/d.",
+        "params": {
+          "A": "The area of one plate of the capacitor in square meters.",
+          "d": "The distance between the two plates in meters.",
+          "K": "The dielectric constant (default is 1.0 for free space, optional)."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the capacitance of a parallel plate capacitor based on the area, distance and dielectric constant using the equation C = \u03b5\u2080KA/d.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the capacitance of a parallel plate capacitor using the formula C = \u03b5\u2080KA/d, where \u03b5\u2080 is the vacuum permittivity (a physical constant handled internally by the API). Use this API when you need to determine the capacitance of a parallel plate capacitor given its physical dimensions and dielectric properties. Do not use this API for non-parallel-plate capacitor geometries (e.g., cylindrical, spherical) or for other electromagnetic calculations unrelated to parallel plate capacitance.\n\nParameters:\n\n- **A** (integer, required): The area of one of the parallel plates. Must be an integer value. Since this represents a physical area, it should be a positive value; providing zero or negative values will likely result in a physically meaningless or invalid result. Note that the schema restricts this to integer type, so fractional area values are not accepted.\n\n- **d** (number, required): The distance (separation) between the two parallel plates. Must be a positive number. A value of zero will cause a division-by-zero error since d appears in the denominator of the formula. Negative values are physically meaningless and should be avoided.\n\n- **K** (number, optional): The dielectric constant (relative permittivity) of the material between the plates. When omitted, the API likely defaults to K = 1, representing a vacuum or air between the plates. The dielectric constant is a dimensionless quantity and should be a positive number greater than or equal to 1 for real physical materials.\n\nCommon validation pitfalls:\n- Setting d to zero will cause a mathematical error (division by zero).\n- Providing A as a floating-point number will fail validation since the schema requires an integer type.\n- Supplying negative values for A, d, or K will produce physically invalid results even if the API does not explicitly reject them.\n- Omitting A or d will fail validation as both are required parameters.\n\nGeneral guidance: All parameters represent physical quantities and should reflect realistic, positive values consistent with the parallel plate capacitor model. The units of the output capacitance depend on the units used for A and d, following SI conventions (square meters for area, meters for distance, yielding farads for capacitance).",
+        "params": {
+          "A": "The area of one plate of the capacitor in square meters.",
+          "d": "The distance between the two plates in meters.",
+          "K": "The dielectric constant (default is 1.0 for free space, optional)."
+        }
+      }
+    }
+  },
+  {
+    "name": "library_reserve_book",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "book_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "branch_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "return_date",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Reserves a book in the library if available.",
+        "params": {
+          "book_id": "The id of the book to reserve.",
+          "branch_id": "The id of the library branch to reserve from.",
+          "return_date": "The date the book is to be returned (optional). Default is ''"
+        }
+      },
+      "dmin": {
+        "desc": "Reserves a book in the library if available.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Reserves a book at a specific library branch if available. Use this API when a user wants to place a reservation or hold on a particular book at a particular branch location. Do not use this API for purchasing books, returning books, canceling existing reservations, renewing loans, or searching for books. This API is specifically for creating a new reservation.\n\nParameters:\n\n- book_id (string, required): The unique identifier of the book to be reserved. Must be a valid book identifier recognized by the library system. An invalid or nonexistent book_id will likely result in a validation failure.\n\n- branch_id (string, required): The unique identifier of the library branch where the reservation should be placed. Must be a valid branch identifier. The book's availability is assessed at this specific branch, so providing an incorrect branch_id may result in a failure if the book is not available at that location.\n\n- return_date (string, optional): The intended or expected return date for the reserved book. When provided, this should be a properly formatted date string (e.g., ISO 8601 format such as YYYY-MM-DD). If omitted, the system likely assigns a default return date based on standard lending policies. Providing a date in the past or an improperly formatted date string will likely cause a validation error.\n\nKey considerations:\n- Both book_id and branch_id must be supplied together for a valid reservation; omitting either will result in a failed request.\n- The reservation will only succeed if the book is currently available at the specified branch. If the book is already checked out or reserved by another patron at that branch, the request may fail.\n- Ensure all string parameters are non-empty and correctly reference existing entities in the library system.\n- The return_date, if provided, should logically fall after the current date and should conform to the date format expected by the system.",
+        "params": {
+          "book_id": "The id of the book to reserve.",
+          "branch_id": "The id of the library branch to reserve from.",
+          "return_date": "The date the book is to be returned (optional). Default is ''"
+        }
+      }
+    }
+  },
+  {
+    "name": "analyze_structure",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "building_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "floors",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Analyze a structure of a building based on its Id and floor numbers.",
+        "params": {
+          "building_id": "The unique identification number of the building.",
+          "floors": "Floor numbers to be analyzed.",
+          "mode": "Mode of analysis, e.g. 'static' or 'dynamic'. Default is 'static'."
+        }
+      },
+      "dmin": {
+        "desc": "Analyze a structure of a building based on its Id and floor numbers.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "analyze_structure performs a structural analysis of a building given its identifier and a set of floors to evaluate. Use this API when you need to assess, inspect, or retrieve structural analysis results for one or more floors within a specific building. Do not use this API for non-building structures, for operations unrelated to structural analysis (such as modifying building data, managing tenants, or retrieving general building metadata), or when you lack a valid building identifier.\n\nParameters:\n\n- building_id (string, required): The unique identifier of the building to analyze. Must be a non-empty string. Passing a null, empty, or invalid identifier will result in a validation failure or a not-found error.\n\n- floors (array of strings, required): A list of floor identifiers specifying which floors of the building to include in the analysis. Each element must be a string representing a floor (e.g., floor numbers or labels expressed as strings). The array must contain at least one element; providing an empty array is likely to cause a validation failure. Ensure each floor identifier corresponds to a valid floor within the specified building, as referencing nonexistent floors may produce errors.\n\n- mode (string, optional): Controls the type or depth of structural analysis to perform. When omitted, the API will use its default analysis mode. If provided, the value should be a recognized analysis mode string; supplying an unrecognized mode will likely result in a validation error.\n\nCommon mistakes to avoid: Passing numeric types instead of strings for building_id or floor entries; providing an empty floors array; omitting the required building_id or floors parameters; and supplying floor identifiers that do not belong to the specified building. All floor values must be strings even if they represent numeric floor numbers. The building_id and floors parameters work together \u2014 the floors must be valid within the context of the given building_id.",
+        "params": {
+          "building_id": "The unique identification number of the building.",
+          "floors": "Floor numbers to be analyzed.",
+          "mode": "Mode of analysis, e.g. 'static' or 'dynamic'. Default is 'static'."
+        }
+      }
+    }
+  },
+  {
+    "name": "stock_forecast",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "company",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "days",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "model",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Predict the future stock price for a specific company and time frame.",
+        "params": {
+          "company": "The company that you want to get the stock price prediction for.",
+          "days": "Number of future days for which to predict the stock price.",
+          "model": "The model to use for prediction. Default 'regression'"
+        }
+      },
+      "dmin": {
+        "desc": "Predict the future stock price for a specific company and time frame.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use the stock_forecast API to generate a predicted future stock price trajectory for a specified company over a given number of days. This API is appropriate when a user needs forward-looking price estimates or forecasts for a particular company's stock. Do not use this API for retrieving historical stock data, current real-time prices, non-stock financial instruments, or general company information unrelated to stock price prediction.\n\nParameters:\n\n- company (string, required): The identifier of the company whose stock price should be forecasted. This should be a recognizable company name or ticker symbol. Must be a non-empty string. Providing an unrecognizable, misspelled, or empty string will likely result in a validation or lookup failure.\n\n- days (integer, required): The number of days into the future for which the stock price forecast should be generated. Must be a positive integer. A value of zero or a negative number is invalid since a forecast requires at least one future day. Non-integer values (e.g., decimals or strings) will fail type validation.\n\n- model (string, optional): Specifies the forecasting model or algorithm to use for generating the prediction. When omitted, the API will use a default forecasting model. If provided, the value should correspond to a supported model identifier; supplying an unsupported or misspelled model name will likely cause a validation error.\n\nGeneral guidance:\n- Both required parameters (company and days) must always be supplied together; omitting either will result in a request failure.\n- Ensure parameter types strictly match the schema: company must be a string, days must be an integer, and model (if provided) must be a string.\n- Very large values for days may reduce forecast reliability or exceed supported limits.\n- The model parameter, when used, controls the forecasting methodology but does not change the required inputs; it refines how the prediction is computed rather than what is predicted.",
+        "params": {
+          "company": "The company that you want to get the stock price prediction for.",
+          "days": "Number of future days for which to predict the stock price.",
+          "model": "The model to use for prediction. Default 'regression'"
+        }
+      }
+    }
+  },
+  {
+    "name": "sports_ranking_get_current",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "team",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "league",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "season",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve the current ranking of a specific team in a particular league.",
+        "params": {
+          "team": "The name of the team whose ranking is sought.",
+          "league": "The league in which the team participates.",
+          "season": "The season for which the ranking is sought. Defaults to the current season if not provided."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve the current ranking of a specific team in a particular league.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use this API to retrieve the current ranking (standing/position) of a specific team within a particular league. This is appropriate when a user asks about a team's current standing, position, or rank in a known league. It is NOT appropriate for retrieving historical final standings (unless combined with the season parameter), match results, player statistics, schedules, or information unrelated to team rankings. It should not be used when the team or league is unknown or unspecified.\n\nParameters:\n\n- **team** (string, required): The name or identifier of the team whose ranking is being requested. Must be a non-empty string. The value should correspond to a recognized team within the specified league. Providing a team name that does not exist or is not part of the given league will likely result in a validation or not-found error. Avoid abbreviations or nicknames that may be ambiguous; use the team's official or commonly recognized name.\n\n- **league** (string, required): The name or identifier of the league in which to look up the team's ranking. Must be a non-empty string. The value should reference a valid, recognized league. The team specified must be a participant in this league; mismatches between team and league will likely cause errors or empty results.\n\n- **season** (string, optional): The season for which to retrieve the ranking. When omitted, the API defaults to the current or most recent season. If provided, it should follow the expected season format for the given league (e.g., a year or year range). Providing an invalid or non-existent season value will likely result in a validation error. This parameter is useful when the user wants rankings from a specific season rather than the present one.\n\nCross-parameter considerations: The team must belong to the specified league. If the team is not a member of the given league (or was not a member during the specified season), the API will likely return an error or no results. When season is provided, ensure the team participated in that league during that season.\n\nCommon mistakes to avoid: Passing empty strings for required parameters; misspelling team or league names; specifying a season in an incorrect format; querying a team-league combination where the team is not a participant.",
+        "params": {
+          "team": "The name of the team whose ranking is sought.",
+          "league": "The league in which the team participates.",
+          "season": "The season for which the ranking is sought. Defaults to the current season if not provided."
+        }
+      }
+    }
+  },
+  {
+    "name": "getTopAssists",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "competition",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "team",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "number",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Returns the top assist makers for a specific competition and team",
+        "params": {
+          "competition": "The name of the competition (for example, 'UEFA Champions League').",
+          "team": "The name of the team (for example, 'Barcelona').",
+          "number": "The number of top assist makers to retrieve."
+        }
+      },
+      "dmin": {
+        "desc": "Returns the top assist makers for a specific competition and team",
+        "params": {}
+      },
+      "drich": {
+        "desc": "getTopAssists retrieves a ranked list of the top assist providers for a given team within a specific competition. Use this API when you need to find out which players on a particular team have recorded the most assists in a specified competition, such as a league or tournament. Do not use this API if you need assist statistics across all competitions or across all teams within a competition; both a specific competition and a specific team must be provided. This API is not suitable for retrieving other player statistics such as goals, minutes played, or disciplinary records.\n\nParameters:\n\n- competition (string, required): The identifier or name of the competition (e.g., a league or tournament name/code). Must be a non-empty string. Providing an empty string or a competition that does not exist will likely result in a validation or not-found error.\n\n- team (string, required): The identifier or name of the team whose top assist makers you want to retrieve. Must be a non-empty string. The team must be a participant in the specified competition; otherwise, the request will likely fail or return no results.\n\n- number (integer, required): The number of top assist makers to return. This controls the size of the result list. Must be a positive integer (1 or greater). Providing zero, a negative value, or a non-integer will likely cause a validation error. If the requested number exceeds the total number of players on the team who have recorded assists, the API will likely return all available results up to that count.\n\nAll three parameters are required; omitting any one of them will result in a validation error. The competition and team parameters are cross-dependent: the team must belong to the specified competition for meaningful results. Ensure that the competition and team values match the expected identifiers or naming conventions used by the underlying data source to avoid lookup failures.",
+        "params": {
+          "competition": "The name of the competition (for example, 'UEFA Champions League').",
+          "team": "The name of the team (for example, 'Barcelona').",
+          "number": "The number of top assist makers to retrieve."
+        }
+      }
+    }
+  },
+  {
+    "name": "european_history_battle_details",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "battle",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get details of a specific historical European battle.",
+        "params": {
+          "battle": "Name of the battle"
+        }
+      },
+      "dmin": {
+        "desc": "Get details of a specific historical European battle.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves detailed information about a specific historical battle that took place in Europe. Use this API when you need facts, context, or details about a known European battle, such as participants, dates, outcomes, or significance. Do not use this API for battles outside of Europe, for general European history queries unrelated to battles, or for listing/searching battles \u2014 it is designed to return details for a single, specifically identified battle.\n\nParameters:\n\n- **battle** (string, required): The name of the European battle to look up. This should be a recognizable historical battle name (e.g., a proper noun or commonly known title of the battle). The value must be a non-empty string. Providing vague, overly broad, or non-battle terms is likely to result in validation failure or no results. Ensure the battle name refers to a battle that occurred in Europe; battles from other continents are outside the scope of this API. Use the conventional or widely accepted English name of the battle to maximize the likelihood of a successful match.",
+        "params": {
+          "battle": "Name of the battle"
+        }
+      }
+    }
+  },
+  {
+    "name": "hotel_booking",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "room_type",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "start_date",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "preferences",
+        "type": "list[str]",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Books a hotel room given the location, room type, stay duration and any additional preferences.",
+        "params": {
+          "location": "The city where you want to book the hotel.",
+          "room_type": "Type of the room required. Options: 'single', 'double', 'deluxe', etc.",
+          "duration": "The number of nights you want to book the hotel for.",
+          "start_date": "The date when your stay begins.",
+          "preferences": "Optional preferences of stay at the hotel. Default is empty array."
+        }
+      },
+      "dmin": {
+        "desc": "Books a hotel room given the location, room type, stay duration and any additional preferences.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "hotel_booking: Use this API to book a hotel room when a user requests accommodation at a specific location for a defined period. This API handles the reservation of hotel rooms given a location, room type, stay duration, start date, and optional guest preferences. Do NOT use this API for searching or comparing hotels without intent to book, canceling or modifying existing reservations, or booking non-hotel accommodations such as flights, car rentals, or vacation rentals.\n\nParameters:\n\n- location (string, required): The destination or area where the hotel room should be booked. Must be a non-empty string representing a recognizable geographic location such as a city name, city with country, or an address. Ambiguous or empty values will likely cause validation failure.\n\n- room_type (string, required): The category of hotel room to reserve (e.g., single, double, suite, deluxe). Must be a non-empty string. The value should correspond to a standard hotel room classification. Providing an unrecognized or empty room type will likely result in a booking failure.\n\n- duration (integer, required): The number of nights for the hotel stay. Must be a positive integer (1 or greater). Providing zero, negative values, or non-integer types (such as a decimal or string) will fail validation.\n\n- start_date (string, required): The check-in date for the hotel stay. Must be a string representing a valid date. Use a standard date format such as ISO 8601 (YYYY-MM-DD) to avoid parsing errors. The date should logically be a current or future date; past dates will likely be rejected. The end date of the stay is implicitly determined by start_date plus duration, so no separate end date parameter is needed or accepted.\n\n- preferences (array of strings, optional): A list of additional guest preferences or special requests for the stay, such as accessibility needs, bed configuration, floor level, or amenities. Each item must be a string. If omitted, no special preferences are applied. An empty array is acceptable and equivalent to no preferences. Avoid passing non-string items within the array as this will fail validation.\n\nCross-parameter considerations: The duration and start_date together define the full booking window. Ensure that the duration is consistent with the intended stay relative to the start_date. The room_type should be appropriate and available for the specified location; mismatches between location and room_type availability may cause booking failure. Preferences should be relevant to the chosen room_type and location.\n\nCommon validation pitfalls: Omitting any of the four required parameters will cause the request to fail. Passing duration as a string instead of an integer is a frequent mistake. Using non-standard or ambiguous date formats for start_date may lead to parsing errors. Ensure location is specific enough to resolve to a bookable destination.",
+        "params": {
+          "location": "The city where you want to book the hotel.",
+          "room_type": "Type of the room required. Options: 'single', 'double', 'deluxe', etc.",
+          "duration": "The number of nights you want to book the hotel for.",
+          "start_date": "The date when your stay begins.",
+          "preferences": "Optional preferences of stay at the hotel. Default is empty array."
+        }
+      }
+    }
+  },
+  {
+    "name": "find_flute",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "brand",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "specs",
+        "type": "list[str]",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Locate a flute for sale based on specific requirements.",
+        "params": {
+          "brand": "The brand of the flute. Example, 'Yamaha'",
+          "specs": "The specifications of the flute desired."
+        }
+      },
+      "dmin": {
+        "desc": "Locate a flute for sale based on specific requirements.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use find_flute to search for flutes available for sale when a user specifies a brand and one or more desired specifications. This API is designed exclusively for locating flutes; do not use it for other musical instruments, accessories, or general product searches unrelated to flutes.\n\nParameters:\n\n- brand (string, required): The brand or manufacturer name of the flute to search for. Must be a non-empty string. Providing an empty string or omitting this parameter will result in a validation failure.\n\n- specs (array of strings, required): A list of specific requirements or characteristics desired in the flute, such as material, key type, level (beginner, intermediate, professional), finish, or other technical attributes. Each element in the array must be a string. The array must be provided and should contain at least one specification string; passing an empty array may yield no meaningful results or cause a validation error. Avoid passing non-string values within the array, as this will fail type validation.\n\nBoth parameters are required. Omitting either brand or specs will result in a validation error. There are no optional parameters or default values; the caller must supply both explicitly.\n\nCommon mistakes to avoid:\n- Omitting the specs array or passing it as a single string instead of an array of strings.\n- Providing null or non-string values for brand.\n- Including non-string elements within the specs array.\n\nThe two parameters work together: brand narrows the search to a specific manufacturer, while specs further filters results by the desired characteristics. There are no mutual exclusions between parameters; both must always be provided together.",
+        "params": {
+          "brand": "The brand of the flute. Example, 'Yamaha'",
+          "specs": "The specifications of the flute desired."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_protein_sequence",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "gene",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "species",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve the protein sequence encoded by a human gene.",
+        "params": {
+          "gene": "The human gene of interest.",
+          "species": "The species for which the gene is to be analyzed."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve the protein sequence encoded by a human gene.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the protein sequence encoded by a specified gene. Use this API when you need to obtain the amino acid sequence of a protein product associated with a known gene name. Do not use this API for nucleotide sequences, gene expression data, protein structure information, or non-protein-coding genes. This API is not suitable for retrieving sequences by protein name or accession number; the query must be based on a gene identifier.\n\nParameters:\n\n- gene (string, required): The name or identifier of the gene whose encoded protein sequence is to be retrieved. Must be a non-empty string representing a valid gene symbol or identifier (e.g., standard gene nomenclature such as HGNC symbols for human genes). Providing an unrecognized or misspelled gene name will likely result in a validation or lookup failure. Gene names are typically uppercase alphanumeric strings; ensure correct capitalization and formatting conventions for the target organism.\n\n- species (string, optional): The species from which the gene's protein sequence should be retrieved. When omitted, the API defaults to human, consistent with the baseline purpose of retrieving protein sequences encoded by human genes. If provided, the value should be a recognized species name or identifier (e.g., common name or standard taxonomic name). Supplying an unrecognized species string will likely cause a validation failure. Use this parameter only when you need the protein sequence from a non-human organism or want to explicitly specify the organism for clarity.\n\nCross-parameter considerations: The gene name must be valid within the context of the specified (or default) species. A gene name that exists in one species may not exist in another, so ensure the gene-species combination is biologically valid. If the species is changed from the default, verify that the gene identifier corresponds to nomenclature conventions used for that organism.\n\nCommon mistakes to avoid: Do not pass empty strings for the gene parameter. Do not confuse protein names or accession numbers with gene names. Do not assume gene symbols are universal across species without verification.",
+        "params": {
+          "gene": "The human gene of interest.",
+          "species": "The species for which the gene is to be analyzed."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_shortest_driving_distance",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "origin",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "destination",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "unit",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the shortest driving distance between two locations.",
+        "params": {
+          "origin": "Starting point of the journey.",
+          "destination": "End point of the journey.",
+          "unit": "Preferred unit of distance (optional, default is kilometers)."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the shortest driving distance between two locations.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculates the shortest driving distance between two locations. Use this API when you need to determine the optimal driving distance (not walking, cycling, flying, or straight-line/geodesic distance) between a specified origin and destination. Do not use this API for non-driving modes of transport, for calculating travel time, or for route planning beyond distance measurement.\n\nParameters:\n\n- origin (string, required): The starting location for the driving distance calculation. Should be a clearly identifiable location such as a full address, city name, or well-known landmark. Ambiguous or empty strings will likely cause validation failures.\n\n- destination (string, required): The ending location for the driving distance calculation. Should follow the same formatting guidelines as origin. Must differ meaningfully from origin to produce a useful result.\n\n- unit (string, optional): The unit of measurement for the returned distance. When omitted, the API will use its default unit (likely miles or kilometers depending on the service's default behavior). Typical valid values are standard distance units such as \"miles\", \"km\", or \"meters\". Providing an unrecognized or non-distance unit string will likely result in a validation error.\n\nCommon issues to avoid:\n- Do not pass empty strings for origin or destination, as both are required and must resolve to valid locations.\n- Ensure origin and destination represent locations that are reachable by road; locations separated by bodies of water with no driving route (e.g., different continents without a land connection) may result in an error or no result.\n- Do not confuse this API with one that returns travel time, route directions, or multi-stop itineraries; it returns only the shortest driving distance between exactly two points.\n- If specifying a unit, ensure it is a recognized distance measurement string to avoid rejection.",
+        "params": {
+          "origin": "Starting point of the journey.",
+          "destination": "End point of the journey.",
+          "unit": "Preferred unit of distance (optional, default is kilometers)."
+        }
+      }
+    }
+  },
+  {
+    "name": "group_dynamics_pattern",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "total",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "extroverts",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "introverts",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Examine the social dynamics and interactions within a group based on the personality traits and group size.",
+        "params": {
+          "total": "The total group size.",
+          "extroverts": "The number of extroverted members in the group.",
+          "introverts": "The number of introverted members in the group."
+        }
+      },
+      "dmin": {
+        "desc": "Examine the social dynamics and interactions within a group based on the personality traits and group size.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "group_dynamics_pattern analyzes social dynamics and interactions within a group based on personality traits (extroversion and introversion) and group size. Use this API when you need to understand, predict, or evaluate interpersonal interaction patterns within a defined group where the personality composition (extroverts vs. introverts) is known. Do not use this API for individual personality assessment, for groups where personality trait data is unavailable, or for analyzing dynamics based on traits other than extroversion and introversion.\n\nParameters:\n\n- total (integer, required): The total number of individuals in the group. Must be a positive integer representing the full group size. This value should logically equal or exceed the sum of extroverts and introverts, since every counted personality type member is part of the total group.\n\n- extroverts (integer, required): The number of extroverted individuals in the group. Must be a non-negative integer and cannot exceed the total group size.\n\n- introverts (integer, required): The number of introverted individuals in the group. Must be a non-negative integer and cannot exceed the total group size.\n\nCross-parameter constraints: The sum of extroverts and introverts should not exceed total. If total is less than the combined count of extroverts and introverts, the request is logically inconsistent and will likely fail validation. The difference between total and the sum of extroverts and introverts may implicitly represent individuals whose personality classification is neutral or unspecified.\n\nCommon validation failures and how to avoid them: Ensure all three parameters are provided, as they are all required. Supply integer values only; floating-point numbers, strings, or null values will be rejected. Avoid negative values for any parameter. Always verify that extroverts + introverts <= total to maintain logical consistency. A total of zero with nonzero extroverts or introverts is contradictory and should be avoided.",
+        "params": {
+          "total": "The total group size.",
+          "extroverts": "The number of extroverted members in the group.",
+          "introverts": "The number of introverted members in the group."
+        }
+      }
+    }
+  },
+  {
+    "name": "weather_get_by_city_date",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "city",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieves the historical weather data based on city and date.",
+        "params": {
+          "city": "The city for which to retrieve the weather.",
+          "date": "The date for which to retrieve the historical weather data in the format YYYY-MM-DD."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieves the historical weather data based on city and date.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves historical weather data for a specified city and date. Use this API when you need to look up past weather conditions (such as temperature, precipitation, or other meteorological data) for a particular city on a specific date. Do not use this API for weather forecasts or future dates, as it is designed for historical data retrieval. Do not use this API if you lack either the city name or the date, as both are required.\n\nParameters:\n\n- city (string, required): The name of the city for which to retrieve historical weather data. Must be a non-empty string representing a valid city name. Ensure correct spelling and use the commonly recognized name of the city to avoid lookup failures. Ambiguous or misspelled city names are likely to result in validation errors or incorrect results.\n\n- date (string, required): The date for which to retrieve historical weather data. Must be a non-empty string representing a date in the past. Use a standard date format such as ISO 8601 (YYYY-MM-DD) to avoid parsing errors. Providing a future date is likely to result in a validation failure or empty results, since this API serves historical data only.\n\nBoth parameters must be provided together; omitting either will result in a validation error. There are no optional parameters or default values. The city and date are independent of each other\u2014any valid city can be paired with any valid historical date. Common mistakes include supplying dates in non-standard formats, using abbreviations or postal codes instead of city names, or requesting data for future dates.",
+        "params": {
+          "city": "The city for which to retrieve the weather.",
+          "date": "The date for which to retrieve the historical weather data in the format YYYY-MM-DD."
+        }
+      }
+    }
+  },
+  {
+    "name": "search_direct_flight",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "tau2:airline",
+    "params": [
+      {
+        "name": "origin",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "destination",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Search for direct flights between two cities on a specific date.",
+        "params": {
+          "origin": "The origin city airport in three letters, such as 'JFK'.",
+          "destination": "The destination city airport in three letters, such as 'LAX'.",
+          "date": "The date of the flight in the format 'YYYY-MM-DD', such as '2024-01-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Search for direct flights between two cities on a specific date.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Searches for direct (non-stop) flights between two cities on a specific date. Use this API when a user needs to find flights that travel directly from an origin city to a destination city without any layovers or connections on a particular date. Do NOT use this API when searching for connecting or multi-leg flights, round-trip itineraries, flexible date ranges, or when the user does not have a specific date in mind.\n\nParameters:\n\n- origin (string, required): The origin city or airport code from which the flight departs. Must be a non-empty string. Ensure the value clearly identifies a single city or airport; ambiguous or misspelled values are likely to cause validation failures or empty results.\n\n- destination (string, required): The destination city or airport code where the flight arrives. Must be a non-empty string and must differ from the origin. Providing the same value for origin and destination will likely result in a validation error or no results.\n\n- date (string, required): The date on which to search for flights. Must be a non-empty string representing a valid calendar date. Use a standard date format such as YYYY-MM-DD to avoid parsing errors. Past dates may return no results or cause validation failures; ensure the date is a current or future date when searching for bookable flights.\n\nAll three parameters are required; omitting any one of them will result in a validation error. There are no optional parameters or default values. Common mistakes include swapping origin and destination, using invalid or ambiguous city/airport identifiers, providing dates in non-standard formats, or supplying past dates.",
+        "params": {
+          "origin": "The origin city airport in three letters, such as 'JFK'.",
+          "destination": "The destination city airport in three letters, such as 'LAX'.",
+          "date": "The date of the flight in the format 'YYYY-MM-DD', such as '2024-01-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "calculate_fitness",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "trait_values",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "trait_contributions",
+        "type": "list[str]",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the expected evolutionary fitness of a creature based on the individual values and contributions of its traits.",
+        "params": {
+          "trait_values": "List of trait values, which are decimal numbers between 0 and 1, where 1 represents the trait maximally contributing to fitness.",
+          "trait_contributions": "List of the percentage contributions of each trait to the overall fitness, which must sum to 1."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the expected evolutionary fitness of a creature based on the individual values and contributions of its traits.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Calculate the expected evolutionary fitness of a creature by evaluating its traits and their respective contributions to overall fitness. Use this API when you need to quantify or compare the evolutionary fitness of organisms based on a set of measurable traits and how much each trait contributes to fitness. Do not use this API for non-evolutionary fitness calculations (e.g., physical exercise fitness), for evaluating fitness without knowing both trait values and their contributions, or for scenarios where traits cannot be expressed as string-encoded values.\n\nParameters:\n\n- trait_values (array of strings, required): The individual values of each trait belonging to the creature. Each element represents a single trait's value encoded as a string (e.g., numeric values represented as strings). The array must be provided and should contain at least one entry to produce a meaningful result.\n\n- trait_contributions (array of strings, required): The contribution weight or factor of each corresponding trait toward the creature's overall evolutionary fitness, encoded as strings. Each element represents how much the trait at the same index in trait_values contributes to fitness.\n\nCross-parameter dependencies: The trait_values and trait_contributions arrays are positionally paired \u2014 the element at index N in trait_values corresponds to the element at index N in trait_contributions. Both arrays should have the same length; a mismatch in array lengths will likely cause a validation or computation error since each trait value requires a corresponding contribution and vice versa.\n\nCommon pitfalls and validation considerations:\n- Both parameters are required; omitting either will result in a validation failure.\n- Array elements must be strings. Passing numeric types directly instead of string-encoded values will fail schema validation.\n- Ensure both arrays are of equal length to maintain correct trait-to-contribution mapping.\n- Empty arrays, while technically valid per the schema, may produce meaningless or zero fitness results.\n- The order of elements matters: reordering one array without correspondingly reordering the other will produce incorrect fitness calculations.",
+        "params": {
+          "trait_values": "List of trait values, which are decimal numbers between 0 and 1, where 1 represents the trait maximally contributing to fitness.",
+          "trait_contributions": "List of the percentage contributions of each trait to the overall fitness, which must sum to 1."
+        }
+      }
+    }
+  },
+  {
+    "name": "unit_conversion_convert",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "value",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "from_unit",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "to_unit",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Convert a value from one unit to another.",
+        "params": {
+          "value": "The value to be converted.",
+          "from_unit": "The unit to convert from.",
+          "to_unit": "The unit to convert to."
+        }
+      },
+      "dmin": {
+        "desc": "Convert a value from one unit to another.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Converts a numeric value from one unit of measurement to another. Use this API when a quantity expressed in one unit needs to be re-expressed in a different unit (e.g., length, weight, temperature, volume, speed, or other measurable dimensions). Do NOT use this API for currency conversion, data format transformation, or any operation that is not a unit-of-measurement conversion.\n\nParameters:\n\n- value (number, required): The numeric quantity to convert. Must be a valid number (integer or decimal). Ensure the value is meaningful for the given unit context; for example, certain physical units may not accept negative values, though the API accepts any number.\n\n- from_unit (string, required): The source unit of measurement that the value is currently expressed in. Must be a non-empty string representing a recognized unit identifier (e.g., 'kg', 'miles', 'celsius'). The unit string must be valid and supported by the conversion system; providing an unrecognized or misspelled unit will likely result in a validation error.\n\n- to_unit (string, required): The target unit of measurement to convert the value into. Must be a non-empty string representing a recognized unit identifier. The to_unit must be dimensionally compatible with from_unit (e.g., both must represent length, or both must represent mass). Attempting to convert between incompatible dimensions (e.g., kilograms to meters) will likely fail.\n\nCross-parameter constraints:\n- from_unit and to_unit must belong to the same measurement dimension. The API cannot convert across unrelated physical quantities.\n- from_unit and to_unit should differ; while converting a unit to itself is technically valid, it is unnecessary and always returns the original value.\n\nCommon mistakes to avoid:\n- Passing an empty string for from_unit or to_unit.\n- Using ambiguous, abbreviated, or misspelled unit names that the system cannot resolve.\n- Attempting cross-dimension conversions (e.g., time to distance) which are physically meaningless.\n- Omitting any of the three required parameters; all three must be provided for a valid request.",
+        "params": {
+          "value": "The value to be converted.",
+          "from_unit": "The unit to convert from.",
+          "to_unit": "The unit to convert to."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_historical_GDP",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "country",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "start_year",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "end_year",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve historical GDP data for a specific country and time range.",
+        "params": {
+          "country": "The country for which the historical GDP data is required.",
+          "start_year": "Starting year of the period for which GDP data is required.",
+          "end_year": "Ending year of the period for which GDP data is required."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve historical GDP data for a specific country and time range.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves historical GDP data for a specific country over a defined time range. Use this API when you need to look up GDP figures for a particular country across one or more years in the past. This API is appropriate for historical economic data retrieval and analysis tasks involving GDP. Do not use this API for forecasting or projecting future GDP, retrieving non-GDP economic indicators, or obtaining real-time or current GDP estimates that have not yet been finalized as historical data.\n\nParameters:\n\n- **country** (string, required): The name of the country for which to retrieve GDP data. Must be a non-empty string representing a valid, recognized country name. Ensure correct spelling and use the conventional English name of the country. Common mistakes include using country codes (e.g., 'US') instead of full country names, or misspelling the country name, which will likely result in a validation or lookup failure.\n\n- **start_year** (integer, required): The beginning year of the desired time range (inclusive). Must be an integer representing a valid calendar year. This should refer to a year in the historical past for which GDP data is available. Do not use decimal or string representations of the year.\n\n- **end_year** (integer, required): The ending year of the desired time range (inclusive). Must be an integer representing a valid calendar year. This value should be greater than or equal to start_year; providing an end_year earlier than start_year is logically invalid and will likely cause an error or return empty results.\n\nAll three parameters are required; omitting any one of them will result in a validation failure.\n\nCross-parameter constraints: start_year and end_year together define the query range and must form a valid chronological interval (start_year <= end_year). Both years should fall within the range of historically available GDP data for the specified country. Requesting years for which no data has been recorded (e.g., years far in the past before GDP tracking began, or future years) may result in empty or error responses.\n\nCommon validation failures to avoid: passing non-integer values for year parameters, leaving any required parameter unset, providing an end_year that precedes start_year, using an unrecognized or misspelled country name, or requesting a time range that extends beyond available historical records.",
+        "params": {
+          "country": "The country for which the historical GDP data is required.",
+          "start_year": "Starting year of the period for which GDP data is required.",
+          "end_year": "Ending year of the period for which GDP data is required."
+        }
+      }
+    }
+  },
+  {
+    "name": "calculate_neuronal_activity",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "input_synaptic_rate",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "weight",
+        "type": "float",
+        "required": false
+      },
+      {
+        "name": "decay_rate",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the neuronal activity (rate of firing) based on a given input synaptic rate, weight of inputs, and decay rate. Higher input or weight increases firing rate and higher decay rate decreases it.",
+        "params": {
+          "input_synaptic_rate": "The synaptic input rate, usually represented as number of inputs per second.",
+          "weight": "The weight of the input, denoting its influence on the neuron's state. Default is 1.0.",
+          "decay_rate": "The rate at which the neuron's potential decays in the absence of inputs."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the neuronal activity (rate of firing) based on a given input synaptic rate, weight of inputs, and decay rate.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "calculate_neuronal_activity computes the neuronal firing rate based on synaptic input characteristics and signal decay. Use this API when you need to model or estimate the rate of neuronal firing given known synaptic input rates, optional input weights, and a decay rate. It is appropriate for computational neuroscience tasks involving single-neuron activity estimation. Do not use this API for modeling network-level dynamics, multi-neuron interactions, spatial propagation of signals, or any non-neuronal computation.\n\nParameters:\n\n- input_synaptic_rate (integer, required): The rate of incoming synaptic signals to the neuron. Must be an integer. Higher values increase the computed firing rate. Must be zero or positive, as a negative synaptic input rate is not physically meaningful. Since this is typed as integer, providing a floating-point number will likely cause a validation error.\n\n- decay_rate (number, required): The rate at which neuronal activity decays over time. Higher decay rates reduce the computed firing rate. Must be a number (integer or floating-point). A decay rate of zero would likely cause a division-by-zero or degenerate result, so a positive value should always be provided. Negative values are not physically meaningful and should be avoided.\n\n- weight (number, optional): The weight or strength applied to the synaptic inputs. Higher weight values amplify the effect of the input synaptic rate, increasing the firing rate. When omitted, the API likely applies a default weight of 1.0 (neutral weighting), meaning inputs are taken at face value. Can be an integer or floating-point number. A weight of zero would nullify the input signal entirely.\n\nCross-parameter considerations: The firing rate is positively influenced by both input_synaptic_rate and weight, and negatively influenced by decay_rate. When weight is omitted, the output depends solely on input_synaptic_rate and decay_rate. Ensure that decay_rate is not set so high relative to the input parameters that the resulting firing rate becomes negligibly small or zero, unless that is the intended modeling outcome.\n\nCommon validation failures to avoid: Passing a float for input_synaptic_rate instead of an integer; omitting either of the two required parameters (input_synaptic_rate or decay_rate); providing string values instead of numeric types; setting decay_rate to zero, which may produce undefined or erroneous results.",
+        "params": {
+          "input_synaptic_rate": "The synaptic input rate, usually represented as number of inputs per second.",
+          "weight": "The weight of the input, denoting its influence on the neuron's state. Default is 1.0.",
+          "decay_rate": "The rate at which the neuron's potential decays in the absence of inputs."
+        }
+      }
+    }
+  },
+  {
+    "name": "population_genetics_calculate_ne",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "species",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "generations",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "probability",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the effective population size necessary to maintain genetic diversity in a wild animal population for a specified number of generations with a given probability.",
+        "params": {
+          "species": "The species of wild animal.",
+          "generations": "The number of generations for which to maintain the genetic diversity.",
+          "probability": "The probability of maintaining genetic diversity."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the effective population size necessary to maintain genetic diversity in a wild animal population for a specified number of generations with a given probability.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "population_genetics_calculate_ne computes the minimum effective population size (Ne) required to sustain genetic diversity in a wild animal population over a defined number of generations at a specified confidence probability.\n\nWhen to use: Use this API when you need to determine how large an effective breeding population must be to preserve genetic diversity over future generations with a quantified level of certainty. Typical use cases include conservation planning, species recovery programs, wildlife management decisions, and population viability analyses for wild animal species.\n\nWhen NOT to use: Do not use this API for domesticated or captive-bred populations, for calculating census population size (as opposed to effective population size), for modeling genetic drift without a diversity-maintenance goal, or for tasks unrelated to population genetics such as demographic projections, habitat modeling, or disease epidemiology.\n\nParameters:\n\n- species (string, required): The name of the wild animal species for which the effective population size is being calculated. This should be a recognizable species name (common name or scientific binomial). An empty string or a nonsensical value is likely to cause a validation failure. The species must be a wild animal; providing plant species, domesticated animals, or non-organism strings will likely produce invalid or meaningless results.\n\n- generations (integer, required): The number of future generations over which genetic diversity should be maintained. Must be a positive integer (1 or greater). Supplying zero, negative values, or non-integer numbers (e.g., fractional generations) will likely result in a validation error. Larger values represent longer-term conservation horizons and will generally yield larger required effective population sizes.\n\n- probability (number, required): The desired probability (confidence level) that genetic diversity will be maintained over the specified number of generations. This value should be expressed as a number between 0 and 1 (exclusive), where values closer to 1 represent higher confidence. Supplying 0, 1, negative numbers, or values greater than 1 will likely cause a validation failure. Higher probability values will result in larger required effective population sizes.\n\nCross-parameter considerations: The three parameters work together to define the conservation scenario. The required effective population size increases as either the number of generations or the probability increases. All three parameters are required; omitting any one will result in a request failure.\n\nCommon mistakes to avoid: Passing probability as a percentage (e.g., 95 instead of 0.95); providing generations as a floating-point number rather than an integer; using species names that refer to non-wild-animal organisms; supplying boundary values of exactly 0 or 1 for probability.",
+        "params": {
+          "species": "The species of wild animal.",
+          "generations": "The number of generations for which to maintain the genetic diversity.",
+          "probability": "The probability of maintaining genetic diversity."
+        }
+      }
+    }
+  },
+  {
+    "name": "perform_string_reverse",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "input_string",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Reverses a given string.",
+        "params": {
+          "input_string": "The string to be reversed."
+        }
+      },
+      "dmin": {
+        "desc": "Reverses a given string.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Reverses a given string, returning the characters in the opposite order from the input. Use this API when you need to reverse the sequence of characters in a string, such as for palindrome checks, text manipulation, or any scenario requiring character order inversion. Do not use this API for sorting, searching, encoding, or any transformation other than simple character-order reversal. This API operates on the entire input string as a single unit and does not perform word-level or sentence-level reversal.\n\nParameters:\n- input_string (string, required): The string to be reversed. Must be provided and must be of type string. An empty string is a valid input and will return an empty string. Passing a non-string type (e.g., number, array, object, null) will result in a validation failure. Ensure the value is explicitly a string; numeric or boolean values must be converted to their string representation before being passed.\n\nCommon validation failures:\n- Omitting input_string entirely will fail since it is required.\n- Providing a non-string value for input_string will fail type validation.\n\nThis API has a single parameter with no cross-parameter dependencies or optional fields. Every call must include input_string as a properly typed string value.",
+        "params": {
+          "input_string": "The string to be reversed."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_sound_wave",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "frequency",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "wave_type",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "This function is for generating a sinusoidal sound wave file of a certain frequency for a specific duration and save it to a WAV file.",
+        "params": {
+          "frequency": "The frequency of the sound wave in Hz.",
+          "duration": "The duration of the sound in seconds.",
+          "wave_type": "The waveform to be used to generate the sound."
+        }
+      },
+      "dmin": {
+        "desc": "This function is for generating a sinusoidal sound wave file of a certain frequency for a specific duration and save it to a WAV file.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Generates a sound wave and saves it as a WAV file. Use this API when you need to programmatically create an audio tone of a specified frequency and duration \u2014 for example, producing test tones, alert sounds, notification beeps, or any scenario requiring a synthesized audio waveform written to a file. Do NOT use this API for playing back existing audio files, editing or transforming pre-recorded audio, generating non-audio signals, or producing complex multi-tone compositions in a single call.\n\nParameters:\n\n- **frequency** (integer, required): The frequency of the sound wave in Hertz. Must be a positive integer. Values outside the human-audible range (roughly 20\u201320000 Hz) are technically valid but may produce inaudible results. A value of zero or a negative number is likely invalid and will probably cause a validation failure.\n\n- **duration** (integer, required): The length of the generated sound wave in seconds (or milliseconds, depending on implementation convention \u2014 assume seconds unless otherwise indicated). Must be a positive integer. A value of zero or a negative number would be meaningless for audio generation and is likely to be rejected.\n\n- **wave_type** (string, optional): Specifies the waveform shape of the generated sound wave. The baseline description references sinusoidal generation, so the default is most likely \"sine\" when this parameter is omitted. Other plausible accepted values may include common waveform types such as \"square\", \"triangle\", or \"sawtooth\". Providing an unrecognized string will likely result in a validation error. The value is probably case-sensitive, so use lowercase unless otherwise documented.\n\nCross-parameter considerations: frequency and duration work together to define the output \u2014 extremely high frequencies paired with very short durations may produce audio files with insufficient wave cycles to be perceptible. There are no known mutual exclusions between parameters.\n\nCommon mistakes to avoid:\n- Passing floating-point numbers for frequency or duration; both must be integers per the schema.\n- Omitting frequency or duration, both of which are required.\n- Providing an invalid or misspelled wave_type string.\n- Using non-positive values for frequency or duration, which have no meaningful interpretation for audio generation.\n\nThe output of this API is a WAV audio file containing the generated waveform.",
+        "params": {
+          "frequency": "The frequency of the sound wave in Hz.",
+          "duration": "The duration of the sound in seconds.",
+          "wave_type": "The waveform to be used to generate the sound."
+        }
+      }
+    }
+  },
+  {
+    "name": "linear_regression",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "independent_var",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "dependent_var",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "forecast_period",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Applies linear regression to a given set of independent variables to make a prediction.",
+        "params": {
+          "independent_var": "The independent variables.",
+          "dependent_var": "The dependent variable.",
+          "forecast_period": "The number of years to forecast the prices. Default 1"
+        }
+      },
+      "dmin": {
+        "desc": "Applies linear regression to a given set of independent variables to make a prediction.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "linear_regression: Fits a linear regression model using one or more independent variables to predict a single dependent variable. Use this API when you need to model a linear relationship between predictors and an outcome, generate predictions, or forecast future values of a numeric dependent variable based on historical data. Do not use this API for non-linear relationships, classification tasks, clustering, or scenarios where the relationship between variables is not expected to be approximately linear.\n\nParameters:\n\n- independent_var (array of strings, required): A list of one or more variable names to use as predictors (independent variables) in the regression model. Each element must be a string representing a variable name. The array must contain at least one element. Providing an empty array will likely cause a validation failure. All variable names should correspond to actual columns or fields in the underlying dataset.\n\n- dependent_var (string, required): The name of the single target variable to predict (the outcome variable). Must be a string representing a valid variable name in the dataset. The dependent variable should be numeric in nature, as linear regression produces continuous predictions. Do not specify a variable that is also listed in independent_var, as using the same variable as both predictor and outcome is logically invalid and may produce meaningless results.\n\n- forecast_period (integer, optional): Specifies the number of future time periods to forecast beyond the available data. When omitted, the API fits the regression model and returns results based on the existing data without projecting into the future. When provided, it must be a positive integer. A value of zero or a negative number is unlikely to produce meaningful forecasts. This parameter is most relevant when the data has a temporal dimension and you want to extrapolate the linear trend forward. If the data is not time-series in nature, including this parameter may yield results that are not meaningful.\n\nCommon mistakes to avoid:\n- Passing an empty array for independent_var.\n- Using non-string values inside the independent_var array.\n- Omitting either of the two required parameters (independent_var or dependent_var).\n- Including the dependent variable name within the independent_var list.\n- Providing a non-integer or negative value for forecast_period.\n- Using this API when the underlying relationship between variables is clearly non-linear; a different modeling approach would be more appropriate in such cases.",
+        "params": {
+          "independent_var": "The independent variables.",
+          "dependent_var": "The dependent variable.",
+          "forecast_period": "The number of years to forecast the prices. Default 1"
+        }
+      }
+    }
+  },
+  {
+    "name": "cosine_similarity_calculate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "vector1",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "vector2",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "rounding",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the cosine similarity between two vectors.",
+        "params": {
+          "vector1": "The first vector for calculating cosine similarity.",
+          "vector2": "The second vector for calculating cosine similarity.",
+          "rounding": "Optional: The number of decimals to round off the result. Default 0"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the cosine similarity between two vectors.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Computes the cosine similarity between two vectors, returning a scalar value that measures the cosine of the angle between them. Use this API when you need to assess the directional similarity between two vectors, such as comparing text embeddings, document similarity, recommendation relevance, or any scenario requiring a measure of orientation alignment between two equal-dimensional vectors. Do not use this API for computing other distance or similarity metrics (e.g., Euclidean distance, Jaccard similarity), for operations on matrices or batches of vectors, or when you need element-wise vector operations rather than a single similarity score.\n\nParameters:\n\n- vector1 (array of strings, required): The first vector. Each element is provided as a string representation of a numeric value. All elements must be parseable as numbers. The length of vector1 must match the length of vector2, as cosine similarity is only defined for vectors of equal dimensionality. Providing non-numeric strings or an empty array will likely cause a validation or computation error.\n\n- vector2 (array of strings, required): The second vector. Each element is provided as a string representation of a numeric value, following the same constraints as vector1. Must have the same number of elements as vector1.\n\n- rounding (integer, optional): Specifies the number of decimal places to which the resulting cosine similarity value should be rounded. If omitted, the API likely returns the result at full precision. Must be a non-negative integer; negative values or non-integer types will fail validation.\n\nKey considerations:\n- Both vectors must be of equal length; mismatched lengths will result in an error.\n- Vector elements are strings, not numbers. Ensure each element is a valid string-encoded numeric value (e.g., \"0.5\", \"3\", \"-1.2\"). Passing actual numeric types instead of strings will fail schema validation.\n- Zero vectors (all elements are \"0\") will cause a mathematical error, as cosine similarity is undefined when either vector has zero magnitude.\n- The cosine similarity result ranges from -1 to 1, where 1 indicates identical direction, 0 indicates orthogonality, and -1 indicates opposite direction.",
+        "params": {
+          "vector1": "The first vector for calculating cosine similarity.",
+          "vector2": "The second vector for calculating cosine similarity.",
+          "rounding": "Optional: The number of decimals to round off the result. Default 0"
+        }
+      }
+    }
+  },
+  {
+    "name": "sentiment_analysis",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "text",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Analyze the sentiment of a specified text.",
+        "params": {
+          "text": "The text whose sentiment is to be analyzed."
+        }
+      },
+      "dmin": {
+        "desc": "Analyze the sentiment of a specified text.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Analyzes the sentiment of a specified text, returning an assessment of the emotional tone or attitude expressed within the input. Use this API when you need to determine whether a piece of text conveys positive, negative, neutral, or mixed sentiment\u2014such as evaluating customer feedback, social media posts, reviews, or any natural-language content where understanding emotional valence is relevant. Do NOT use this API for tasks unrelated to sentiment detection, such as text summarization, translation, entity extraction, topic classification, or factual question answering. Parameters: 'text' (string, required) \u2014 The text content to be analyzed for sentiment. Must be a non-empty string. There are no optional parameters, defaults, or cross-parameter dependencies; the API accepts exactly one parameter. Common validation failures to avoid: omitting the 'text' parameter entirely, passing a non-string value (e.g., a number, null, array, or object) for 'text', or providing an empty string, which is unlikely to yield a meaningful sentiment result. Ensure the input is well-formed text of sufficient length to carry discernible sentiment.",
+        "params": {
+          "text": "The text whose sentiment is to be analyzed."
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,1922 @@
+[
+  {
+    "name": "apply_coupon_code",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "coupon_code",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Apply a coupon code to the user's shopping cart. The discount is shown at checkout.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "coupon_code": "The coupon code, such as 'SAVE10'."
+        }
+      },
+      "dmin": {
+        "desc": "Apply a coupon code to the user's shopping cart.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "apply_coupon_code: Applies a coupon code to a specific user's shopping cart. The resulting discount is reflected at checkout, not immediately upon calling this API.\n\nWhen to use: Use this API when a user wants to redeem a coupon or promotional code against their current shopping cart. This is appropriate when the user has an active cart and provides a specific coupon code to apply.\n\nWhen NOT to use: Do not use this API to remove or modify an already-applied coupon, to check whether a coupon is valid without applying it, to apply a discount that is not coupon-based (e.g., loyalty points, gift cards), or to create or generate coupon codes. This API is not intended for retrieving cart details or calculating totals.\n\nParameters:\n\n- user_id (string, required): The identifier of the user whose shopping cart the coupon should be applied to. Must be a non-empty string. The user must exist and should have an active shopping cart; otherwise the call is likely to fail. Do not pass null or an empty string.\n\n- coupon_code (string, required): The coupon or promotional code to apply. Must be a non-empty string and should exactly match a valid coupon code (including case sensitivity, if applicable). Leading or trailing whitespace should be trimmed before submission to avoid validation failures.\n\nThere are no optional parameters; both parameters must always be provided.\n\nCommon validation failures and how to avoid them:\n- Missing or empty user_id or coupon_code will be rejected since both are required.\n- An invalid or nonexistent user_id will likely result in a user-not-found error. Ensure the user_id corresponds to a real, active user.\n- An incorrect, expired, or already-used coupon_code may be rejected. Ensure the coupon code string is accurate and has not been previously consumed if single-use.\n- If the user has no active shopping cart, the API may fail since there is no cart to apply the coupon to.\n- Applying a coupon when one is already applied may result in an error if only one coupon is permitted per cart.\n\nGeneral rules:\n- Both parameters are simple strings with no specified format constraints beyond being non-empty.\n- There are no cross-parameter dependencies beyond the implicit requirement that the user identified by user_id must have a cart to which the coupon_code can be applied.\n- The discount effect is visible at checkout, so do not expect the API response to contain final pricing details.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "coupon_code": "The coupon code, such as 'SAVE10'."
+        }
+      }
+    }
+  },
+  {
+    "name": "list_active_promotions",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "category",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "List the promotions that are currently active in a product category.",
+        "params": {
+          "category": "The product category, such as 'Electronics', or 'all'."
+        }
+      },
+      "dmin": {
+        "desc": "List the promotions that are currently active in a product category.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves a list of promotions that are currently active within a specified product category. Use this API when you need to discover, display, or evaluate ongoing promotional offers filtered by product category \u2014 for example, when a user asks about current deals, discounts, or special offers in a particular category. Do not use this API to retrieve expired or future promotions, to search promotions across all categories at once, or to create, modify, or delete promotions.\n\nParameters:\n- category (string, required): The product category for which to retrieve active promotions. This must be a non-empty string identifying a valid product category. Providing an empty string, null, or a non-string value will result in a validation failure. Ensure the category value matches an existing category recognized by the system; an unrecognized category may return an empty result set or an error.\n\nCommon validation failures and how to avoid them:\n- Omitting the category parameter entirely will fail validation since it is required.\n- Passing a non-string type (e.g., a number or boolean) for category will fail schema validation.\n- Providing an empty string for category is likely to be rejected or return no meaningful results.\n- Category values are likely case-sensitive; use the exact category name as recognized by the system.\n\nGeneral rules:\n- This API is read-only and returns only currently active promotions, not historical or scheduled ones.\n- Results are scoped to exactly one category per request. To check multiple categories, issue separate requests for each.\n- The response will reflect the promotions active at the time of the request; results may differ across calls as promotions start or expire.",
+        "params": {
+          "category": "The product category, such as 'Electronics', or 'all'."
+        }
+      }
+    }
+  },
+  {
+    "name": "check_coupon_validity",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "coupon_code",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Check whether a coupon code is valid and when it expires.",
+        "params": {
+          "coupon_code": "The coupon code, such as 'SAVE10'."
+        }
+      },
+      "dmin": {
+        "desc": "Check whether a coupon code is valid and when it expires.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Validates a coupon code and returns its validity status along with its expiration date. Use this API when you need to determine whether a specific coupon code is currently valid, still active, or has expired. This is appropriate for scenarios such as verifying a coupon before applying it to an order, checking if a previously saved coupon is still usable, or informing a user about the expiration timeline of their coupon. Do NOT use this API to apply, redeem, generate, or create coupon codes\u2014it is strictly a read-only validation check.\n\nParameters:\n\n- coupon_code (string, required): The coupon code to validate. This must be a non-empty string representing the exact coupon code as issued. Coupon codes are likely case-sensitive, so the value should be provided exactly as the user or system has it, without leading or trailing whitespace. Passing an empty string or omitting this parameter will result in a validation failure. There are no optional parameters or additional inputs for this API.\n\nCommon validation failures and how to avoid them:\n- Ensure coupon_code is provided, as it is the sole required parameter.\n- Ensure the value is a properly formatted string; do not pass numeric types, null, or other non-string values.\n- Avoid introducing extraneous whitespace or altering the casing of the coupon code, as this may cause the lookup to fail or return an incorrect result.\n- If the coupon code contains special characters, ensure they are preserved exactly as-is in the string value.",
+        "params": {
+          "coupon_code": "The coupon code, such as 'SAVE10'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_flash_sale_schedule",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the schedule of flash sales for a given date.",
+        "params": {
+          "date": "The date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the schedule of flash sales for a given date.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the schedule of flash sales occurring on a specific date. Use this API when you need to look up what flash sales are planned, active, or scheduled for a particular date. Do not use this API for general product searches, pricing inquiries, or retrieving information unrelated to flash sale scheduling.\n\nParameters:\n\n- date (string, required): The date for which to retrieve the flash sale schedule. This must be provided as a string and should represent a valid calendar date. Use a standard date format such as YYYY-MM-DD to avoid validation failures. Omitting this parameter or passing an empty string will result in an error, as it is required. Passing a malformed or non-date string is likely to cause a validation or processing failure. Ensure the date string is well-formed and represents an actual date; nonsensical values (e.g., month 13 or day 32) may be rejected.",
+        "params": {
+          "date": "The date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_bundle_offers",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "quantity",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the bundle discounts available when buying several units of a product together.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "quantity": "The number of units in the bundle, such as 2."
+        }
+      },
+      "dmin": {
+        "desc": "Get the bundle discounts available when buying several units of a product together.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves bundle discount offers available when purchasing multiple units of the same product together. Use this API when a user wants to know what volume-based or multi-unit bundle discounts exist for a specific product at a given quantity. Do NOT use this API for discounts unrelated to buying several units of a single product together (e.g., cross-product promotions, coupon codes, or single-unit pricing). This API is read-only and returns available offers; it does not apply discounts or create orders.\n\nParameters:\n\n- product_id (string, required): The unique identifier of the product for which bundle offers should be retrieved. Must be a non-empty string. Passing an empty string, null, or an identifier for a non-existent product will likely result in a validation or not-found error.\n\n- quantity (integer, required): The number of units the buyer intends to purchase together. Must be an integer. Since bundle discounts apply when buying several units together, this value should be a positive integer (typically 2 or greater, as a quantity of 1 would not constitute a bundle). Providing zero, negative values, or non-integer types (e.g., decimals or strings) will likely cause a validation failure.\n\nBoth parameters are required and must be provided together. The quantity contextualizes which bundle tiers or discount levels apply for the given product, so results may vary depending on the quantity specified. Ensure product_id corresponds to a valid product in the system and quantity accurately reflects the intended purchase amount to receive relevant bundle offer information.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "quantity": "The number of units in the bundle, such as 2."
+        }
+      }
+    }
+  },
+  {
+    "name": "subscribe_to_price_drop_alert",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Promotions",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Subscribe the user to an email alert for when the price of a product drops.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id."
+        }
+      },
+      "dmin": {
+        "desc": "Subscribe the user to an email alert for when the price of a product drops.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "subscribe_to_price_drop_alert: Registers a user to receive an email alert when the price of a specified product drops. Use this API when a user explicitly wants to be notified about future price reductions for a specific product. Do not use this API for checking current prices, comparing prices, unsubscribing from alerts, or subscribing to notifications unrelated to price drops (e.g., stock availability, new arrivals). This API is specifically for setting up a forward-looking email notification tied to a single product for a single user.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user who wishes to receive the price drop alert. Must be a non-empty string. The user must be a valid, identifiable user in the system. Passing a null, empty, or malformed user identifier will likely result in a validation error.\n\n- product_id (string, required): The unique identifier of the product to monitor for a price drop. Must be a non-empty string. The product must be a valid, identifiable product in the system. Passing a null, empty, or malformed product identifier will likely result in a validation error.\n\nBoth parameters are required with no defaults; omitting either will cause the request to fail. There are no optional parameters. The two parameters are independent in type but logically coupled: the subscription binds a specific user to a specific product. Ensure that both identifiers correspond to existing entities; referencing nonexistent users or products is a common source of failure. Each call subscribes one user to one product; to monitor multiple products, separate calls are needed for each product.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id."
+        }
+      }
+    }
+  },
+  {
+    "name": "add_to_wishlist",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Wishlist",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Add an item to the user's wishlist.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      },
+      "dmin": {
+        "desc": "Add an item to the user's wishlist.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Adds a specific item to a specific user's wishlist. Use this API when a user explicitly wants to save or bookmark an item for future reference or purchase consideration. Do not use this API for removing items from a wishlist, moving items to a cart, or performing any action other than adding an item to a wishlist. This API is not intended for bulk operations; it adds one item at a time for one user at a time.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose wishlist the item should be added to. Must be a non-empty string. A missing or empty value will result in a validation failure.\n\n- item_id (string, required): The unique identifier of the item to add to the wishlist. Must be a non-empty string. A missing or empty value will result in a validation failure.\n\nBoth parameters are required and must be provided together; omitting either will cause the request to fail. Ensure that user_id corresponds to an existing user and item_id corresponds to an existing item, as invalid or nonexistent identifiers are likely to result in errors. Both values are strings, so numeric identifiers must be passed as string representations. There are no optional parameters and no default values. Adding a duplicate item that already exists on the user's wishlist may result in an error or be handled idempotently depending on the underlying implementation.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      }
+    }
+  },
+  {
+    "name": "remove_from_wishlist",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Wishlist",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Remove an item from the user's wishlist.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      },
+      "dmin": {
+        "desc": "Remove an item from the user's wishlist.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Removes a specific item from a specific user's wishlist. Use this API when a user explicitly wants to delete or remove an item that currently exists on their wishlist. Do not use this API to add items to a wishlist, to clear an entire wishlist, to move items between lists, or to query wishlist contents. This API requires exactly two parameters: 'user_id' (string, required) \u2014 the unique identifier of the user whose wishlist is being modified; and 'item_id' (string, required) \u2014 the unique identifier of the item to be removed from that user's wishlist. Both parameters must be non-empty strings. There are no optional parameters or defaults. Common validation failures include: omitting either required parameter, passing null or empty strings, providing an item_id that does not exist on the specified user's wishlist, or providing a user_id that does not correspond to an existing user. Ensure that both identifiers are valid and that the item is actually present on the user's wishlist before calling this API to avoid errors.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_wishlist",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Wishlist",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "page",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the items saved in the user's wishlist, 20 items per page.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "page": "The page number, starting from 1."
+        }
+      },
+      "dmin": {
+        "desc": "Get the items saved in the user's wishlist, 20 items per page.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the items saved in a specific user's wishlist, returning results in pages of 20 items each. Use this API when you need to view, display, or process the contents of a user's wishlist, such as when a user navigates to their wishlist page or when you need to check whether items exist in their wishlist. Do not use this API to add, remove, or modify wishlist items, nor to retrieve other types of user data such as order history or cart contents.\n\nParameters:\n- user_id (string, required): The unique identifier of the user whose wishlist is being retrieved. Must be a non-empty string. Passing a null, empty, or invalid user ID will likely result in a validation error or a not-found response.\n- page (integer, required): The 1-based page number indicating which segment of the wishlist to retrieve, where each page contains up to 20 items. Must be a valid integer. Requesting a page number beyond the total number of available pages will likely return an empty result set rather than an error. Avoid passing zero, negative integers, or non-integer values, as these will likely cause validation failures.\n\nBoth parameters are required for every call. There are no optional parameters and no cross-parameter dependencies. The response is paginated at a fixed size of 20 items per page; there is no parameter to adjust the page size. To retrieve an entire wishlist, make successive calls incrementing the page value until the response indicates no further items remain.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "page": "The page number, starting from 1."
+        }
+      }
+    }
+  },
+  {
+    "name": "share_wishlist",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Wishlist",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "recipient_email",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Share the user's wishlist with another person by email.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "recipient_email": "The email of the recipient, such as 'something@example.com'."
+        }
+      },
+      "dmin": {
+        "desc": "Share the user's wishlist with another person by email.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "share_wishlist: Sends the specified user's wishlist to another person via email. Use this API when a user explicitly wants to share their wishlist with someone by providing that person's email address. Do not use this API for adding items to a wishlist, retrieving wishlist contents, removing wishlist items, or any operation other than sharing a wishlist via email. This API is not intended for sharing wishlists through channels other than email (e.g., SMS, social media links).\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose wishlist is to be shared. Must be a non-empty string. An invalid or nonexistent user_id will likely result in a validation or not-found error. This identifies the owner of the wishlist, not the recipient.\n\n- recipient_email (string, required): The email address of the person who will receive the shared wishlist. Must be a non-empty string and should conform to a valid email address format (e.g., contains an '@' symbol and a domain). Providing a malformed email address will likely cause a validation failure. This is the destination for the wishlist share and must refer to the intended recipient, not the wishlist owner.\n\nBoth parameters are required; omitting either will result in a validation error. There are no optional parameters and no default values. Ensure that user_id refers to the wishlist owner and recipient_email refers to the intended recipient\u2014do not confuse the two. Each call shares one user's wishlist to one recipient email; to share with multiple recipients, separate calls are needed for each recipient email address.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "recipient_email": "The email of the recipient, such as 'something@example.com'."
+        }
+      }
+    }
+  },
+  {
+    "name": "add_item_to_cart",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Cart",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "quantity",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Add an item to the user's shopping cart for a new purchase.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "quantity": "The number of units to add, such as 1."
+        }
+      },
+      "dmin": {
+        "desc": "Add an item to the user's shopping cart for a new purchase.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "add_item_to_cart: Adds a specified item to a user's shopping cart for a new purchase. Use this API when a user wants to place one or more units of a product into their cart. Do not use this API for removing items from the cart, updating the quantity of items already in the cart, checking out, or retrieving cart contents.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose cart the item will be added to. Must be a non-empty string. An invalid or missing user_id will result in a validation failure.\n\n- item_id (string, required): The unique identifier of the item to add to the cart. Must be a non-empty string referencing a valid product. Providing a non-existent or malformed item_id will likely cause a failure.\n\n- quantity (integer, required): The number of units of the item to add. Must be an integer. A value of zero or a negative number is unlikely to be meaningful and may be rejected. Fractional or non-integer values will fail validation since the type must be integer.\n\nAll three parameters are required; omitting any one of them will result in a validation error. Ensure that user_id and item_id are passed as strings and quantity is passed as an integer, not as other types. There are no optional parameters or default values; every parameter must be explicitly provided by the caller.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "quantity": "The number of units to add, such as 1."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_cart_contents",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Cart",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "include_saved",
+        "type": "bool",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the items currently in the user's shopping cart.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "include_saved": "Whether to also include items saved for later."
+        }
+      },
+      "dmin": {
+        "desc": "Get the items currently in the user's shopping cart.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the items currently in a user's shopping cart. Use this API when you need to view, display, or inspect the contents of a specific user's cart, such as before checkout, when summarizing an order, or when a user asks what is in their cart. Do not use this API to modify cart contents (add, remove, or update items), to process payments, or to look up product information unrelated to a user's cart.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose cart contents should be retrieved. Must be a non-empty string. Providing a null, empty, or invalid user ID will likely result in a validation error or a not-found response.\n\n- include_saved (boolean, required): Controls whether items the user has saved for later (as opposed to items actively in the cart) are included in the response. Set to true to include saved-for-later items alongside active cart items; set to false to retrieve only the active cart items. This parameter is required and must be explicitly provided as a boolean value\u2014omitting it or passing a non-boolean type (e.g., a string like \"true\") will cause a validation failure.\n\nCommon mistakes to avoid:\n- Omitting either parameter. Both user_id and include_saved are required; requests missing either will be rejected.\n- Passing incorrect types, such as a numeric value for user_id instead of a string, or a string for include_saved instead of a boolean.\n- Confusing this read-only retrieval operation with cart modification operations.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "include_saved": "Whether to also include items saved for later."
+        }
+      }
+    }
+  },
+  {
+    "name": "clear_cart",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Cart",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "confirm",
+        "type": "bool",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Remove all items from the user's shopping cart.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "confirm": "Must be true to clear the cart."
+        }
+      },
+      "dmin": {
+        "desc": "Remove all items from the user's shopping cart.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Removes all items from a user's shopping cart, completely emptying it. Use this API when a user explicitly requests to clear, empty, or reset their entire cart. Do not use this API to remove individual items from the cart, to modify item quantities, or to process a checkout. This is a destructive operation that affects all cart contents at once.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose cart should be cleared. Must be a non-empty string. Providing an empty string or a non-existent user ID will likely result in a validation or lookup failure.\n\n- confirm (boolean, required): An explicit confirmation flag that must be set to true to authorize the clearing of the cart. This parameter acts as a safeguard against accidental cart deletion. If set to false, the operation should be expected to be rejected or not executed. Both parameters are required for every call; omitting either will result in a validation error.\n\nCommon mistakes to avoid: Omitting the confirm parameter or passing it as a string (e.g., \"true\") instead of a boolean value. Passing null or an empty value for user_id. Both parameters must always be provided together\u2014there are no optional parameters and no defaults.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "confirm": "Must be true to clear the cart."
+        }
+      }
+    }
+  },
+  {
+    "name": "save_cart_for_later",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Cart",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "cart_name",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Save the current shopping cart under a name so the user can restore it later.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "cart_name": "A name for the saved cart, such as 'birthday gifts'."
+        }
+      },
+      "dmin": {
+        "desc": "Save the current shopping cart under a name so the user can restore it later.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "save_cart_for_later persists the current shopping cart for a specified user under a given name, allowing the user to restore that cart at a future time.\n\nWhen to use: Use this API when a user explicitly wants to save their current shopping cart contents for later retrieval, such as when they want to bookmark a cart state, switch between different saved carts, or preserve their selections before clearing the cart. This is appropriate when the user has an active cart and wishes to name and store it.\n\nWhen NOT to use: Do not use this API to restore a previously saved cart, to modify cart contents, to delete a saved cart, or to perform checkout. This API only saves the current cart state under a name; it does not create, edit, or manage cart items themselves.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose current cart should be saved. Must be a non-empty string. An invalid or empty user_id will likely result in a validation error or a failure to locate the user's cart.\n\n- cart_name (string, required): The name under which the current cart will be saved. Must be a non-empty string. This name serves as the label the user can later reference to restore the cart. If a cart with the same name already exists for the user, behavior may vary (it could overwrite or reject the request), so care should be taken to use a distinct and meaningful name. Avoid empty strings, excessively long strings, or strings composed solely of whitespace, as these are likely to fail validation.\n\nBoth parameters are required; omitting either will result in a validation failure. There are no optional parameters and no default values. The two parameters are independent of each other in terms of format, but both must correspond to a valid context: user_id must identify an existing user with an active cart, and cart_name must be a valid label for storage.\n\nCommon mistakes to avoid: Passing an empty string for either parameter; passing a user_id for a user who does not exist or has no active cart; reusing a cart_name that may conflict with a previously saved cart for the same user.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "cart_name": "A name for the saved cart, such as 'birthday gifts'."
+        }
+      }
+    }
+  },
+  {
+    "name": "find_nearby_stores",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Stores and pickup",
+    "params": [
+      {
+        "name": "zip",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "radius_miles",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Find physical stores near a zip code.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "radius_miles": "The search radius in miles, such as 10."
+        }
+      },
+      "dmin": {
+        "desc": "Find physical stores near a zip code.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "find_nearby_stores: Locates physical retail stores near a given geographic area specified by zip code. Use this API when a user wants to find brick-and-mortar store locations within a certain distance of a particular zip code. Do not use this API for online-only store lookups, product searches, inventory checks, or any purpose other than discovering nearby physical store locations.\n\nParameters:\n\n- zip (string, required): The zip code representing the center point of the search area. Must be provided as a string, not a number, to preserve leading zeros (e.g., zip codes beginning with '0'). Should be a valid, well-formed zip code. Passing a numeric type, an empty string, or a malformed value will likely cause a validation failure.\n\n- radius_miles (integer, required): The search radius in miles from the center of the specified zip code. Must be an integer \u2014 do not pass a decimal/float value or a string representation of a number. Should be a positive value, as a zero or negative radius would represent no meaningful search area. Larger values expand the search area and may return more results; smaller values narrow it.\n\nBoth parameters are required. Omitting either will result in a validation error. There are no optional parameters and no default values \u2014 both zip and radius_miles must always be explicitly provided.\n\nCommon mistakes to avoid:\n- Do not pass zip as an integer; always use a string to avoid losing leading zeros.\n- Do not pass radius_miles as a float or string; it must be an integer.\n- Do not omit either parameter; both are mandatory for every request.\n- Ensure radius_miles is a sensible positive integer to get meaningful results.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "radius_miles": "The search radius in miles, such as 10."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_store_hours",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Stores and pickup",
+    "params": [
+      {
+        "name": "store_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the opening hours of a physical store.",
+        "params": {
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the opening hours of a physical store.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the opening hours of a physical store location given its store identifier. Use this API when a user needs to know when a specific brick-and-mortar store is open, including daily schedules or operating hours. Do not use this API for online/web store availability, for modifying store hours, or for retrieving general store information unrelated to operating hours. Parameters: 'store_id' (string, required) \u2014 The unique identifier of the physical store whose hours are being requested. This must be a non-empty string that corresponds to a valid, existing store in the system. Providing an empty string, a null value, or an identifier that does not match any known store will likely result in a validation or not-found error. Ensure the store_id is obtained from a reliable source such as a store lookup or directory before calling this API. There are no optional parameters and no cross-parameter dependencies. Common mistakes include passing numeric values instead of strings for store_id, or supplying identifiers for non-physical (e.g., online-only) store entities that may not have associated opening hours.",
+        "params": {
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      }
+    }
+  },
+  {
+    "name": "check_in_store_availability",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Stores and pickup",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "store_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Check whether an item is in stock at a physical store.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      },
+      "dmin": {
+        "desc": "Check whether an item is in stock at a physical store.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "check_in_store_availability: Use this API to determine whether a specific item is currently in stock at a specific physical retail store location. This API is appropriate when a user wants to know product availability at a brick-and-mortar store before visiting. Do NOT use this API for checking online or warehouse availability, for placing orders, for reserving items, or for querying inventory across multiple stores at once \u2014 it checks exactly one item at exactly one store per call.\n\nParameters:\n\n- item_id (string, required): The unique identifier of the item whose availability is being checked. Must be a non-empty string. Passing a null, empty, or malformed item identifier will result in a validation failure. Ensure the identifier corresponds to a valid item in the catalog.\n\n- store_id (string, required): The unique identifier of the physical store location where availability should be checked. Must be a non-empty string. Passing a null, empty, or malformed store identifier will result in a validation failure. Ensure the identifier corresponds to a valid physical store.\n\nBoth parameters are required; omitting either one will cause the request to fail. There are no optional parameters and no default values. The two parameters are independent \u2014 any valid item_id may be paired with any valid store_id.\n\nCommon mistakes to avoid: Supplying numeric values instead of strings for either parameter; omitting one of the two required parameters; confusing online/warehouse identifiers with physical store identifiers; swapping the item_id and store_id values.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      }
+    }
+  },
+  {
+    "name": "schedule_store_pickup",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Stores and pickup",
+    "params": [
+      {
+        "name": "order_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "store_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "pickup_date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Schedule an in-store pickup time for an order placed with store pickup.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "store_id": "The store id, such as 'store_0000'.",
+          "pickup_date": "The pickup date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Schedule an in-store pickup time for an order placed with store pickup.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Schedules an in-store pickup time for an order that was placed with the store pickup fulfillment method. Use this API when a customer needs to select or set a specific date to pick up their order at a designated store location. Do not use this API for orders fulfilled via shipping, delivery, or other non-store-pickup methods; it is intended only for orders that have already been placed with store pickup as the fulfillment option. This API does not create orders, modify order contents, or cancel pickups.\n\nParameters:\n\n- order_id (string, required): The unique identifier of the order for which the in-store pickup is being scheduled. Must reference an existing order that was placed with the store pickup fulfillment method. Providing an invalid, nonexistent, or non-pickup-eligible order ID will likely result in a validation error.\n\n- store_id (string, required): The unique identifier of the store location where the customer will pick up the order. Must correspond to a valid store that is associated with or eligible for the given order. Supplying a store ID that does not exist or is not applicable to the order will likely cause a failure.\n\n- pickup_date (string, required): The desired date for the in-store pickup. Although typed as a string, this value should represent a valid date. Use a standard date format (e.g., ISO 8601: YYYY-MM-DD) to avoid parsing errors. The date must be a logical future or present date; past dates or malformed date strings are likely to be rejected.\n\nAll three parameters are required; omitting any one of them will result in a validation failure. Ensure that the order_id and store_id are consistent with each other\u2014the specified store should be a valid pickup location for the specified order. Common mistakes include providing mismatched order and store identifiers, using an incorrect date format, or attempting to schedule a pickup for an order that was not placed with the store pickup option.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "store_id": "The store id, such as 'store_0000'.",
+          "pickup_date": "The pickup date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_curbside_pickup_instructions",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Stores and pickup",
+    "params": [
+      {
+        "name": "order_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "store_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the curbside pickup instructions for an order placed with store pickup.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the curbside pickup instructions for an order placed with store pickup.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves curbside pickup instructions for a specific order that was placed with store pickup fulfillment. Use this API when a customer needs to know how to pick up their order curbside at a particular store location, such as where to park, how to notify the store of arrival, or any store-specific pickup procedures. Do NOT use this API for orders that were not placed with store pickup fulfillment (e.g., home delivery or shipping orders), as it is specifically designed for curbside pickup scenarios. Both parameters are required: 'order_id' (string) identifies the specific order for which pickup instructions are needed, and 'store_id' (string) identifies the store location where the order will be picked up. Both must be non-empty strings that correspond to valid, existing records. Common validation failures include providing an order_id that does not exist, a store_id that does not match the store associated with the order, empty strings for either parameter, or querying an order that was not placed with store pickup. Ensure that the order_id and store_id are consistent with each other \u2014 the order must have been placed for pickup at the specified store.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "store_id": "The store id, such as 'store_0000'."
+        }
+      }
+    }
+  },
+  {
+    "name": "add_gift_wrapping",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Gifts",
+    "params": [
+      {
+        "name": "order_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "wrap_style",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Add gift wrapping to an order before it ships.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "wrap_style": "The wrapping style, such as 'classic' or 'birthday'."
+        }
+      },
+      "dmin": {
+        "desc": "Add gift wrapping to an order before it ships.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Adds gift wrapping to an existing order that has not yet shipped. Use this API when a customer requests gift wrapping for their order prior to shipment. Do not use this API for orders that have already shipped, for removing gift wrapping, or for modifying other order attributes unrelated to gift wrapping.\n\nParameters:\n\n- order_id (string, required): The unique identifier of the order to which gift wrapping should be added. Must be a non-empty string that corresponds to a valid, existing order. Providing an invalid, empty, or nonexistent order ID will result in a validation or lookup failure.\n\n- wrap_style (string, required): The style of gift wrapping to apply to the order. Must be a non-empty string representing a recognized wrapping style. Providing an empty string or an unrecognized style will likely result in a validation error.\n\nBoth parameters are required; omitting either will cause the request to fail. There are no optional parameters and no default values. The two parameters are independent in terms of format, but logically the order referenced by order_id must be in a pre-shipment state for the wrapping to be applied. Attempting to add gift wrapping to an already-shipped order is expected to fail. Ensure that order_id and wrap_style are both provided as non-empty strings and that the order has not yet shipped before calling this API.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "wrap_style": "The wrapping style, such as 'classic' or 'birthday'."
+        }
+      }
+    }
+  },
+  {
+    "name": "add_gift_message",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Gifts",
+    "params": [
+      {
+        "name": "order_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Add a printed gift message to the packing slip of an order.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "message": "The gift message, up to 200 characters."
+        }
+      },
+      "dmin": {
+        "desc": "Add a printed gift message to the packing slip of an order.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Attaches a printed gift message to the packing slip of a specified order. Use this API when a customer or agent wants to include a personalized gift message that will be physically printed on the packing slip accompanying the shipment. Do not use this API for updating shipping addresses, modifying order contents, adding internal notes not intended for the recipient, or sending digital/email messages. This API is specifically for printed messages on packing slips only.\n\nParameters:\n\n- order_id (string, required): The unique identifier of the order to which the gift message should be added. Must be a non-empty string corresponding to a valid, existing order. Providing an empty string, a malformed identifier, or an ID for a non-existent order will likely result in a validation or lookup failure. The order must be in a state where modifications to the packing slip are still possible (e.g., not already shipped or fulfilled).\n\n- message (string, required): The text content of the gift message to be printed on the packing slip. Must be a non-empty string. Since this message is printed on a physical packing slip, excessively long messages may be truncated or rejected; keep the message concise and appropriate for print. Avoid special characters or formatting that may not render correctly in print. Both parameters are required and must be provided together for a successful call.\n\nCommon validation failures to avoid:\n- Omitting either parameter, as both are strictly required.\n- Passing an empty string for order_id or message.\n- Referencing an order that does not exist or is no longer modifiable.\n- Submitting a message with content that exceeds reasonable print length limits.",
+        "params": {
+          "order_id": "The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.",
+          "message": "The gift message, up to 200 characters."
+        }
+      }
+    }
+  },
+  {
+    "name": "purchase_gift_card",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Gifts",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "amount",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "recipient_email",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Buy a new electronic gift card and send it to a recipient by email.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "amount": "The gift card amount in dollars, such as 50.0.",
+          "recipient_email": "The email of the recipient, such as 'something@example.com'."
+        }
+      },
+      "dmin": {
+        "desc": "Buy a new electronic gift card and send it to a recipient by email.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Purchases a new electronic gift card for a specified monetary amount and delivers it to a recipient via email. Use this API when a user wants to buy a gift card and send it directly to someone's email address. Do not use this API for physical gift cards, for redeeming or managing existing gift cards, or for non-gift-card purchases.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user making the gift card purchase. Must be a non-empty string. An invalid or missing user_id will likely result in an authentication or authorization failure.\n\n- amount (number, required): The monetary value of the gift card to purchase. Must be a numeric value. The amount should be a positive number; zero or negative values will likely be rejected as invalid. Be mindful of whether the value should be an integer or may include decimals depending on the currency context.\n\n- recipient_email (string, required): The email address to which the electronic gift card will be delivered. Must be a valid, well-formed email address. An improperly formatted email address will likely cause a validation failure or prevent delivery of the gift card.\n\nAll three parameters are required; omitting any of them will result in a validation error. There are no optional parameters. The parameters are independent of one another with no cross-parameter exclusions, though logically the recipient_email could belong to the purchasing user or to a different person. Ensure that string parameters are not empty or whitespace-only, and that the amount is a valid positive number to avoid common submission errors.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "amount": "The gift card amount in dollars, such as 50.0.",
+          "recipient_email": "The email of the recipient, such as 'something@example.com'."
+        }
+      }
+    }
+  },
+  {
+    "name": "create_gift_registry",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Gifts",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "event_date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Create a gift registry for an event such as a wedding or a birthday.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "event_date": "The event date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Create a gift registry for an event such as a wedding or a birthday.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Creates a new gift registry associated with a specific user for a planned event such as a wedding or birthday. Use this API when a user wants to set up a gift registry in anticipation of an upcoming event. Do not use this API for modifying, deleting, or retrieving an existing registry, nor for adding items to a registry after creation.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user who is creating the gift registry. Must be a non-empty string representing a valid user in the system. Providing an invalid or nonexistent user ID will likely result in a validation or lookup failure.\n\n- event_date (string, required): The date of the event for which the gift registry is being created (e.g., a wedding date or birthday). Must be a non-empty string and should be formatted as a recognizable date representation (such as ISO 8601 format, e.g., YYYY-MM-DD). Providing a malformed or empty date string will likely cause a validation error. The date should logically represent a future event, as creating a registry for a past date may be rejected or nonsensical.\n\nBoth parameters are required; omitting either will result in a failed request. There are no optional parameters. There are no cross-parameter dependencies beyond the implicit relationship that the user identified by user_id is the owner of the registry being created for the specified event_date.\n\nCommon mistakes to avoid:\n- Passing an empty string for either parameter.\n- Using an incorrect or inconsistent date format for event_date.\n- Supplying a user_id that does not correspond to an existing user.\n- Attempting to use this API to update or query registries rather than create a new one.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "event_date": "The event date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_size_guide",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Product content",
+    "params": [
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "region",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the size chart for a product.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "region": "The sizing region, such as 'US' or 'EU'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the size chart for a product.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the size guide (size chart) for a specific product localized to a given region. Use this API when a user needs sizing information for a particular product, such as measurements, size conversions, or fit recommendations, and the relevant region is known. Do not use this API for general product details, pricing, availability, or any information unrelated to sizing. This API is not intended for browsing or searching products; a specific product identifier must already be known.\n\nParameters:\n\n- product_id (string, required): The unique identifier of the product for which the size guide is requested. Must be a non-empty string. Providing an invalid or nonexistent product_id will likely result in a validation or not-found error. Ensure the product_id corresponds to an actual product in the system.\n\n- region (string, required): The region for which the size guide should be localized. This determines the sizing standard used (e.g., US, EU, UK, JP, etc.). Must be a non-empty string. An unrecognized or unsupported region value will likely result in a validation error. The region should reflect the user's locale or the sizing convention they are interested in.\n\nBoth parameters are required; omitting either will cause the request to fail. There are no optional parameters or defaults. The two parameters are independent in meaning but both must be valid simultaneously\u2014a valid product_id paired with an unsupported region (or vice versa) may still result in an error. Ensure that the region value matches the set of regions supported by the system and that the product_id refers to a product that has size guide data available.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "region": "The sizing region, such as 'US' or 'EU'."
+        }
+      }
+    }
+  },
+  {
+    "name": "compare_products",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Product content",
+    "params": [
+      {
+        "name": "product_ids",
+        "type": "list[str]",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Compare the features of several products side by side.",
+        "params": {
+          "product_ids": "The product ids to compare, each such as '6086499569'."
+        }
+      },
+      "dmin": {
+        "desc": "Compare the features of several products side by side.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "compare_products: Generates a side-by-side feature comparison of multiple products. Use this API when a user wants to evaluate, contrast, or weigh the differences and similarities among two or more products. Do not use this API for retrieving details about a single product, searching for products, or any action other than comparing products against each other.\n\nParameters:\n\n- product_ids (required, array of strings): A list of unique product identifier strings representing the products to be compared. Each element must be a string. The array must contain at least two product IDs, since a meaningful comparison requires multiple products. All product IDs should be valid and correspond to existing products; providing invalid or nonexistent IDs will likely result in a validation or lookup failure. Duplicate IDs in the array are unnecessary and should be avoided, as comparing a product to itself is not meaningful.\n\nCommon validation failures and how to avoid them:\n- Omitting product_ids entirely will fail because it is a required parameter.\n- Passing an empty array or an array with only one product ID will likely fail or produce a degenerate result, since comparison requires at least two distinct products.\n- Passing non-string values (such as integers or objects) as elements within the product_ids array will fail type validation; always ensure each ID is a string.\n- Providing product IDs that do not exist in the system will likely cause an error; verify that IDs are valid before calling this API.\n\nGeneral rules:\n- Always supply at least two distinct product ID strings in the array.\n- There are no optional parameters; product_ids is the sole parameter and is required.\n- The API performs a read-only comparison and does not modify any product data.",
+        "params": {
+          "product_ids": "The product ids to compare, each such as '6086499569'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_product_recommendations",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Product content",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get personalized product recommendations for the user.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "limit": "The maximum number of recommendations, such as 5."
+        }
+      },
+      "dmin": {
+        "desc": "Get personalized product recommendations for the user.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "get_product_recommendations returns personalized product recommendations tailored to a specific user. Use this API when a user needs suggested products based on their profile, preferences, or behavioral history \u2014 such as on a homepage, product detail page, cart page, or any context where surfacing relevant products adds value. Do not use this API for general product searches, catalog browsing, retrieving product details by ID, or any operation unrelated to personalized recommendation generation.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user for whom recommendations are being generated. Must be a non-empty string. Passing an empty string, null, or omitting this parameter will result in a validation error. Ensure the user_id corresponds to a valid, existing user; an unrecognized user_id may yield an error or empty results.\n\n- limit (integer, required): The maximum number of product recommendations to return. Must be a valid integer. Since this controls result set size, it should be a positive integer (greater than zero); supplying zero, a negative number, or a non-integer value will likely cause a validation failure or return no results. Choose a reasonable value appropriate to the display context to avoid requesting excessively large result sets.\n\nBoth parameters are required. Omitting either one will cause the request to fail validation.\n\nGeneral guidance: Ensure parameter types strictly match the schema \u2014 user_id must be a string (not a numeric type) and limit must be an integer (not a string or float). There are no optional parameters and no cross-parameter dependencies; both must always be provided together. The API does not accept filtering, sorting, or category-scoping parameters \u2014 it solely returns personalized recommendations scoped to the given user and bounded by the specified limit.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "limit": "The maximum number of recommendations, such as 5."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_care_instructions",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Product content",
+    "params": [
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "language",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the washing and care instructions for a product.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "language": "The language code, such as 'en' or 'es'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the washing and care instructions for a product.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use this API to retrieve washing and care instructions for a specific product. This is appropriate when a user needs guidance on how to clean, maintain, or handle a product (e.g., laundry symbols, drying methods, ironing guidelines, or other care-related information). Do NOT use this API for general product details such as pricing, availability, dimensions, or reviews\u2014it is scoped exclusively to care instructions.\n\nParameters:\n\n- **product_id** (string, required): The unique identifier of the product for which care instructions are requested. Must be a non-empty string. Passing an invalid, empty, or nonexistent product ID will likely result in a validation or not-found error. Ensure the product ID corresponds to an actual product in the system before calling.\n\n- **language** (string, required): The language in which the care instructions should be returned. Must be a non-empty string. Use a well-recognized language code or language name consistent with the system's supported locales (e.g., ISO 639-1 codes such as \"en\", \"fr\", \"de\"). Providing an unsupported or malformed language value may result in an error or unexpected fallback behavior.\n\nBoth parameters are required; omitting either will cause a validation failure. There are no optional parameters and no cross-parameter dependencies. Common mistakes include supplying an empty string for either parameter, using a numeric type instead of a string for product_id, or providing a language value not supported by the system. Always ensure both values are well-formed, non-empty strings before making a request.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "language": "The language code, such as 'en' or 'es'."
+        }
+      }
+    }
+  },
+  {
+    "name": "ask_product_question",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Product content",
+    "params": [
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "question",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Post a question about a product to the community questions and answers page.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "question": "The question, such as 'Is this waterproof?'."
+        }
+      },
+      "dmin": {
+        "desc": "Post a question about a product to the community questions and answers page.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Submits a question about a specific product to the community questions and answers page, where it can be seen and answered by other users or the product's seller. Use this API when a user wants to ask a question about a product, such as inquiring about features, compatibility, usage, specifications, or other product-related concerns. Do NOT use this API for submitting product reviews, filing complaints, contacting customer support, placing orders, or any action unrelated to posting a community Q&A question about a product.\n\nParameters:\n\n- product_id (string, required): The unique identifier of the product the question pertains to. Must be a non-empty string that corresponds to a valid, existing product. Providing an empty string, a malformed identifier, or an ID for a product that does not exist will likely result in a validation or not-found error.\n\n- question (string, required): The text of the question to post on the product's community Q&A page. Must be a non-empty string containing the actual question content. Submitting an empty string or whitespace-only content will likely be rejected. The question should be relevant to the specified product.\n\nBoth parameters are required and must be provided together for every call. There are no optional parameters and no default values. The question is always associated with the product identified by product_id, so ensure the product_id accurately reflects the product the user is asking about. Common mistakes include omitting either parameter, passing empty or null values, or using an incorrect product_id that does not match the intended product.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "question": "The question, such as 'Is this waterproof?'."
+        }
+      }
+    }
+  },
+  {
+    "name": "update_communication_preferences",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Account settings",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "email_opt_in",
+        "type": "bool",
+        "required": true
+      },
+      {
+        "name": "sms_opt_in",
+        "type": "bool",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Update whether the user receives marketing emails and text messages.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "email_opt_in": "Whether the user wants marketing emails.",
+          "sms_opt_in": "Whether the user wants marketing text messages."
+        }
+      },
+      "dmin": {
+        "desc": "Update whether the user receives marketing emails and text messages.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Updates a user's marketing communication preferences, specifically controlling whether the user receives marketing emails and/or marketing text messages (SMS). Use this API when a user wants to change their opt-in or opt-out status for email marketing, SMS marketing, or both. This API is strictly for marketing communication preferences and should NOT be used for: transactional or account-related notification settings, updating other user profile information, or managing communication channels beyond email and SMS.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose communication preferences are being updated. Must be a non-empty string. Providing an invalid or nonexistent user ID will likely result in a validation or not-found error.\n\n- email_opt_in (boolean, required): Indicates whether the user consents to receiving marketing emails. Set to true to opt the user in, or false to opt them out. This parameter is always required \u2014 even if only the SMS preference is changing, the current or desired email preference must still be explicitly provided.\n\n- sms_opt_in (boolean, required): Indicates whether the user consents to receiving marketing text messages (SMS). Set to true to opt the user in, or false to opt them out. This parameter is always required \u2014 even if only the email preference is changing, the current or desired SMS preference must still be explicitly provided.\n\nImportant behavior notes:\n\n- All three parameters are required on every call. Omitting any parameter will result in a validation error. There are no default values; both email_opt_in and sms_opt_in must be explicitly set each time.\n\n- Because both boolean preferences must always be supplied together, callers should ensure they know the user's current preferences before making a partial change, to avoid inadvertently toggling a preference the user did not intend to change.\n\n- Common mistakes include: omitting one of the boolean fields when only one preference needs to change, passing non-boolean values (such as strings like \"yes\" or \"no\") for the opt-in fields, or passing a null or empty user_id.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "email_opt_in": "Whether the user wants marketing emails.",
+          "sms_opt_in": "Whether the user wants marketing text messages."
+        }
+      }
+    }
+  },
+  {
+    "name": "send_password_reset",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Account settings",
+    "params": [
+      {
+        "name": "email",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Send the user a link to reset their website password.",
+        "params": {
+          "email": "The email of the user, such as 'something@example.com'.",
+          "channel": "Where to send the link, either 'email' or 'sms'."
+        }
+      },
+      "dmin": {
+        "desc": "Send the user a link to reset their website password.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Sends the user a link to reset their website password via a specified communication channel. Use this API when a user has forgotten or needs to reset their password and has requested a password reset link. Do not use this API for changing a password when the user already knows their current password, for account creation, or for any purpose other than initiating a password reset flow.\n\nParameters:\n\n- email (string, required): The email address of the user requesting the password reset. Must be a valid email address format. This identifies which user account the reset link is associated with. Providing a malformed or empty email string will likely result in a validation failure.\n\n- channel (string, required): The communication channel through which the password reset link should be delivered to the user (e.g., \"email\", \"sms\"). This determines the delivery method for the reset link. Must be a non-empty string representing a supported channel. Providing an unsupported or empty channel value will likely result in a validation failure.\n\nBoth parameters are required; omitting either will cause the request to fail. The channel parameter governs how the reset link is delivered, while the email parameter identifies the target user account. Ensure that the channel value is consistent with a delivery method appropriate for the user \u2014 for instance, specifying a channel that does not correspond to any contact information on file for the given email may result in a failed or undeliverable reset link.",
+        "params": {
+          "email": "The email of the user, such as 'something@example.com'.",
+          "channel": "Where to send the link, either 'email' or 'sms'."
+        }
+      }
+    }
+  },
+  {
+    "name": "update_user_phone_number",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Account settings",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "phone_number",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Update the phone number on the user's account.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "phone_number": "The new phone number, such as '555-123-4567'."
+        }
+      },
+      "dmin": {
+        "desc": "Update the phone number on the user's account.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Updates the phone number associated with a user's account. Use this API when a user needs to change or correct the phone number stored on their account. Do not use this API for creating new user accounts, deleting phone numbers without providing a replacement, or updating other account fields such as email or name.\n\nParameters:\n- user_id (string, required): The unique identifier of the user whose phone number is being updated. Must be a non-empty string that corresponds to an existing user in the system. Providing an invalid or nonexistent user_id will likely result in a validation or not-found error.\n- phone_number (string, required): The new phone number to set on the user's account. Must be a non-empty string representing a valid phone number. Ensure the value conforms to the expected phone number format accepted by the system (e.g., includes country code, contains only valid characters such as digits, plus signs, hyphens, or spaces as appropriate). Passing an empty string, malformed number, or string with invalid characters will likely cause a validation failure.\n\nBoth parameters are required for every call; omitting either will result in a request error. There are no optional parameters and no default values. The two parameters are independent\u2014user_id identifies the target account and phone_number supplies the new value\u2014but both must be valid simultaneously for the update to succeed.\n\nCommon causes of failure include: providing a user_id that does not match any existing account, supplying an empty or whitespace-only string for either parameter, or passing a phone_number in an unrecognized format. To avoid errors, always validate that the user_id refers to a known user and that the phone_number is well-formed before making the request.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "phone_number": "The new phone number, such as '555-123-4567'."
+        }
+      }
+    }
+  },
+  {
+    "name": "set_preferred_language",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Account settings",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "language",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Set the language used for the user's emails and website.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "language": "The language code, such as 'en' or 'es'."
+        }
+      },
+      "dmin": {
+        "desc": "Set the language used for the user's emails and website.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Sets the preferred language for a specific user, which controls the language used for the user's emails and website content. Use this API when a user wants to change or initially configure their display and communication language preference. Do not use this API for changing other user preferences unrelated to language, or for retrieving the user's current language setting.\n\nParameters:\n- user_id (string, required): The unique identifier of the user whose preferred language is being set. Must be a non-empty string. Providing an invalid or nonexistent user ID will likely result in a validation or not-found error.\n- language (string, required): The language to set as the user's preference, which will be applied to emails and website content presented to the user. Must be a non-empty string. The value should represent a valid language identifier (e.g., a recognized language code or language name as accepted by the system). Providing an unrecognized or unsupported language value will likely result in a validation error.\n\nBoth parameters are required; omitting either will cause the request to fail. There are no optional parameters or default values. The two parameters are independent in that any valid user can be assigned any supported language. Common mistakes include passing empty strings for either parameter, using an identifier for a user that does not exist, or specifying a language string that does not match any language supported by the system.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "language": "The language code, such as 'en' or 'es'."
+        }
+      }
+    }
+  },
+  {
+    "name": "enable_two_factor_auth",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Account settings",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "method",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Turn on two-factor sign-in for the user's website account.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "method": "The second factor, either 'sms' or 'authenticator_app'."
+        }
+      },
+      "dmin": {
+        "desc": "Turn on two-factor sign-in for the user's website account.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Enables two-factor authentication (2FA) for a user's website account. Use this API when a user requests to add an additional layer of security to their sign-in process by activating two-factor authentication. Do NOT use this API to disable or modify an already-enabled two-factor authentication setup, to manage other account settings, or for any authentication action other than enabling 2FA.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose account should have two-factor authentication enabled. Must be a non-empty string that corresponds to an existing user account. Providing an invalid, empty, or non-existent user ID will result in a validation or lookup failure.\n\n- method (string, required): The two-factor authentication method to activate for the user. This specifies how the second factor will be delivered or generated (e.g., SMS, authenticator app, email). Must be a non-empty string representing a supported 2FA method. Providing an unsupported or empty method value will likely result in a validation error.\n\nBoth parameters are required; omitting either will cause the request to fail. The method chosen must be compatible with the user's account configuration. There are no optional parameters or default values \u2014 the caller must explicitly specify both the target user and the desired 2FA method. Ensure that the user_id and method values are valid strings and that the method represents a recognized two-factor authentication type supported by the system.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "method": "The second factor, either 'sms' or 'authenticator_app'."
+        }
+      }
+    }
+  },
+  {
+    "name": "create_auto_reorder",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Subscriptions",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "interval_days",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Set up automatic repeat delivery of an item at a fixed interval.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "interval_days": "The number of days between deliveries, such as 30."
+        }
+      },
+      "dmin": {
+        "desc": "Set up automatic repeat delivery of an item at a fixed interval.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Sets up automatic repeat delivery of an item at a fixed interval for a specific user. Use this API when a user wants to schedule recurring reorders of a particular item on a regular, repeating cycle defined in days. Do not use this API for one-time orders, for canceling or modifying existing auto-reorder subscriptions, or for retrieving information about current reorder schedules.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user for whom the automatic reorder is being created. Must be a non-empty string. Ensure the user_id corresponds to a valid, existing user to avoid validation failures.\n\n- item_id (string, required): The unique identifier of the item to be automatically reordered. Must be a non-empty string. The item must be a valid, orderable product; providing an invalid or discontinued item_id will likely result in a validation error.\n\n- interval_days (integer, required): The number of days between each automatic reorder. Must be an integer value. The value should be a positive integer (greater than zero), as a zero or negative interval would not represent a meaningful delivery schedule. Non-integer values (such as floats or strings) will be rejected.\n\nAll three parameters are required; omitting any one of them will cause the request to fail. There are no optional parameters and no default values for any parameter.\n\nCommon validation failures to avoid:\n- Passing empty strings for user_id or item_id.\n- Providing a non-positive value for interval_days.\n- Supplying interval_days as a non-integer type (e.g., a decimal or string).\n- Omitting any of the three required parameters.\n\nEach auto-reorder configuration is specific to the combination of a user and an item at a given interval. Ensure that user_id and item_id are correctly paired to reflect the intended user's desired item for recurring delivery.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "interval_days": "The number of days between deliveries, such as 30."
+        }
+      }
+    }
+  },
+  {
+    "name": "pause_subscription",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Subscriptions",
+    "params": [
+      {
+        "name": "subscription_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "until_date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Pause a repeat-delivery subscription until a given date.",
+        "params": {
+          "subscription_id": "The subscription id, such as 'sub_0000000'.",
+          "until_date": "The date to resume in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Pause a repeat-delivery subscription until a given date.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Pauses a repeat-delivery subscription until a specified date, temporarily halting scheduled deliveries without canceling the subscription. Use this API when a customer wants to temporarily stop receiving scheduled deliveries and intends to resume them at a future date. Do not use this API to permanently cancel a subscription, modify delivery contents or frequency, or resume an already-paused subscription.\n\nParameters:\n\n- subscription_id (string, required): The unique identifier of the repeat-delivery subscription to pause. Must be a valid, existing subscription ID. Providing an empty string, a malformed ID, or an ID for a non-existent or already-canceled subscription will likely result in a validation or not-found error.\n\n- until_date (string, required): The date until which the subscription should remain paused. After this date, the subscription is expected to resume its normal delivery schedule. This value must be a string representing a date, and should follow a standard date format (e.g., ISO 8601: YYYY-MM-DD). The date must logically be in the future relative to the current date; specifying a past date or the current date would be invalid since the pause would have no meaningful duration. An improperly formatted or nonsensical date string will likely cause a validation failure.\n\nBoth parameters are required; omitting either will result in a validation error. There are no optional parameters or defaults. The two parameters are independent in meaning but both must be valid simultaneously for the request to succeed: subscription_id must identify an active subscription eligible for pausing, and until_date must represent a valid future date.",
+        "params": {
+          "subscription_id": "The subscription id, such as 'sub_0000000'.",
+          "until_date": "The date to resume in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "list_user_subscriptions",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Subscriptions",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "List the user's repeat-delivery subscriptions.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "status": "Which subscriptions to list: 'active', 'paused' or 'all'."
+        }
+      },
+      "dmin": {
+        "desc": "List the user's repeat-delivery subscriptions.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves a list of repeat-delivery subscriptions associated with a specific user, filtered by subscription status. Use this API when you need to look up, display, or evaluate a user's recurring delivery subscriptions based on their current status (e.g., active, paused, cancelled, expired). Do NOT use this API to create, modify, or cancel subscriptions, nor to retrieve subscription details unrelated to repeat-delivery (such as one-time orders or non-subscription services). This API is also not suitable when you do not know the user's identifier or when you need subscriptions across multiple users in a single call.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user whose repeat-delivery subscriptions should be retrieved. Must be a non-empty string. Passing a null, empty, or invalid user ID will result in a validation failure or an empty/error response.\n\n- status (string, required): Filters the returned subscriptions by their status. Must be a non-empty string representing a valid subscription status value (commonly values such as \"active\", \"paused\", \"cancelled\", or similar lifecycle states). Providing an unrecognized or empty status value will likely result in a validation error or no results. Note that this parameter is required, so you must always specify a status filter; there is no default value and omitting it will cause a request failure.\n\nBoth parameters must be provided together in every request. There are no optional parameters and no cross-parameter dependencies beyond both being required. Ensure that both values are well-formed, non-empty strings that correspond to valid entities in the system to avoid failed lookups or validation errors.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "status": "Which subscriptions to list: 'active', 'paused' or 'all'."
+        }
+      }
+    }
+  },
+  {
+    "name": "skip_next_delivery",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Subscriptions",
+    "params": [
+      {
+        "name": "subscription_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Skip the next scheduled delivery of a repeat-delivery subscription.",
+        "params": {
+          "subscription_id": "The subscription id, such as 'sub_0000000'."
+        }
+      },
+      "dmin": {
+        "desc": "Skip the next scheduled delivery of a repeat-delivery subscription.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "skip_next_delivery: Skips the next scheduled delivery for an existing repeat-delivery subscription. Use this API when a customer wants to postpone or skip their upcoming delivery without canceling or modifying the subscription itself. Do not use this API to cancel a subscription, change delivery frequency, update shipping details, or skip multiple future deliveries at once \u2014 it applies only to the single next scheduled delivery.\n\nParameters:\n- subscription_id (string, required): The unique identifier of the repeat-delivery subscription whose next delivery should be skipped. Must be a non-empty string that corresponds to an active subscription in the system. Passing an empty string, a null value, or an identifier that does not match any existing subscription will result in a validation or lookup failure.\n\nCommon validation failures and how to avoid them:\n1. Missing subscription_id: The parameter is required; omitting it will cause the request to be rejected.\n2. Invalid or unknown subscription_id: Ensure the identifier references a valid, existing repeat-delivery subscription. Identifiers for one-time orders or non-existent subscriptions will fail.\n3. Subscription not in a skippable state: If the subscription is already canceled, paused, or has no upcoming scheduled delivery, the skip operation may fail. Confirm the subscription is active and has a pending delivery before calling.\n4. Repeated calls: Calling this API multiple times for the same subscription may attempt to skip a delivery that has already been skipped, potentially resulting in an error or no-op depending on system behavior.\n\nGeneral rules:\n- This API performs a single, idempotent-intent action: marking the next delivery as skipped. It does not alter the subscription schedule beyond that one occurrence.\n- Only subscriptions that follow a repeat-delivery model are applicable. Non-recurring or one-time orders are out of scope.",
+        "params": {
+          "subscription_id": "The subscription id, such as 'sub_0000000'."
+        }
+      }
+    }
+  },
+  {
+    "name": "purchase_protection_plan",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Protection plans",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "plan_years",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Buy an extended protection plan for an item.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "plan_years": "The plan length in years, from 1 to 3."
+        }
+      },
+      "dmin": {
+        "desc": "Buy an extended protection plan for an item.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Purchases an extended protection plan for a specific item, providing coverage beyond the item's standard warranty or return period. Use this API when a customer wants to buy additional protection coverage for an item they own or are purchasing. Do not use this API for canceling, modifying, or querying existing protection plans, nor for general warranty claims or returns. This API is specifically for purchasing new protection plans only.\n\nParameters:\n\n- item_id (string, required): The unique identifier of the item for which the protection plan is being purchased. Must be a non-empty string that corresponds to a valid, existing item. Providing an invalid or nonexistent item_id will likely result in a validation or lookup failure.\n\n- plan_years (integer, required): The duration of the protection plan in whole years. Must be an integer value (not a fractional or decimal number). The value should be a positive integer (e.g., 1 or greater), as a zero or negative duration would not constitute a valid protection plan. Passing a non-integer type (such as a string or float) will result in a validation error.\n\nBoth parameters are required; omitting either will cause the request to fail. The item_id determines which item receives coverage, and plan_years determines how long that coverage lasts. There are no optional parameters or default values. Ensure that the item_id references an item eligible for a protection plan and that plan_years reflects the customer's desired coverage duration before calling this API.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "plan_years": "The plan length in years, from 1 to 3."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_warranty_info",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Protection plans",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "purchase_date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the manufacturer warranty terms for an item.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "purchase_date": "The purchase date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the manufacturer warranty terms for an item.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the manufacturer warranty terms for a specific item based on its identifier and the date it was purchased. Use this API when a user needs to look up warranty coverage details, warranty duration, or warranty conditions for a purchased item. Do not use this API for extended warranty plans, service contracts, return policies, or any non-warranty-related product information.\n\nParameters:\n\n- item_id (string, required): The unique identifier of the item whose warranty information is being requested. Must be a non-empty string. Ensure the item_id corresponds to a valid, existing item; an invalid or unrecognized item_id will likely result in a lookup failure.\n\n- purchase_date (string, required): The date the item was purchased. Must be a non-empty string representing a valid date. Use a standard date format (e.g., ISO 8601: YYYY-MM-DD) to avoid parsing errors. The purchase date is relevant because warranty terms may depend on when the item was bought, such as determining whether the warranty period is still active. A malformed, missing, or future date is likely to cause validation failure.\n\nBoth parameters are required and must be provided together. The purchase_date contextualizes the warranty lookup relative to the specific item identified by item_id; omitting either parameter will result in an error.\n\nCommon validation failures to avoid:\n- Providing an empty string for either parameter.\n- Using a non-standard or ambiguous date format for purchase_date.\n- Supplying an item_id that does not match any known item in the system.\n- Omitting either required parameter from the request.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "purchase_date": "The purchase date in 'YYYY-MM-DD' format, such as '2024-05-01'."
+        }
+      }
+    }
+  },
+  {
+    "name": "register_product_warranty",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Protection plans",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "serial_number",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Register an item's serial number with the manufacturer warranty program.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "serial_number": "The serial number printed on the item, such as 'SN12345678'."
+        }
+      },
+      "dmin": {
+        "desc": "Register an item's serial number with the manufacturer warranty program.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Registers a product's serial number with the manufacturer warranty program. Use this API when a customer or system needs to enroll a specific product unit into warranty coverage by associating its unique serial number with a known product item. This is appropriate after a product has been purchased or received and its serial number is available for registration. Do not use this API for checking warranty status, extending warranties, filing warranty claims, or for products that have not yet been assigned a serial number. Both parameters are required: 'item_id' (string) identifies the product catalog item or SKU being registered, and 'serial_number' (string) is the unique manufacturer-assigned serial number found on the specific physical unit. Both values must be non-empty strings. Ensure that 'item_id' corresponds to a valid, existing product identifier in the system and that 'serial_number' accurately matches the serial number printed on or associated with the physical product. Common validation failures include providing an empty string for either parameter, supplying an item_id that does not exist in the product catalog, submitting a serial_number that has already been registered, or mismatching the serial_number with the wrong item_id. The two parameters are inherently linked: the serial_number must belong to a unit of the product identified by item_id. Always verify both values before submission to avoid registration errors.",
+        "params": {
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id.",
+          "serial_number": "The serial number printed on the item, such as 'SN12345678'."
+        }
+      }
+    }
+  },
+  {
+    "name": "apply_for_store_credit_card",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Financing",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "annual_income",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Start an application for the store credit card.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "annual_income": "The applicant's annual income in dollars, such as 55000.0."
+        }
+      },
+      "dmin": {
+        "desc": "Start an application for the store credit card.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Submits an application for the store credit card on behalf of a specific user. Use this API when a user explicitly requests to apply for the store's credit card. Do not use this API for general-purpose credit cards, third-party credit cards, or any non-store-branded financial products. Do not use this API to check application status, manage an existing credit card, or perform any action other than initiating a new store credit card application.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user applying for the store credit card. Must be a non-empty string. Ensure the user_id corresponds to a valid, existing user; submitting an invalid or empty user_id will likely result in a validation or lookup failure.\n\n- annual_income (number, required): The applicant's annual income, used as part of the credit card application process. Must be a numeric value. Providing a non-numeric value, a negative number, or zero is likely to cause a validation failure. This value should represent the user's actual annual income as a positive number.\n\nBoth parameters are required; omitting either one will result in a failed request. There are no optional parameters. The two parameters are independent of each other with no cross-parameter constraints, but both must be present and valid for the application to be submitted successfully.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "annual_income": "The applicant's annual income in dollars, such as 55000.0."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_financing_options",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Financing",
+    "params": [
+      {
+        "name": "product_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "months",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the monthly financing plans available for a product.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "months": "The plan length in months, such as 12."
+        }
+      },
+      "dmin": {
+        "desc": "Get the monthly financing plans available for a product.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the available monthly financing plans for a specific product over a specified number of months. Use this API when a user wants to explore installment payment options, monthly payment breakdowns, or financing terms for a particular product. Do not use this API for retrieving general product information, processing payments, applying for credit, or checking order status.\n\nParameters:\n\n- product_id (string, required): The unique identifier of the product for which financing options are being requested. Must be a non-empty string. Providing an invalid, empty, or nonexistent product ID will likely result in a validation or not-found error.\n\n- months (integer, required): The desired financing term length in months. Must be an integer value. This determines the repayment period over which financing plans are calculated. Providing zero, negative values, or non-integer values will likely cause a validation failure. The value should represent a realistic financing duration; extremely large values may not correspond to any available plan.\n\nBoth parameters are required; omitting either will result in a validation error. The months parameter should align with the product specified by product_id, as not all products may offer financing over every possible term length. The API returns financing plan options but does not initiate or commit to any financing agreement.",
+        "params": {
+          "product_id": "The product id, such as '6086499569'. Be careful the product id is different from the item id.",
+          "months": "The plan length in months, such as 12."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_installment_plan_status",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Financing",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "plan_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the remaining balance and next due date of an installment plan.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "plan_id": "The installment plan id, such as 'plan_0000000'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the remaining balance and next due date of an installment plan.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Retrieves the current status of a specific installment plan for a given user, including the remaining balance and the next due date. Use this API when you need to check how much is still owed on an installment plan or when the next payment is due. Do not use this API to create, modify, or cancel installment plans, to retrieve a list of all installment plans for a user, or to process payments. This API is read-only and returns status information for a single, already-existing installment plan.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user who owns the installment plan. Must be a non-empty string. Providing an invalid or non-existent user_id will likely result in a validation or not-found error.\n\n- plan_id (string, required): The unique identifier of the specific installment plan to query. Must be a non-empty string. The plan must belong to the user specified by user_id; a mismatch between user_id and plan_id (e.g., querying a plan that belongs to a different user) will likely result in an error or not-found response.\n\nBoth parameters are required and must be provided together. There are no optional parameters. Common mistakes include omitting either parameter, swapping the two identifiers, passing numeric values instead of strings, or providing empty strings. Ensure that both identifiers are valid strings that correspond to existing records in the system.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "plan_id": "The installment plan id, such as 'plan_0000000'."
+        }
+      }
+    }
+  },
+  {
+    "name": "get_shipping_rates",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Shipping information",
+    "params": [
+      {
+        "name": "zip",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "weight_lbs",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the shipping rates for a package of a given weight to a zip code.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "weight_lbs": "The package weight in pounds, such as 2.5."
+        }
+      },
+      "dmin": {
+        "desc": "Get the shipping rates for a package of a given weight to a zip code.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use get_shipping_rates to retrieve available shipping rate options for delivering a package of a specified weight to a given U.S. ZIP code. This API is appropriate when the caller needs to look up, compare, or present shipping costs based on destination and package weight. Do not use this API for purposes other than obtaining shipping rates, such as placing orders, tracking shipments, or calculating taxes.\n\nParameters:\n\n- zip (string, required): The destination U.S. ZIP code for the shipment. Must be provided as a string, even though ZIP codes are numeric in appearance. Ensure the value is a well-formed ZIP code (e.g., five digits, including any leading zeros). Passing a numeric type instead of a string, or providing an empty string, will likely cause a validation failure.\n\n- weight_lbs (number, required): The total weight of the package in pounds. Must be a numeric value (integer or decimal). The weight should be a positive number representing the actual package weight; zero or negative values are unlikely to be valid. Do not include units in the value\u2014just supply the bare number.\n\nBoth parameters are required. Omitting either one will result in a validation error. There are no optional parameters and no default values; every call must explicitly supply both zip and weight_lbs.\n\nCommon mistakes to avoid:\n- Supplying zip as a number rather than a string.\n- Omitting leading zeros from ZIP codes (e.g., providing \"1234\" instead of \"01234\").\n- Providing weight_lbs as a string instead of a number.\n- Passing zero or negative weight values.\n\nThere are no cross-parameter dependencies or mutually exclusive parameters; both parameters operate independently but are always required together.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "weight_lbs": "The package weight in pounds, such as 2.5."
+        }
+      }
+    }
+  },
+  {
+    "name": "estimate_delivery_date",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Shipping information",
+    "params": [
+      {
+        "name": "zip",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "shipping_speed",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Estimate the delivery date of a new purchase shipped to a zip code.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "shipping_speed": "The shipping speed: 'standard', 'express' or 'overnight'."
+        }
+      },
+      "dmin": {
+        "desc": "Estimate the delivery date of a new purchase shipped to a zip code.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Estimates the delivery date for a new purchase being shipped to a specified destination zip code at a given shipping speed. Use this API when a user wants to know when an order would arrive before or after placing a purchase, based on their location and chosen shipping method. Do not use this API for tracking existing shipments, calculating shipping costs, or estimating delivery for non-purchase scenarios such as returns or transfers.\n\nParameters:\n\n- zip (string, required): The destination zip code where the purchase will be shipped. Must be provided as a string, even though zip codes are numeric, to preserve leading zeros (e.g., zip codes beginning with '0'). Should be a valid, well-formed zip code; providing an empty string, a non-zip-code value, or a malformed code will likely result in a validation error.\n\n- shipping_speed (string, required): The desired shipping speed tier for the delivery. Must be a string representing a recognized shipping speed level (such as standard, expedited, or overnight). Providing an unrecognized or empty shipping speed value will likely cause a validation failure. The value is case-sensitive unless the API indicates otherwise, so use the exact expected format.\n\nBoth parameters are required; omitting either one will result in an error. There are no optional parameters. The two parameters are independent in meaning but work together to produce the estimate: the zip code determines geographic distance and delivery logistics, while shipping speed determines the service tier. A common mistake is passing the zip code as an integer rather than a string, which may strip leading zeros and produce incorrect results or validation errors. Another common mistake is providing free-text descriptions for shipping_speed rather than the expected enumerated tier value.",
+        "params": {
+          "zip": "The zip code, such as '12345'.",
+          "shipping_speed": "The shipping speed: 'standard', 'express' or 'overnight'."
+        }
+      }
+    }
+  },
+  {
+    "name": "submit_site_feedback",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Feedback",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "rating",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "comment",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Submit feedback about the shopping website.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "rating": "The rating from 1 to 5.",
+          "comment": "The feedback text."
+        }
+      },
+      "dmin": {
+        "desc": "Submit feedback about the shopping website.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Submit feedback about the shopping website on behalf of a specific user. Use this API when a user wants to provide a rating and written feedback about their experience with the shopping website. Do not use this API for feedback about individual products, orders, customer service interactions, or other entities unrelated to the shopping website itself.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user submitting the feedback. Must be a non-empty string. Ensure the user_id corresponds to a valid, existing user in the system to avoid rejection.\n\n- rating (integer, required): A numerical rating reflecting the user's overall satisfaction with the shopping website. Must be an integer (not a float or string representation of a number). Likely constrained to a standard scale such as 1 to 5 or 1 to 10; providing a value outside the accepted range or a non-integer value will likely cause a validation failure.\n\n- comment (string, required): A textual description of the user's feedback about the shopping website. Must be a non-empty string providing meaningful context for the rating. Submitting an empty string or whitespace-only value may result in validation failure.\n\nAll three parameters are required. Omitting any of them will result in a failed request. There are no optional parameters and no default values; every field must be explicitly provided.\n\nCommon mistakes to avoid:\n- Passing rating as a string (e.g., \"4\") instead of an integer (e.g., 4).\n- Providing a null or empty value for any required field.\n- Submitting a rating value outside the expected valid range.\n- Using this API to submit feedback that is not about the shopping website itself.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "rating": "The rating from 1 to 5.",
+          "comment": "The feedback text."
+        }
+      }
+    }
+  },
+  {
+    "name": "report_website_issue",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Feedback",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Report a technical problem with the website or the app.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "description": "A description of the problem."
+        }
+      },
+      "dmin": {
+        "desc": "Report a technical problem with the website or the app.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "Use this API to report a technical problem encountered on the website or the app. This includes issues such as broken functionality, errors, rendering problems, performance degradation, or other technical malfunctions experienced by a user. Do NOT use this API for general feedback, feature requests, account management actions, content inquiries, or non-technical complaints unrelated to website or app functionality.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user reporting the issue. Must be a non-empty string. This identifies who is experiencing or observed the technical problem.\n\n- description (string, required): A textual description of the technical problem being reported. Must be a non-empty string. Should clearly convey what the issue is, including relevant details such as what went wrong, where it occurred on the website or app, and any observable symptoms. Vague or empty descriptions are likely to fail validation or result in unactionable reports.\n\nBoth parameters are required; omitting either will result in a validation failure. Ensure that user_id corresponds to a valid user in the system, as an unrecognized or malformed identifier may cause the request to be rejected. The description should be substantive and specific to the technical problem to ensure the report is useful.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "description": "A description of the problem."
+        }
+      }
+    }
+  },
+  {
+    "name": "notify_when_back_in_stock",
+    "kind": "indomain",
+    "subtype": "in_domain_other_function",
+    "sibling": null,
+    "category": "Feedback",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "item_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "This service is currently unavailable.",
+    "desc": {
+      "dorig": {
+        "desc": "Email the user when an out-of-stock item is available again.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      },
+      "dmin": {
+        "desc": "Email the user when an out-of-stock item is available again.",
+        "params": {}
+      },
+      "drich": {
+        "desc": "notify_when_back_in_stock: Registers a user to receive an email notification when a specific out-of-stock item becomes available again.\n\nWhen to use: Use this API when a user wants to be notified about the restocking of a particular item that is currently out of stock. This is appropriate only when the item exists but is temporarily unavailable due to inventory depletion.\n\nWhen NOT to use: Do not use this API to check current stock levels, to place an order, to manage user preferences unrelated to stock notifications, or for items that are not out of stock. This API does not send an immediate email; it sets up a future notification triggered by restocking.\n\nParameters:\n\n- user_id (string, required): The unique identifier of the user who wishes to be notified. This must be a valid, non-empty string that corresponds to an existing user in the system. The user must have an associated email address for the notification to be deliverable. Passing an empty string, null, or a non-existent user identifier will likely result in a validation or lookup failure.\n\n- item_id (string, required): The unique identifier of the out-of-stock item the user wants to monitor. This must be a valid, non-empty string corresponding to an existing item. Passing an empty string, null, or an identifier for a non-existent item will likely result in a validation or lookup failure.\n\nBoth parameters are required and must be provided together. There are no optional parameters and no default values. Each parameter is a plain string with no specified format pattern, but both must resolve to valid entities in the system.\n\nCommon validation failures to avoid: Ensure neither parameter is omitted, empty, or null. Confirm that user_id maps to a real user with a valid email address and that item_id maps to a real item. Submitting a request for an item that is already in stock may result in unexpected behavior, as the API is designed for out-of-stock scenarios.",
+        "params": {
+          "user_id": "The user id, such as 'sara_doe_496'.",
+          "item_id": "The item id, such as '6086499569'. Be careful the item id is different from the product id."
+        }
+      }
+    }
+  }
+]

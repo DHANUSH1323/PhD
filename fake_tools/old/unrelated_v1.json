@@ -1,0 +1,1778 @@
+[
+  {
+    "name": "calculate_paint_needed",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "coverage_rate",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the amount of paint needed to cover a surface area based on the coverage rate of a specific paint brand.",
+        "params": {
+          "coverage_rate": "The area in square feet that one gallon of paint can cover.",
+          "length": "Length of the wall to be painted in feet.",
+          "height": "Height of the wall to be painted in feet."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the amount of paint needed to cover a surface area based on the coverage rate of a specific paint brand.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "flights_search",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "from_city",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "to_city",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find flights between two cities.",
+        "params": {
+          "from_city": "The city to depart from.",
+          "to_city": "The city to arrive at.",
+          "date": "The date to fly."
+        }
+      },
+      "dmin": {
+        "desc": "Find flights between two cities.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "kinematics_distance",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "initial_velocity",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "time",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "acceleration",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the distance traveled by an object moving under constant acceleration.",
+        "params": {
+          "initial_velocity": "The initial velocity of the object in m/s.",
+          "time": "The time in seconds the object has been moving.",
+          "acceleration": "The acceleration of the object in m/s^2. Default value is -9.81 (Earth's gravity)"
+        }
+      },
+      "dmin": {
+        "desc": "Find the distance traveled by an object moving under constant acceleration.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "lawsuit_check_case",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "case_id",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "closed_status",
+        "type": "bool",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Verify the details of a lawsuit case and check its status using case ID.",
+        "params": {
+          "case_id": "The identification number of the lawsuit case.",
+          "closed_status": "The status of the lawsuit case to be verified."
+        }
+      },
+      "dmin": {
+        "desc": "Verify the details of a lawsuit case and check its status using case ID.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "poker_probability_full_house",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "deck_size",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "hand_size",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the probability of getting a full house in a poker game.",
+        "params": {
+          "deck_size": "The size of the deck. Default is 52.",
+          "hand_size": "The size of the hand. Default is 5."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the probability of getting a full house in a poker game.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "video_games_get_sales",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "game_title",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "year",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "platform",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieves the sales figures for a specified video game and year.",
+        "params": {
+          "game_title": "The title of the video game.",
+          "year": "The year in question.",
+          "platform": "The gaming platform (e.g. 'PC', 'Xbox', 'Playstation'). Default ''"
+        }
+      },
+      "dmin": {
+        "desc": "Retrieves the sales figures for a specified video game and year.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "calculate_gcd",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "num1",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "num2",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "algorithm",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the greatest common divisor (gcd) between two integers.",
+        "params": {
+          "num1": "First number to calculate gcd for.",
+          "num2": "Second number to calculate gcd for.",
+          "algorithm": "The specific algorithm to use in the calculation. Supported values: 'euclidean', 'binary'. Default 'euclidean'"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the greatest common divisor (gcd) between two integers.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "wholefoods_vegan_products",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "categories",
+        "type": "list[str]",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get available vegan products at specified Whole Foods store",
+        "params": {
+          "location": "City and state where the Whole Foods store is located, e.g. Denver, CO",
+          "categories": "Product categories to search within. Default empty array"
+        }
+      },
+      "dmin": {
+        "desc": "Get available vegan products at specified Whole Foods store",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "detailed_weather_forecast",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "include_precipitation",
+        "type": "bool",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve a detailed weather forecast for a specific location and duration including optional precipitation details.",
+        "params": {
+          "location": "The city that you want to get the weather for.",
+          "duration": "Duration in hours for the detailed forecast.",
+          "include_precipitation": "Whether to include precipitation data in the forecast. Default is false."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve a detailed weather forecast for a specific location and duration including optional precipitation details.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "museum_working_hours_get",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "museum",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "day",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the working hours of a museum in a specific location.",
+        "params": {
+          "museum": "The name of the museum.",
+          "location": "The location of the museum.",
+          "day": "Specific day of the week. Optional parameter. Default is 'today'."
+        }
+      },
+      "dmin": {
+        "desc": "Get the working hours of a museum in a specific location.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "paint_color_trends",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "room",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "period",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the most popular paint color for a specific area in the home.",
+        "params": {
+          "room": "Type of the room e.g. Living room, Bathroom etc.",
+          "period": "The period over which to check the paint color trend. Default 'Daily'"
+        }
+      },
+      "dmin": {
+        "desc": "Find the most popular paint color for a specific area in the home.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "maps_shortest_path",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "start_location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "end_location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the shortest path from one location to another by using a specific mode of transportation.",
+        "params": {
+          "start_location": "The name or coordinates of the start location.",
+          "end_location": "The name or coordinates of the end location.",
+          "mode": "The mode of transportation (walk, bike, transit, drive)."
+        }
+      },
+      "dmin": {
+        "desc": "Find the shortest path from one location to another by using a specific mode of transportation.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "get_scientist_for_discovery",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "discovery",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve the scientist's name who is credited for a specific scientific discovery or theory.",
+        "params": {
+          "discovery": "The scientific discovery or theory."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve the scientist's name who is credited for a specific scientific discovery or theory.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "sports_db_find_athlete",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "name",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "team",
+        "type": "str",
+        "required": false
+      },
+      {
+        "name": "sport",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the profile information of a sports athlete based on their full name.",
+        "params": {
+          "name": "The full name of the athlete.",
+          "team": "The team the athlete belong to. Default is ''",
+          "sport": "The sport that athlete plays."
+        }
+      },
+      "dmin": {
+        "desc": "Find the profile information of a sports athlete based on their full name.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "math_roots_polynomial",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "coefficients",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "degree",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the roots of a polynomial equation.",
+        "params": {
+          "coefficients": "Array of coefficients of the polynomial equation starting from highest degree term.",
+          "degree": "Degree of the polynomial equation. Default 0"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the roots of a polynomial equation.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "magnetic_field_calculate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "I",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "r",
+        "type": "float",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the magnetic field based on the current flowing and the radial distance.",
+        "params": {
+          "I": "The electric current flowing in Amperes.",
+          "r": "The radial distance from the line of current in meters."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the magnetic field based on the current flowing and the radial distance.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "update_reservation_flights",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "tau2:airline",
+    "params": [
+      {
+        "name": "reservation_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "cabin",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "flights",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "payment_id",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Update the flight information of a reservation.",
+        "params": {
+          "reservation_id": "The reservation ID, such as 'ZFA04Y'.",
+          "cabin": "The cabin class of the reservation",
+          "flights": "An array of objects containing details about each piece of flight in the ENTIRE new reservation. Even if the a flight segment is not changed, it should still be included in the array.",
+          "payment_id": "The payment id stored in user profile, such as 'credit_card_7815826', 'gift_card_7815826', 'certificate_7815826'."
+        }
+      },
+      "dmin": {
+        "desc": "Update the flight information of a reservation.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "safeway_vegan_products",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "categories",
+        "type": "list[str]",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get available vegan products at specified Safeway store",
+        "params": {
+          "location": "City and state where the Safeway store is located, e.g. Denver, CO",
+          "categories": "Product categories to search within. Default empty array"
+        }
+      },
+      "dmin": {
+        "desc": "Get available vegan products at specified Safeway store",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "species_distribution_modeling_project_range_shift",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "species",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "climate_scenario",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "future_time",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Predict the potential future geographic distribution of a species under a specified climate change scenario.",
+        "params": {
+          "species": "The species of animal.",
+          "climate_scenario": "The name of the climate change scenario.",
+          "future_time": "The future time in years for the prediction."
+        }
+      },
+      "dmin": {
+        "desc": "Predict the potential future geographic distribution of a species under a specified climate change scenario.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "solarFarm_potential",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "coordinates",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "panelArea",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "month",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Estimate the energy output of a solar farm given its location and panel area for a particular month.",
+        "params": {
+          "coordinates": "The geographic coordinates of the location of the solar farm.",
+          "panelArea": "The total solar panel area in square feet at the location.",
+          "month": "The month for which to calculate the potential energy output. Default to January"
+        }
+      },
+      "dmin": {
+        "desc": "Estimate the energy output of a solar farm given its location and panel area for a particular month.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "ingredient_replace",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "original_ingredient",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "replacement_ingredient",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "calories",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Replaces an ingredient in a recipe with a substitute, keeping the calories below a certain number.",
+        "params": {
+          "original_ingredient": "The ingredient in the recipe to replace.",
+          "replacement_ingredient": "The substitute ingredient to replace the original one.",
+          "calories": "The maximum number of calories for the recipe after replacement."
+        }
+      },
+      "dmin": {
+        "desc": "Replaces an ingredient in a recipe with a substitute, keeping the calories below a certain number.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "send_certificate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "tau2:airline",
+    "params": [
+      {
+        "name": "user_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "amount",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Send a certificate to a user. Be careful!",
+        "params": {
+          "user_id": "The ID of the user to book the reservation, such as 'sara_doe_496'.",
+          "amount": "The amount of the certificate to send."
+        }
+      },
+      "dmin": {
+        "desc": "Send a certificate to a user.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "solve_quadratic_equation",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "a",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "b",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "c",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Solve a quadratic equation with given coefficients a, b, and c.",
+        "params": {
+          "a": "Coefficient of x^2.",
+          "b": "Coefficient of x.",
+          "c": "Constant term."
+        }
+      },
+      "dmin": {
+        "desc": "Solve a quadratic equation with given coefficients a, b, and c.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "modify_painting",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "size",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "medium",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "dominant_color",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Modify an existing painting's attributes such as size, medium, and color.",
+        "params": {
+          "size": "The size of the painting in inches, width by height.",
+          "medium": "The medium of the painting, such as oil, acrylic, etc.",
+          "dominant_color": "The dominant color of the painting. Default ''"
+        }
+      },
+      "dmin": {
+        "desc": "Modify an existing painting's attributes such as size, medium, and color.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "get_time_difference",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "place1",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "place2",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the time difference between two places.",
+        "params": {
+          "place1": "The first place for time difference.",
+          "place2": "The second place for time difference."
+        }
+      },
+      "dmin": {
+        "desc": "Get the time difference between two places.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "ecology_data_precipitation_stats",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "time_frame",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve precipitation data for a specified location and time period.",
+        "params": {
+          "location": "The name of the location, e.g., 'Amazon rainforest'.",
+          "time_frame": "The time period for which data is required."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve precipitation data for a specified location and time period.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "BoardGameGeek_recommend",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "numPlayers",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "category",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "difficulty",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Generate game recommendation from BoardGameGeek store based on number of players and category.",
+        "params": {
+          "numPlayers": "The number of players who will play the game.",
+          "category": "The preferred category of board game. E.g. strategy, family, party etc.",
+          "difficulty": "Preferred difficulty level. E.g. beginner, intermediate, advanced etc. This is an optional parameter. Default 'beginner'"
+        }
+      },
+      "dmin": {
+        "desc": "Generate game recommendation from BoardGameGeek store based on number of players and category.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "mutation_type_find",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "snp_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "species",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Finds the type of a genetic mutation based on its SNP (Single Nucleotide Polymorphism) ID.",
+        "params": {
+          "snp_id": "The ID of the Single Nucleotide Polymorphism (SNP) mutation.",
+          "species": "Species in which the SNP occurs, default is 'Homo sapiens' (Humans)."
+        }
+      },
+      "dmin": {
+        "desc": "Finds the type of a genetic mutation based on its SNP (Single Nucleotide Polymorphism) ID.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "calculate_displacement",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "initial_velocity",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "time",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "acceleration",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculates the displacement of an object in motion given initial velocity, time, and acceleration.",
+        "params": {
+          "initial_velocity": "The initial velocity of the object in m/s.",
+          "time": "The time in seconds that the object has been in motion.",
+          "acceleration": "The acceleration of the object in m/s^2."
+        }
+      },
+      "dmin": {
+        "desc": "Calculates the displacement of an object in motion given initial velocity, time, and acceleration.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "calculate_magnetic_field",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "current",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "radius",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "permeability",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the magnetic field produced at the center of a circular loop carrying current.",
+        "params": {
+          "current": "The current through the circular loop in Amperes.",
+          "radius": "The radius of the circular loop in meters.",
+          "permeability": "The magnetic permeability. Default is permeability in free space, 0.01"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the magnetic field produced at the center of a circular loop carrying current.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "finance_loan_repayment",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "loan_amount",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "interest_rate",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "loan_term",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculates the monthly repayment for a loan.",
+        "params": {
+          "loan_amount": "The amount borrowed or loaned.",
+          "interest_rate": "The annual interest rate.",
+          "loan_term": "The term of the loan in years."
+        }
+      },
+      "dmin": {
+        "desc": "Calculates the monthly repayment for a loan.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "timezones_get_difference",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "city1",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "city2",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Find the time difference between two cities.",
+        "params": {
+          "city1": "The first city.",
+          "city2": "The second city."
+        }
+      },
+      "dmin": {
+        "desc": "Find the time difference between two cities.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "calculate_final_temperature",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "quantity1",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "temperature1",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "quantity2",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "temperature2",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the final temperature when different quantities of the same gas at different temperatures are mixed.",
+        "params": {
+          "quantity1": "The quantity of the first sample of gas.",
+          "temperature1": "The temperature of the first sample of gas.",
+          "quantity2": "The quantity of the second sample of gas.",
+          "temperature2": "The temperature of the second sample of gas."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the final temperature when different quantities of the same gas at different temperatures are mixed.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "grocery_delivery_order",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "items",
+        "type": "list[str]",
+        "required": true
+      },
+      {
+        "name": "max_delivery_cost",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Order grocery items from a specific location with optional delivery price limit",
+        "params": {
+          "location": "The location of the grocery store",
+          "items": "List of items to order",
+          "max_delivery_cost": "The maximum delivery cost. It is optional. Default 1000000"
+        }
+      },
+      "dmin": {
+        "desc": "Order grocery items from a specific location with optional delivery price limit",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "air_quality",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve the air quality index for a specific location.",
+        "params": {
+          "location": "The city that you want to get the air quality index for.",
+          "date": "The date you want to get the air quality index for. Default is today."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve the air quality index for a specific location.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "timezone_convert",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "time",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "from_timezone",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "to_timezone",
+        "type": "str",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Convert time from one time zone to another.",
+        "params": {
+          "time": "The local time you want to convert, e.g. 3pm",
+          "from_timezone": "The time zone you want to convert from.",
+          "to_timezone": "The time zone you want to convert to."
+        }
+      },
+      "dmin": {
+        "desc": "Convert time from one time zone to another.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "recipe_unit_conversion",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "value",
+        "type": "float",
+        "required": true
+      },
+      {
+        "name": "from_unit",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "to_unit",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "precision",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Convert a value from one kitchen unit to another for cooking purposes.",
+        "params": {
+          "value": "The value to be converted.",
+          "from_unit": "The unit to convert from. Supports 'teaspoon', 'tablespoon', 'cup', etc.",
+          "to_unit": "The unit to convert to. Supports 'teaspoon', 'tablespoon', 'cup', etc.",
+          "precision": "The precision to round the output to, in case of a non-integer result. Optional, default is 0."
+        }
+      },
+      "dmin": {
+        "desc": "Convert a value from one kitchen unit to another for cooking purposes.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "recipe_find",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "mainIngredient",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "ingredientLimit",
+        "type": "int",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Locate cooking recipes based on specific criteria such as main ingredient and number of ingredients",
+        "params": {
+          "mainIngredient": "Main ingredient for the recipe.",
+          "ingredientLimit": "Max number of ingredients the recipe should use."
+        }
+      },
+      "dmin": {
+        "desc": "Locate cooking recipes based on specific criteria such as main ingredient and number of ingredients",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "five_factor_model_analyse",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "talkative",
+        "type": "bool",
+        "required": true
+      },
+      {
+        "name": "nervous",
+        "type": "bool",
+        "required": true
+      },
+      {
+        "name": "artistic_interests",
+        "type": "bool",
+        "required": true
+      },
+      {
+        "name": "lazy",
+        "type": "bool",
+        "required": true
+      },
+      {
+        "name": "forgiving",
+        "type": "bool",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Analyse personality based on the five-factor model, also known as the Big Five, which measures openness, conscientiousness, extraversion, agreeableness, and neuroticism.",
+        "params": {
+          "talkative": "Indicates if the user is talkative.",
+          "nervous": "Indicates if the user gets nervous easily.",
+          "artistic_interests": "Indicates if the user has many artistic interests.",
+          "lazy": "Indicates if the user tends to be lazy.",
+          "forgiving": "Indicates if the user is forgiving."
+        }
+      },
+      "dmin": {
+        "desc": "Analyse personality based on the five-factor model, also known as the Big Five, which measures openness, conscientiousness, extraversion, agreeableness, and neuroticism.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "currency_conversion_get_rate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "from_currency",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "to_currency",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Get the currency conversion rate from one currency to another at a specified date.",
+        "params": {
+          "from_currency": "The currency that you want to convert from.",
+          "to_currency": "The currency that you want to convert to.",
+          "date": "The date at which the conversion rate applies. Default is the current date."
+        }
+      },
+      "dmin": {
+        "desc": "Get the currency conversion rate from one currency to another at a specified date.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "get_directions",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "start_location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "end_location",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "route_type",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieve directions from one location to another.",
+        "params": {
+          "start_location": "The starting point of the journey.",
+          "end_location": "The destination point of the journey.",
+          "route_type": "Type of route to use (e.g., fastest, scenic). Default is fastest."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieve directions from one location to another.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "electromagnetism_biot_savart_law",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "current",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "distance",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "mu0",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate magnetic field strength using Biot-Savart law. Input the current in Ampere and the distance in meters.",
+        "params": {
+          "current": "The current in the conductor, in Amperes.",
+          "distance": "Distance from the current carrying conductor, in meters.",
+          "mu0": "Permeability of free space. Its value is default approximated to be 0.000001256 H/m. Optional"
+        }
+      },
+      "dmin": {
+        "desc": "Calculate magnetic field strength using Biot-Savart law.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "generate_sound_wave",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "frequency",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "wave_type",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "This function is for generating a sinusoidal sound wave file of a certain frequency for a specific duration and save it to a WAV file.",
+        "params": {
+          "frequency": "The frequency of the sound wave in Hz.",
+          "duration": "The duration of the sound in seconds.",
+          "wave_type": "The waveform to be used to generate the sound."
+        }
+      },
+      "dmin": {
+        "desc": "This function is for generating a sinusoidal sound wave file of a certain frequency for a specific duration and save it to a WAV file.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "geometry_area_circle",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "radius",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "units",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the area of a circle given the radius.",
+        "params": {
+          "radius": "The radius of the circle.",
+          "units": "The units in which the radius is measured (defaults to meters)."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the area of a circle given the radius.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "sum_elements",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "elements",
+        "type": "list[str]",
+        "required": true
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Add all elements of a numeric list",
+        "params": {
+          "elements": "The list of numeric elements to add."
+        }
+      },
+      "dmin": {
+        "desc": "Add all elements of a numeric list",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "get_bills_for_customer",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "tau2:telecom",
+    "params": [
+      {
+        "name": "customer_id",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Retrieves a list of the customer's bills, most recent first.",
+        "params": {
+          "customer_id": "ID of the customer.",
+          "limit": "Maximum number of bills to return."
+        }
+      },
+      "dmin": {
+        "desc": "Retrieves a list of the customer's bills, most recent first.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "sculpture_price_calculate",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "material",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "required": true
+      },
+      {
+        "name": "complexity",
+        "type": "str",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "Calculate the estimated price to commission a sculpture based on the material and size.",
+        "params": {
+          "material": "The material used for the sculpture.",
+          "size": "The size of the sculpture in feet.",
+          "complexity": "The complexity level of the sculpture. Default is 'medium'."
+        }
+      },
+      "dmin": {
+        "desc": "Calculate the estimated price to commission a sculpture based on the material and size.",
+        "params": {}
+      }
+    }
+  },
+  {
+    "name": "play_sound_wave",
+    "kind": "unrelated",
+    "sibling": null,
+    "subtype": "cross_domain",
+    "source": "bfcl:multiple",
+    "params": [
+      {
+        "name": "wave_file",
+        "type": "str",
+        "required": true
+      },
+      {
+        "name": "volume",
+        "type": "float",
+        "required": false
+      }
+    ],
+    "error": "The request could not be completed.",
+    "desc": {
+      "dorig": {
+        "desc": "This function is for playing a sound wave file.",
+        "params": {
+          "wave_file": "The filename of the sound wave file to be played.",
+          "volume": "The volume level at which the sound is to be played (1 is 100%)."
+        }
+      },
+      "dmin": {
+        "desc": "This function is for playing a sound wave file.",
+        "params": {}
+      }
+    }
+  }
+]

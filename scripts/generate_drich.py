@@ -6,7 +6,9 @@ Real tools are generated one at a time from their own dorig only: the generator 
 sees any fake tool. drich.params = dorig.params (parameter text is unchanged; the new
 description carries the added constraints).
 
-Usage: python scripts/generate_drich.py --model <litellm model id> --which real|lookalike|unrelated
+Usage: python scripts/generate_drich.py --model <litellm model id> --which real|lookalike|indomain|unrelated [--force]
+Fakes that already have drich are skipped unless --force, so a re-selected unrelated.json
+only generates the new entries. The file is saved after every tool.
 """
 import argparse
 import json
@@ -18,6 +20,10 @@ SYSTEM, USER = PROMPT.split("USER:", 1)
 SYSTEM = SYSTEM.replace("SYSTEM:", "").strip()
 
 
+JSON_TYPES = {"str": "string", "int": "integer", "float": "number", "bool": "boolean",
+              "list[str]": "array", "dict": "object"}
+
+
 def call_model(model: str, system: str, user: str) -> str:
     import litellm
     r = litellm.completion(model=model, temperature=0,
@@ -26,11 +32,22 @@ def call_model(model: str, system: str, user: str) -> str:
     return r.choices[0].message.content
 
 
+def parse_json(raw: str) -> dict:
+    """Tolerate a ```json fence around the output; otherwise require plain JSON."""
+    text = raw.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1] if "\n" in text else ""
+        text = text.rsplit("```", 1)[0]
+    return json.loads(text)
+
+
 def rewrite(model, name, params_schema, dorig_desc):
     user = USER.strip().format(tool_name=name, parameter_json=json.dumps(params_schema),
                                original_description=dorig_desc)
     raw = call_model(model, SYSTEM, user)
-    return json.loads(raw)["description"], raw
+    desc = parse_json(raw)["description"]
+    assert isinstance(desc, str) and desc.strip(), f"{name}: empty description"
+    return desc, raw
 
 
 def real_tools(model):
@@ -45,23 +62,32 @@ def real_tools(model):
     (ROOT / "descriptions" / "drich_raw.json").write_text(json.dumps(raw, indent=2))
 
 
-def fakes(model, kind):
+def fakes(model, kind, force=False):
+    """Fills drich for every fake that lacks it (all of them with --force). Saves after each tool."""
     path = ROOT / "fake_tools" / f"{kind}.json"
     specs = json.loads(path.read_text())
     for s in specs:
-        schema = {"type": "object", "properties": {p["name"]: {"type": p["type"]} for p in s["params"]},
+        if "drich" in s["desc"] and not force:
+            continue
+        # same JSON-schema vocabulary the real tools are sent with (string, array, ...)
+        props = {p["name"]: {"type": JSON_TYPES[p["type"]]} for p in s["params"]}
+        for p in s["params"]:
+            if p["type"] == "list[str]":
+                props[p["name"]]["items"] = {"type": "string"}
+        schema = {"type": "object", "properties": props,
                   "required": [p["name"] for p in s["params"] if p.get("required", True)]}
         desc, _ = rewrite(model, s["name"], schema, s["desc"]["dorig"]["desc"])
         s["desc"]["drich"] = {"desc": desc, "params": s["desc"]["dorig"]["params"]}
-    path.write_text(json.dumps(specs, indent=2))
+        path.write_text(json.dumps(specs, indent=2) + "\n")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--which", choices=["real", "lookalike", "unrelated"], required=True)
+    ap.add_argument("--which", choices=["real", "lookalike", "indomain", "unrelated"], required=True)
+    ap.add_argument("--force", action="store_true", help="regenerate fakes that already have drich")
     a = ap.parse_args()
-    real_tools(a.model) if a.which == "real" else fakes(a.model, a.which)
+    real_tools(a.model) if a.which == "real" else fakes(a.model, a.which, a.force)
 
 
 if __name__ == "__main__":

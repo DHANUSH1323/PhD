@@ -43,8 +43,14 @@ def schemas(env):
 
 def test_counts():
     assert len(make_env_constructor(CELLS["C1"])().get_tools()) == 16
-    assert len(make_env_constructor(CELLS["C5"])().get_tools()) == 64
-    assert len(make_env_constructor(CELLS["C3"])().get_tools()) == 64
+    for key in ("C3", "C4", "C5", "C6", "C7", "C8", "C10", "C11"):
+        assert len(make_env_constructor(CELLS[key])().get_tools()) == 64, key
+
+
+def test_kinds_per_cell():
+    assert {CELLS[k].fake_kind for k in ("C3", "C4")} == {"unrelated"}
+    assert {CELLS[k].fake_kind for k in ("C10", "C11")} == {"indomain"}
+    assert {CELLS[k].fake_kind for k in ("C5", "C6", "C7", "C8")} == {"lookalike"}
 
 
 def test_dorig_reproduces_native_schemas_exactly():
@@ -111,3 +117,21 @@ def test_retriever_selects_k_and_changes_with_query():
     assert len(s1) == 16 and len(s2) == 16
     assert any(t.name == "cancel_pending_order" for t in s1)
     assert {t.name for t in s1} != {t.name for t in s2}
+
+
+def test_resume_guard(tmp_path):
+    from harness.run_cell import check_meta
+    save = str(tmp_path / "main__exp_C5__m")
+    meta = {"agent_llm": "a", "user_llm": "u", "files": "x"}
+    check_meta(save, meta)
+    check_meta(save, dict(meta))  # same settings: resumes
+    with pytest.raises(SystemExit):
+        check_meta(save, {**meta, "user_llm": "other"})
+
+
+def test_trial_seeds_are_prefix_stable():
+    import random
+    def seeds(n):
+        random.seed(300)
+        return [random.randint(0, 1000000) for _ in range(n)]
+    assert seeds(3)[:1] == seeds(1) and seeds(3)[:2] == seeds(2)

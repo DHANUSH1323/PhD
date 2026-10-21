@@ -162,3 +162,64 @@ Failure review: 30 failed runs classified by hand.
   is actually new: the two remedies compared head to head, in one factorial
   design, at equal prompt size, on executable tool definitions, with a
   simulated user. Details in notes/papers.md.
+- 2026-10-19. Step 4 build (STEP4_SPEC.md) departs from the locked plan in
+  four places. (a) Grid: three cells added to the six in Section 6. Two
+  retriever cells show the agent only the 16 of 64 look-alike-cell tools
+  closest to the user's messages so far, under D-min and D-rich; this is
+  the practical form of "fewer tools" and gives H5 (retriever vs
+  perfect removal vs rich descriptions). One token-matched cell shows
+  D-min with 16 real plus N look-alikes, N chosen so that its schema
+  tokens equal the D-rich 16-tool cell within 5%; this is the direct test
+  of H3. Nine cells, 3,078 conversations. (b) Tool order: fixed per task
+  (sorted by name, shuffled with the task id as seed) rather than per
+  trial, so the three trials of a task are paired across cells and order
+  varies across tasks. (c) Budget cut: a seeded half of base (57 tasks,
+  random.Random(57).sample) replaces the 40-task subset, to keep the
+  paired bootstrap's power. (d) Unrelated fakes: tau2 airline and telecom
+  give only 23 usable tools after removing name collisions, so BFCL v4
+  multiple functions were added to the candidate pool (461 candidates).
+  Selection: maximum cosine similarity of each fake's name, description
+  and parameter names to the 16 real tools under
+  sentence-transformers/all-mpnet-base-v2; 48 drawn with seed 2026 from
+  candidates scoring below the lowest look-alike. Measured: look-alikes
+  0.50 to 0.87 (median 0.70), selected unrelated 0.10 to 0.41 (median
+  0.25); no overlap. results/similarity.csv and similarity.png.
+- 2026-10-19. Stimuli built. D-orig and D-min exported from the retail
+  docstrings by scripts/export_dorig.py (D-min = first sentence, no
+  parameter text). 64 look-alikes (4 per real tool: two near-duplicates,
+  one schema-compatible wrong tool, one reserve) built by
+  scripts/build_lookalike.py from the real signatures; every fake's
+  parameter schema is identical to its sibling's (tests/test_lookalike_file.py).
+  Fakes are READ type, never mutate state, and return a scoped error that
+  names no real tool. Harness recount of the 16-tool D-orig schema: 3,187
+  tokens (Step 1: 3,188); D-min: 1,722; policy 1,402. Pilot tasks
+  (seed 17): 38, 46, 53, 66, 103. Schedule: D-rich, hand-check,
+  manipulation check and pilot follow; the pre-registration is appended
+  before any main run.
+- 2026-10-20. Spec v2: a third fake-tool kind. Reading the distractor
+  literature again (ToolMenuBench's "semantic distractor"; Rabinovich and
+  Anaby-Tavor's related-tool expansion; "When Tools Get in the Way", where
+  damage tracked how close a tool's function sat to the query; DynamicMCPBench,
+  where cross-domain distractors had no measurable effect on capable models)
+  showed the grid jumped from cross-domain fakes straight to near-copies and
+  skipped the middle: plausible functions of the same store that no task
+  needs. Added kind "indomain": 48 tools (coupons, wishlist, cart, store
+  pickup, gifts, product content, account settings, subscriptions,
+  warranties, financing, shipping, feedback), own parameters, none copying a
+  real tool's parameter set or job, one error for all. Cells C10 (D-min) and
+  C11 (D-rich). Grid: 11 cells, 3,762 conversations. H1 and H2 become
+  three-rung ladders with a trend test. Cross-domain set re-selected: eligible
+  below the lowest look-alike and below the in-domain median, then a keyword
+  filter removes shopping-flavoured candidates (the embedding cut alone kept
+  two); 48 drawn with seed 2026; the Oct 19 set is kept at
+  fake_tools/old/unrelated_v1.json. Measured under all-mpnet-base-v2, max
+  cosine to a real tool, medians: look-alike 0.69, in-domain 0.37,
+  cross-domain 0.21; one-sided Mann-Whitney p < 1e-13 for both steps;
+  confirmed under all-MiniLM-L6-v2 (0.69, 0.42, 0.24; both p < 1e-14).
+  The middle rung is defined by domain, not by text distance; on the
+  embedding axis it sits nearer the cross-domain rung. Runs will go in trial
+  blocks (trial 1 of every cell, then 2, then 3) so a cut removes a trial,
+  never a cell. Agent chosen by rule before any fake-cell result: the
+  cheapest model with a published retail pass^1 between 0.55 and 0.80.
+  Temperature 0 is kept; the Claude 5.5 models reject it, so Anthropic roles
+  use the 4.6 generation.
