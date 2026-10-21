@@ -18,7 +18,7 @@ class Cell:
     retriever_k: Optional[int] = None   # None = agent sees every tool
 
 
-C9_N_FAKES = None  # set from the token measurement (scripts/set_c9.py), then committed
+C9_N_FAKES = 54  # set 2026-10-21 from scripts/set_c9.py: C2 = 8,021 schema tokens, C9 = 7,993 (-0.3%)
 
 CELLS = {
     "C1": Cell("exp_C1", "dmin", 0, None),
