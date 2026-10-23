@@ -7,9 +7,15 @@ def get_embedder(spec: str) -> Callable[[list[str]], list[list[float]]]:
     'openai:text-embedding-3-small', 'litellm:<any litellm embedding model>'."""
     kind, _, model = spec.partition(":")
     if kind == "st":
+        import threading
         from sentence_transformers import SentenceTransformer
         m = SentenceTransformer(model)
-        return lambda texts: m.encode(texts, normalize_embeddings=True).tolist()
+        lock = threading.Lock()  # tau2 runs conversations in threads; concurrent encode() hangs or segfaults torch
+
+        def embed(texts):
+            with lock:
+                return m.encode(texts, normalize_embeddings=True).tolist()
+        return embed
     if kind == "litellm":
         import litellm
         def embed(texts):

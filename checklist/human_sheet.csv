@@ -1,0 +1,219 @@
+blind_id,tool_text,S1,S2,S3,P1,P2,P3,X1,X2,X3,T1,T2,T3,O1,O2,O3
+H00,"{
+  ""name"": ""find_user_id_by_email"",
+  ""description"": ""Looks up a user's unique identifier using their email address. Use this API when you need to resolve an email address to a user ID, for instance before performing user-specific operations that require a user ID rather than an email. This API performs an exact lookup; if no user is associated with the provided email, an error message is returned.\n\nParameters:\n- email (string, required): The email address of the user to look up. Providing a malformed email or an email that does not correspond to any existing user will result in an error."",
+  ""parameter_descriptions"": {
+    ""email"": ""The email of the user, such as 'something@example.com'.""
+  }
+}",,,,,,,,,,,,,,,
+H01,"{
+  ""name"": ""get_user_details"",
+  ""description"": ""Get the details of a user, including their orders."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H02,"{
+  ""name"": ""get_user_details"",
+  ""description"": ""Get the details of a user, including their orders."",
+  ""parameter_descriptions"": {
+    ""user_id"": ""The user id, such as 'sara_doe_496'.""
+  }
+}",,,,,,,,,,,,,,,
+H03,"{
+  ""name"": ""transfer_to_human_agents"",
+  ""description"": ""Transfers the current conversation to a human agent. Use this API only when one of the following conditions is met: (1) the user has explicitly requested to speak with a human agent, or (2) the user's issue cannot be resolved using the available tools and policies at your disposal. This API requires a single parameter: 'summary' (string, required), which must contain a concise summary of the user's issue up to this point in the conversation. The summary should accurately capture the nature of the problem, any relevant details the user has provided, and any steps already attempted, so the human agent can continue without requiring the user to repeat themselves. Since this is the only parameter and it is required, every call must include it. Avoid vague or overly brief summaries that would leave the human agent without sufficient context to assist the user."",
+  ""parameter_descriptions"": {
+    ""summary"": ""A summary of the user's issue.""
+  }
+}",,,,,,,,,,,,,,,
+H04,"{
+  ""name"": ""modify_pending_order_payment"",
+  ""description"": ""Modify the payment method of a pending order."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H05,"{
+  ""name"": ""modify_user_address"",
+  ""description"": ""Updates the default address on file for a specified user. Use this API when a user requests a change to their default shipping or billing address. Do not use this API for creating new users, adding secondary/non-default addresses, or modifying any user profile information other than the default address. Before calling this API, the agent must clearly summarize the proposed address modification to the user and obtain explicit confirmation (yes/no) to proceed; do not call this API without that confirmation.\n\nParameters:\n\n- user_id (string, required): The unique identifier for the user whose address is being modified. Follows a name-based format with underscores and a numeric suffix (e.g., lowercase first_last_digits pattern). Must correspond to an existing user; an invalid or nonexistent user_id will cause the request to fail.\n\n- address1 (string, required): The primary street address line (e.g., street number and name).\n\n- address2 (string, required): The secondary address line for additional location details such as apartment, suite, or unit number. If there is no secondary address information, pass an empty string. Do not omit this parameter.\n\n- city (string, required): The city name for the address.\n\n- state (string, required): The state or province abbreviation (e.g., two-letter code for US states).\n\n- country (string, required): The country for the address (e.g., standard country name or code).\n\n- zip (string, required): The postal/zip code for the address. Provided as a string to preserve leading zeros and support international formats.\n\nAll seven parameters are required; omitting any parameter will result in a validation failure. This API replaces the entire default address; all fields are overwritten, so every field must contain the correct final value, not just the fields being changed."",
+  ""parameter_descriptions"": {
+    ""user_id"": ""The user id, such as 'sara_doe_496'."",
+    ""address1"": ""The first line of the address, such as '123 Main St'."",
+    ""address2"": ""The second line of the address, such as 'Apt 1' or ''."",
+    ""city"": ""The city, such as 'San Francisco'."",
+    ""state"": ""The state, such as 'CA'."",
+    ""country"": ""The country, such as 'USA'."",
+    ""zip"": ""The zip code, such as '12345'.""
+  }
+}",,,,,,,,,,,,,,,
+H06,"{
+  ""name"": ""transfer_to_human_agents"",
+  ""description"": ""Transfer the user to a human agent, with a summary of the user's issue."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H07,"{
+  ""name"": ""cancel_pending_order"",
+  ""description"": ""Cancel a pending order."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H08,"{
+  ""name"": ""get_order_details"",
+  ""description"": ""Get the status and details of an order."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.""
+  }
+}",,,,,,,,,,,,,,,
+H09,"{
+  ""name"": ""modify_user_address"",
+  ""description"": ""Modify the default address of a user."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H10,"{
+  ""name"": ""modify_pending_order_payment"",
+  ""description"": ""Modifies the payment method associated with a pending order. Use this API when a user wants to change how they are paying for an order that has not yet been processed (i.e., the order is still in a 'pending' state). Do NOT use this API for orders that have already been delivered, shipped, cancelled, or otherwise moved beyond the pending stage. Do NOT use this API to modify other aspects of the order such as items, quantities, or shipping details\u2014it only changes the payment method.\n\nBefore calling this API, the agent must clearly explain the modification details to the user (specifically which order and which new payment method will be applied) and obtain explicit user confirmation (yes/no) before proceeding.\n\nParameters:\n\n1. **order_id** (string, required): The unique identifier of the pending order to modify. This value must begin with the '#' character followed by a 'W' and digits (e.g., formatted like '#W' followed by seven digits). A common mistake is omitting the leading '#' symbol, which will cause validation failure. The order must exist and must be in a pending state.\n\n2. **payment_method_id** (string, required): The identifier of the payment method to assign to the order. This value follows a pattern such as 'gift_card_' or 'credit_card_' followed by a numeric identifier. The payment method must belong to the user who owns the order. This can be looked up from the user's profile or from existing order details. Using a payment method ID that does not belong to the user or does not exist will result in a validation failure.\n\nCommon validation failures and how to avoid them:\n- Ensure the order_id includes the '#' prefix.\n- Ensure the order is still in pending status before attempting modification.\n- Ensure the payment_method_id references a valid payment method associated with the user.\n- Both parameters are required; omitting either will cause the call to fail.\n- Do not proceed without first obtaining explicit user confirmation after explaining the intended change."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""payment_method_id"": ""The payment method id to pay or receive refund for the item price difference, such as 'gift_card_0000000' or 'credit_card_0000000'. These can be looked up from the user or order details.""
+  }
+}",,,,,,,,,,,,,,,
+H11,"{
+  ""name"": ""get_item_details"",
+  ""description"": ""Retrieves the inventory details of a specific item. Use this API when you need to look up detailed information about an individual item, such as its availability, stock levels, or other inventory-related attributes. Do NOT use this API to look up product-level information or when you only have a product ID rather than an item ID, as these are distinct identifiers. This API is not intended for searching, listing, or browsing items; it is strictly for retrieving details of a single, already-known item.\n\nParameters:\n- item_id (string, required): The unique identifier for the item whose inventory details you want to retrieve. This must be a string value (e.g., a numeric string). It is critical to distinguish item IDs from product IDs \u2014 they are different concepts and are not interchangeable. Passing a product ID in place of an item ID will likely result in a failed lookup or incorrect results. Ensure you have obtained the correct item-level identifier before calling this API.\n\nCommon validation failures and how to avoid them:\n- Providing a product ID instead of an item ID: These are separate identifiers. Verify that the ID you are using corresponds to an item, not a product.\n- Omitting item_id: This parameter is required and the call will fail without it.\n- Passing a non-string value: The item_id must be provided as a string, even if it appears numeric."",
+  ""parameter_descriptions"": {
+    ""item_id"": ""The item id, such as '6086499569'. Be careful the item id is different from the product id.""
+  }
+}",,,,,,,,,,,,,,,
+H12,"{
+  ""name"": ""modify_pending_order_address"",
+  ""description"": ""Modifies the shipping address of an existing order that is currently in 'pending' status. Use this API when a user requests to change or update the delivery address on an order that has not yet been shipped or processed. Do NOT use this API for orders that are already shipped, delivered, cancelled, or in any non-pending state. Do NOT use this API to modify other order details such as items, quantities, payment method, or shipping speed \u2014 it is exclusively for address changes. Before calling this API, the agent must clearly explain the proposed address modification to the user and obtain explicit confirmation (yes/no) to proceed.\n\nParameters (all required):\n\n- order_id (string, required): The unique identifier for the order. Must include the '#' prefix followed by the order number (e.g., formatted as '#W' followed by digits). Omitting the '#' prefix will likely cause a validation failure.\n\n- address1 (string, required): The primary street address line (e.g., street number and name).\n\n- address2 (string, required): The secondary address line for additional details such as apartment, suite, or unit number. If there is no secondary address information, provide an empty string. Do not omit this parameter.\n\n- city (string, required): The city name for the shipping address.\n\n- state (string, required): The state or region abbreviation for the shipping address (e.g., two-letter state code for US addresses).\n\n- country (string, required): The country for the shipping address (e.g., 'USA').\n\n- zip (string, required): The postal/zip code for the shipping address. Provided as a string, not a number.\n\nAll seven parameters must be supplied together as a complete address. Partial address updates are not supported \u2014 even if only one field is changing, the full address must be provided. Common mistakes include omitting the '#' prefix on order_id, leaving out the address2 field instead of passing an empty string, and providing an incomplete set of address fields."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""address1"": ""The first line of the address, such as '123 Main St'."",
+    ""address2"": ""The second line of the address, such as 'Apt 1' or ''."",
+    ""city"": ""The city, such as 'San Francisco'."",
+    ""state"": ""The state, such as 'CA'."",
+    ""country"": ""The country, such as 'USA'."",
+    ""zip"": ""The zip code, such as '12345'.""
+  }
+}",,,,,,,,,,,,,,,
+H13,"{
+  ""name"": ""get_product_details"",
+  ""description"": ""Get the inventory details of a product."",
+  ""parameter_descriptions"": {
+    ""product_id"": ""The product id, such as '6086499569'. Be careful the product id is different from the item id.""
+  }
+}",,,,,,,,,,,,,,,
+H14,"{
+  ""name"": ""get_order_details"",
+  ""description"": ""Retrieves the status and details of an existing order. Use this API when you need to look up information about a specific order, such as its current status, items, shipping details, or other order-related attributes. Do not use this API to create, modify, or cancel orders, nor to search for orders without a known order ID.\n\nParameters:\n- order_id (string, required): The unique identifier for the order. This value must be a string that begins with the '#' character followed by a 'W' and seven digits (e.g., in the format '#W' followed by numeric characters). A common mistake is omitting the leading '#' symbol, which will result in a validation or lookup failure. Ensure the '#' prefix is always included when constructing this parameter."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id.""
+  }
+}",,,,,,,,,,,,,,,
+H15,"{
+  ""name"": ""get_product_details"",
+  ""description"": ""Retrieves the inventory details of a specific product. Use this API when you need to look up inventory information (such as stock availability or product specifics) for a known product. Do not use this API to search for products by name, category, or other attributes; it requires an already-known product identifier. Do not use this API to look up information by item ID, as the product ID and item ID are distinct identifiers that are not interchangeable.\n\nParameters:\n- product_id (string, required): The unique identifier for the product whose inventory details you want to retrieve. This is a string value, typically composed of digits (e.g., a numeric string). It is critical to distinguish this from an item ID \u2014 these are separate identifiers, and supplying an item ID in place of a product ID will not return correct results or may cause a validation failure. Ensure the value passed is specifically a product ID obtained from a context where product IDs are provided.\n\nCommon mistakes to avoid:\n1. Confusing product ID with item ID. These are different identifiers; using one in place of the other will lead to incorrect or failed lookups.\n2. Passing a non-string value. The product_id must be provided as a string, even if it appears numeric.\n3. Omitting the product_id parameter. It is required and the request will fail without it.\n4. Passing an empty string or null value for product_id, which will likely result in a validation error.\n\nThis API returns inventory details only and is scoped to a single product per request."",
+  ""parameter_descriptions"": {
+    ""product_id"": ""The product id, such as '6086499569'. Be careful the product id is different from the item id.""
+  }
+}",,,,,,,,,,,,,,,
+H16,"{
+  ""name"": ""transfer_to_human_agents"",
+  ""description"": ""Transfer the user to a human agent, with a summary of the user's issue.\n\nOnly transfer if\n -  the user explicitly asks for a human agent\n -  given the policy and the available tools, you cannot solve the user's issue."",
+  ""parameter_descriptions"": {
+    ""summary"": ""A summary of the user's issue.""
+  }
+}",,,,,,,,,,,,,,,
+H17,"{
+  ""name"": ""modify_pending_order_address"",
+  ""description"": ""Modify the shipping address of a pending order."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H18,"{
+  ""name"": ""modify_pending_order_address"",
+  ""description"": ""Modify the shipping address of a pending order. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""address1"": ""The first line of the address, such as '123 Main St'."",
+    ""address2"": ""The second line of the address, such as 'Apt 1' or ''."",
+    ""city"": ""The city, such as 'San Francisco'."",
+    ""state"": ""The state, such as 'CA'."",
+    ""country"": ""The country, such as 'USA'."",
+    ""zip"": ""The zip code, such as '12345'.""
+  }
+}",,,,,,,,,,,,,,,
+H19,"{
+  ""name"": ""get_user_details"",
+  ""description"": ""Retrieves detailed information about a specific user, including their associated orders. Use this API when you need to look up a user's profile details or order history given their user ID. Do not use this API for searching users by name, email, or other attributes\u2014it requires an exact user ID. Also do not use this API to modify user data; it is read-only.\n\nParameters:\n- user_id (string, required): The unique identifier for the user to look up. This is a string value typically formatted as a combination of the user's name and a numeric suffix (e.g., a pattern like 'firstname_lastname_123'). The value must be a non-empty string and must exactly match an existing user's ID. Passing a null, empty, or incorrectly formatted user_id will likely result in a validation or not-found error. Ensure the user_id is obtained from a reliable source (such as a prior API response or known reference) to avoid lookup failures due to typos or incorrect identifiers."",
+  ""parameter_descriptions"": {
+    ""user_id"": ""The user id, such as 'sara_doe_496'.""
+  }
+}",,,,,,,,,,,,,,,
+H20,"{
+  ""name"": ""modify_user_address"",
+  ""description"": ""Modify the default address of a user. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed."",
+  ""parameter_descriptions"": {
+    ""user_id"": ""The user id, such as 'sara_doe_496'."",
+    ""address1"": ""The first line of the address, such as '123 Main St'."",
+    ""address2"": ""The second line of the address, such as 'Apt 1' or ''."",
+    ""city"": ""The city, such as 'San Francisco'."",
+    ""state"": ""The state, such as 'CA'."",
+    ""country"": ""The country, such as 'USA'."",
+    ""zip"": ""The zip code, such as '12345'.""
+  }
+}",,,,,,,,,,,,,,,
+H21,"{
+  ""name"": ""find_user_id_by_email"",
+  ""description"": ""Find user id by email. If the user is not found, the function will return an error message."",
+  ""parameter_descriptions"": {
+    ""email"": ""The email of the user, such as 'something@example.com'.""
+  }
+}",,,,,,,,,,,,,,,
+H22,"{
+  ""name"": ""get_order_details"",
+  ""description"": ""Get the status and details of an order."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H23,"{
+  ""name"": ""modify_pending_order_payment"",
+  ""description"": ""Modify the payment method of a pending order. The agent needs to explain the modification detail and ask for explicit user confirmation (yes/no) to proceed."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""payment_method_id"": ""The payment method id to pay or receive refund for the item price difference, such as 'gift_card_0000000' or 'credit_card_0000000'. These can be looked up from the user or order details.""
+  }
+}",,,,,,,,,,,,,,,
+H24,"{
+  ""name"": ""get_item_details"",
+  ""description"": ""Get the inventory details of an item."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H25,"{
+  ""name"": ""find_user_id_by_email"",
+  ""description"": ""Find user id by email."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H26,"{
+  ""name"": ""cancel_pending_order"",
+  ""description"": ""cancel_pending_order: Cancels an order that is currently in 'pending' status. Use this API when a user explicitly requests to cancel an order that has not yet been processed or delivered. Do NOT use this API if the order has already been processed, shipped, or delivered, as cancellation is only possible for pending orders. Before calling this API, the agent must clearly explain the cancellation details to the user and obtain explicit confirmation (yes/no) to proceed. Without user confirmation, do not invoke this API.\n\nUpon successful cancellation, the order status changes to 'cancelled' and a refund is issued. If the original payment was made via gift card, the refund is applied to the user's gift card balance immediately. For all other payment methods, the refund takes 5-7 business days to process. The API returns the updated order details after cancellation.\n\nParameters:\n\n1. order_id (string, required): The unique identifier of the order to cancel. This value must begin with the '#' character followed by the order number (e.g., formatted as '#W' followed by digits). A common mistake is omitting the leading '#' symbol; ensure it is always included.\n\n2. reason (string, required): The reason for the cancellation. This parameter is strictly constrained to one of two allowed values: 'no longer needed' or 'ordered by mistake'. Any other value will be rejected.\n\nValidation and common failure points:\n- Supplying an order_id without the '#' prefix will fail validation.\n- Providing a reason value other than the two permitted strings will be rejected.\n- Attempting to cancel an order that is not in 'pending' status (e.g., already processed or delivered) will fail.\n- Both parameters are required; omitting either will result in an error.\n- There are no optional parameters, default values, or cross-parameter dependencies."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""reason"": ""The reason for cancellation, which should be either 'no longer needed' or 'ordered by mistake'.""
+  }
+}",,,,,,,,,,,,,,,
+H27,"{
+  ""name"": ""get_item_details"",
+  ""description"": ""Get the inventory details of an item."",
+  ""parameter_descriptions"": {
+    ""item_id"": ""The item id, such as '6086499569'. Be careful the item id is different from the product id.""
+  }
+}",,,,,,,,,,,,,,,
+H28,"{
+  ""name"": ""get_product_details"",
+  ""description"": ""Get the inventory details of a product."",
+  ""parameter_descriptions"": {}
+}",,,,,,,,,,,,,,,
+H29,"{
+  ""name"": ""cancel_pending_order"",
+  ""description"": ""Cancel a pending order. If the order is already processed or delivered,\n\nit cannot be cancelled. The agent needs to explain the cancellation detail\nand ask for explicit user confirmation (yes/no) to proceed. If the user confirms,\nthe order status will be changed to 'cancelled' and the payment will be refunded.\nThe refund will be added to the user's gift card balance immediately if the payment\nwas made using a gift card, otherwise the refund would take 5-7 business days to process.\nThe function returns the order details after the cancellation."",
+  ""parameter_descriptions"": {
+    ""order_id"": ""The order id, such as '#W0000000'. Be careful there is a '#' symbol at the beginning of the order id."",
+    ""reason"": ""The reason for cancellation, which should be either 'no longer needed' or 'ordered by mistake'.""
+  }
+}",,,,,,,,,,,,,,,

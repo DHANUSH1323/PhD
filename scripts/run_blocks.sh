@@ -8,7 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 [ -f models.env ] && set -a && source models.env && set +a
 : "${AGENT:?set AGENT}"; : "${USER_LLM:?set USER_LLM}"; : "${RETRIEVER:?set RETRIEVER}"
-FIRST="${1:-1}"; LAST="${2:-3}"
+FIRST="${1:-1}"; LAST="${2:-${TRIALS:-3}}"
 for T in $(seq "$FIRST" "$LAST"); do
   for C in C1 C5 C10 C3 C6 C11 C4 C2 C9 C7 C8; do
     EXTRA=(); case $C in C7|C8) EXTRA=(--retriever-embed "$RETRIEVER");; esac
