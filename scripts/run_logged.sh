@@ -11,7 +11,7 @@ LOG="logs/${CELL}_T${TRIAL}.log"
 {
   echo "=== $(date '+%Y-%m-%d %H:%M:%S') start cell=$CELL trial=$TRIAL tag=$TAG agent=$AGENT user=$USER_LLM extra=$*"
   PYTHONPATH=. python -m harness.run_cell --cell "$CELL" --agent-llm "$AGENT" --user-llm "$USER_LLM" \
-      --trials "$TRIAL" --concurrency 3 --tag "$TAG" "$@" 2>&1
+      --trials "$TRIAL" --concurrency "${CONCURRENCY:-3}" --tag "$TAG" "$@" 2>&1
   STATUS=$?
   echo "=== $(date '+%Y-%m-%d %H:%M:%S') end cell=$CELL trial=$TRIAL exit=$STATUS"
   exit $STATUS
