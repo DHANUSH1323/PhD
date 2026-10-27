@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Spec 8.9 main loop: trial blocks, each block = all 11 cells in the fixed order (rule 16),
+# Main loop: trial blocks, each block = all 11 cells in a fixed order,
 # every run logged by scripts/run_logged.sh. Stops at the first failing cell (rerun to resume:
 # completed (trial, task, seed) runs are skipped by run_cell).
 # Models come from models.env (repo root); environment variables override it.
@@ -12,7 +12,10 @@ FIRST="${1:-1}"; LAST="${2:-${TRIALS:-3}}"
 for T in $(seq "$FIRST" "$LAST"); do
   for C in C1 C5 C10 C3 C6 C11 C4 C2 C9 C7 C8; do
     EXTRA=(); case $C in C7|C8) EXTRA=(--retriever-embed "$RETRIEVER");; esac
-    scripts/run_logged.sh "$C" "$T" main "$AGENT" "$USER_LLM" "${EXTRA[@]}"
+    # rich-text 64-tool cells send ~30k tokens per turn; at 5 at a time they hit the 2M tokens/min limit
+    case $C in C4|C6|C11|C8) EXTRA+=(--concurrency "${HEAVY_CONCURRENCY:-2}");; esac
+    scripts/run_logged.sh "$C" "$T" main "$AGENT" "$USER_LLM" ${EXTRA[@]+"${EXTRA[@]}"}
+    python scripts/check_cell_health.py "results/raw/main__exp_${C}__${AGENT//\//_}/results.json" || exit 1
   done
   echo "=== block $T complete $(date '+%Y-%m-%d %H:%M:%S')" | tee -a logs/blocks.log
 done
