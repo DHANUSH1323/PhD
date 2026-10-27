@@ -452,3 +452,33 @@ To my knowledge, as of October 2026, no study has compared removing tools agains
 tool descriptions at an equal token budget, or tested how that trade-off changes with
 distractor similarity, in a multi-turn, simulated-user benchmark. The ladder itself,
 distractors in tau2, and description rewriting crossed with tool count are not claimed as new.
+
+### Amendment 1 (2026-10-26, before any pass rate was viewed)
+
+Block 1 is complete: 1,254 of 1,254 conversations, every one of the 11 cells on all 114
+tasks, trial 1. The study stops here, at one trial per task in every cell. The reason is
+budget: real charges for block 1 came to about 67 dollars against a ceiling of 100, and a
+second full block would cost about 60 more. Rule 17 lists dropping trial 3 and then halving
+the task set; it does not list stopping at one trial, so this is a deviation, recorded now,
+with no pass rate of any cell having been looked at.
+
+Why one full trial rather than a second trial on half the tasks: the pilot conversations
+and their block-1 repeats give 60 pairs of the same task run twice in the same cell, and the
+outcome differed in 13 of them (22%). With that much run-to-run variation, roughly half the
+per-task variance, the 95% interval on a difference between two cells is about ±12 points
+with one trial on 114 tasks, about ±10 with two trials on 114, and about ±14 with two trials
+on 57 tasks. The half-task option is worse than stopping. Effects smaller than about 10
+points may therefore come out as not distinguishable; that is reported as a bound under
+Section 9 of the pre-registration, not reinterpreted.
+
+The analysis plan is unchanged: pass^1 per task is the single trial's outcome, and every
+contrast, interval and model in Section 8 applies as written. The seeds are fixed per
+trial, so trials 2 and 3 can be added later without rerunning trial 1.
+
+Operational notes that touch inference: the OpenAI balance ran out twice during block 1;
+the affected conversations ended as infrastructure errors with no messages, were rerun in
+full, and none remain. The rich-text 64-tool cells and C8 ran two conversations at a time
+instead of five after C6 hit the provider's tokens-per-minute limit; concurrency does not
+enter any conversation's content. No reply was cut off by the output-token limit in any
+cell. Charges on the provider's side ran about 20% above tau2's internal cost tally; cost
+figures in the write-up use tau2's tally and say so.
