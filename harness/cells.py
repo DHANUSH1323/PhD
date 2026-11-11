@@ -19,6 +19,7 @@ class Cell:
 
 
 C9_N_FAKES = 54  # set 2026-10-21 from scripts/set_c9.py: C2 = 8,021 schema tokens, C9 = 7,993 (-0.3%)
+C14_N_FAKES = 40  # Amendment 2, set 2026-11-10 from scripts/measure_provider_tokens.py: C2 = 8,232 provider prompt_tokens, C14 = 8,227 (-0.06%)
 
 CELLS = {
     "C1": Cell("exp_C1", "dmin", 0, None),
@@ -31,6 +32,10 @@ CELLS = {
     "C8": Cell("exp_C8", "drich", 48, "lookalike", retriever_k=16),
     "C10": Cell("exp_C10", "dmin", 48, "indomain"),
     "C11": Cell("exp_C11", "drich", 48, "indomain"),
+    # Amendment 2 (2026-11-10): the benchmark's own descriptions as a variant
+    "C12": Cell("exp_C12", "dorig", 0, None),
+    "C13": Cell("exp_C13", "dorig", 48, "lookalike"),
+    "C15": Cell("exp_C15", "dorig", 48, "unrelated"),
 }
 
 
@@ -39,4 +44,10 @@ def get_cell(key: str) -> Cell:
         if C9_N_FAKES is None:
             raise ValueError("C9_N_FAKES not set yet (token measurement step).")
         return Cell("exp_C9", "dmin", C9_N_FAKES, "lookalike")
+    if key == "C14":
+        if C14_N_FAKES is None:
+            raise ValueError("C14_N_FAKES not set yet (provider token measurement step).")
+        return Cell("exp_C14", "dorig", C14_N_FAKES, "lookalike")
+    if key.startswith("C14n"):  # measurement only: C14n32 = dorig + 32 look-alikes
+        return Cell(f"exp_{key}", "dorig", int(key[4:]), "lookalike")
     return CELLS[key]

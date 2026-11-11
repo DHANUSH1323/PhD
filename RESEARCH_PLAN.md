@@ -482,3 +482,60 @@ instead of five after C6 hit the provider's tokens-per-minute limit; concurrency
 enter any conversation's content. No reply was cut off by the output-token limit in any
 cell. Charges on the provider's side ran about 20% above tau2's internal cost tally; cost
 figures in the write-up use tau2's tally and say so.
+
+### Amendment 2 (2026-11-10, written after block-1 results were viewed; cells not yet run)
+
+Two construction problems were found on Nov 10 by hand-reading the 90 drawn failures and by an
+adversarial review of the repository. Both are recorded here together with the cells that address
+them. Because block-1 results have been seen, these cells are confirmatory follow-ups, not
+pre-registered tests. The contrasts and their reading are still fixed here before the runs.
+
+(a) D-min removed every parameter description (descriptions/dmin.json: 0 of 16 tools carry
+parameter text; dorig carries it on 15 of 16). That deleted every format example in the
+benchmark's own text, including "Be careful there is a '#' symbol at the beginning of the order
+id." Counted over all block-1 conversations (analysis/hash_artifact.py, results/hash_artifact.csv),
+failed conversations in which the agent passed an order_id without "#": C1 19 of 54, C3 19 of 52,
+C10 18 of 49, C5 22 of 60, C9 21 of 67, C7 57 of 109; every D-rich cell 0. D-orig was measured
+(tokens.csv, DORIG16, 3,187 tokens) but never run. The G contrasts therefore measure the cost of
+deleting parameter facts, not the gain of enrichment over the benchmark's own text.
+
+(b) C9 was sized with tiktoken over json.dumps(openai_schema) (C2 8,021 vs C9 7,993). The
+provider's own prompt_tokens on the first agent turn that carries usage are, as medians over the
+114 conversations: C1 2,277, C2 8,276, C9 5,088. tiktoken over the JSON dump overcounts many small
+schemas relative to the provider's serialization. H3 as stated ("same schema tokens within 5%") is
+not supported by a cell that exists.
+
+New cells, one trial each, seed 300, the same models, settings and task split as block 1:
+- C12: D-orig, 16 tools.
+- C13: D-orig, 16 + 48 look-alike (ranks 1 to 3, as C5 and C6).
+- C14: D-orig, 16 + N look-alike in rank order, N chosen so that the provider's prompt_tokens for a
+  fixed first request (tau2 system prompt with the cell's policy, the cell's tools, one fixed user
+  line) matches C2's within 5%, measured by scripts/measure_provider_tokens.py. N and both counts
+  are written into harness/cells.py (C14_N_FAKES) and this amendment before the run. D-min cannot
+  reach C2's provider count with the 64 look-alikes available (54 give 5,088), so the token-matched
+  arm uses D-orig.
+- C15, if budget allows: D-orig, 16 + 48 cross-domain.
+
+Contrasts, paired bootstrap over the 114 tasks, 10,000 resamples, two-sided p, Holm within the family:
+- F1: P(C12) - P(C1). Cost of deleting the benchmark's parameter text.
+- F2: P(C2) - P(C12). Gain of enrichment over the benchmark's own text.
+- F3: P(C13) - P(C12). Look-alike damage under the benchmark's own text.
+- F4: P(C2) - P(C14). Equal provider tokens: 16 rich tools vs 16 + N look-alikes with D-orig text.
+- F5, if C15 runs: P(C15) - P(C12).
+
+How they will be read, fixed now: if F1 is large and F2 is near zero, the block-1 description
+effect was the missing parameter facts, and the study's description claim becomes "descriptions
+that carry the parameter facts beat descriptions that do not." If F2 is clearly positive,
+enrichment adds beyond the benchmark text. If F4 is near zero, descriptions and tools are
+interchangeable at equal prompt tokens; if F4 is clearly positive, tokens spent on descriptions
+beat tokens spent on tools. Secondary: the "#"-less order_id count per new cell, expected near
+zero under D-orig.
+
+Provider prompt_tokens measured 2026-11-10 with scripts/measure_provider_tokens.py (fixed first
+request, max_tokens=1): C1 2,231; C2 8,232; C9 5,043; C12 3,550; C13 9,310; D-orig + 24/28/32/36/40
+look-alikes 6,306 / 6,885 / 7,459 / 7,975 / 8,227. These reproduce the block-1 medians (2,277; 8,276;
+5,088) to within the length of one user message. N = 40 (ranks 1 and 2 in full, 8 of rank 3):
+C14 = 8,227 vs C2 = 8,232, -0.06%. C14_N_FAKES = 40 committed before the run.
+
+Estimated cost from block-1 tallies (results/main_runs.csv agent_cost + user_cost): C12 about $4,
+C13 about $6, C14 about $5, C15 about $5; the measurement script under $0.10.
