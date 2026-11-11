@@ -1,0 +1,6 @@
+contrast,definition,estimate,ci_low,ci_high,p,meaning,p_holm
+F1,P(C12) - P(C1),0.14035087719298245,0.03508771929824561,0.24561403508771928,0.01,cost of deleting the benchmark's parameter text,0.05
+F2,P(C2) - P(C12),0.0,-0.09649122807017543,0.09649122807017543,1.0,gain of enrichment over the benchmark's own text,1.0
+F3,P(C13) - P(C12),-0.03508771929824561,-0.14035087719298245,0.07017543859649122,0.5838,look-alike damage under the benchmark's own text,1.0
+F4,P(C2) - P(C14),0.043859649122807015,-0.05263157894736842,0.14035087719298245,0.4242,equal provider tokens: 16 rich vs 16 + 40 look-alike dorig,1.0
+F5,P(C15) - P(C12),-0.05263157894736842,-0.15789473684210525,0.05263157894736842,0.3644,cross-domain damage under the benchmark's own text,1.0

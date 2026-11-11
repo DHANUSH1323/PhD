@@ -539,3 +539,12 @@ C14 = 8,227 vs C2 = 8,232, -0.06%. C14_N_FAKES = 40 committed before the run.
 
 Estimated cost from block-1 tallies (results/main_runs.csv agent_cost + user_cost): C12 about $4,
 C13 about $6, C14 about $5, C15 about $5; the measurement script under $0.10.
+
+Run 2026-11-10 22:15 to 23:10, four cells, 456 conversations, $17.88 by tau2's tally, no
+infrastructure errors. Results in results/amendment2_results.md: F1 +0.140 [+0.035, +0.246]
+p 0.010; F2 +0.000 [-0.096, +0.096]; F3 -0.035 [-0.140, +0.070]; F4 +0.044 [-0.053, +0.140];
+F5 -0.053 [-0.158, +0.053]. "#"-less order ids in failed conversations: 0 in every D-orig cell.
+Reading, per the rule fixed above: the block-1 description effect was the deleted parameter
+facts (F1 large, F2 zero); enrichment adds nothing over the benchmark's text; at equal provider
+tokens the rich 16-tool cell leads the 56-tool D-orig cell by 4 points with an interval that
+includes zero.

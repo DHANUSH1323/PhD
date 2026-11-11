@@ -13,7 +13,7 @@ CELL_BY_NAME = {c.name: k for k, c in CELLS.items()}
 
 
 def fake_names_for(domain_name: str) -> set:
-    key = CELL_BY_NAME.get(domain_name) or ("C9" if domain_name == "exp_C9" else None)
+    key = CELL_BY_NAME.get(domain_name) or ({"exp_C9": "C9", "exp_C14": "C14"}.get(domain_name))
     if key is None:
         return set()
     env = make_env_constructor(get_cell(key))()
