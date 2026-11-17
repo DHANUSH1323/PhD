@@ -13,6 +13,9 @@ In production, an agent exposed to about 58 tools made out-of-scope calls and
 invalid arguments. Cutting tools and rewriting descriptions fixed it, but both
 changed at once, so the cause is unknown. This study separates the two.
 
+Correction, 2026-11-17: the tool count above should read 78, cut to 34. Nothing in the
+design or the analysis depends on this number.
+
 ## 3. Gap in prior work
 Better descriptions, tested alone:
 - Guo et al. 2026 (arXiv 2602.20426): rewrote descriptions as tool count grew
